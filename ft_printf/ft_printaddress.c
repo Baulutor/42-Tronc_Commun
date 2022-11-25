@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:01:26 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/23 21:07:03 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/11/25 10:15:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static int	ft_hexaaddress(unsigned long long a)
 	}
 	else if (nbr >= 10 && nbr < 16)
 	{
-		nbr -= 10;
-		nbr += 97;
+		nbr += 87;
 		x += write (1, &nbr, 1);
 	}
 	else
