@@ -6,13 +6,13 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/02 22:04:20 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:27:09 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_check_new_line(char *tmp)
+int	ft_check_new_line(char *tmp)
 {
 	size_t	x;
 
@@ -28,27 +28,23 @@ int		ft_check_new_line(char *tmp)
 
 char	*ft_read_check(int fd, char *str)
 {
-	size_t	x;
-	size_t	y;
-	char	j[BUFFER_SIZE +1];
-	char	*buf;
+	ssize_t	x;
+	char	j[BUFFER_SIZE + 1];
 
 	x = 1;
-	y = 0;
-//	printf("str == %s\n", str);
 	if (!str)
 		str = ft_calloc(1, 1);
-	else 
-	{
-		if (ft_check_new_line(str) != -1)
-			return (str);
-	}
-	while (x > 0 && (ft_check_new_line(j) == -1))
+	while (x > 0 && ft_check_new_line(j) == -1)
 	{
 		x = read(fd, j, BUFFER_SIZE);
+		if (x == -1)
+		{
+			if (str)
+				free (str);
+			return (NULL);
+		}
 		j[x] = 0;
-		buf = str;
-		str = ft_strjoin(buf, j);
+		str = ft_clean_buffer(str, j);
 	}
 	return (str);
 }
@@ -59,7 +55,14 @@ char	*ft_str_new_line(char *tmp)
 	char	*buf;
 
 	x = 0;
-	buf = ft_calloc(sizeof(char), (ft_check_new_line(tmp) + 1));
+	if (tmp[0] == '\0')
+		return (NULL);
+	if (ft_check_new_line(tmp) != -1)
+		buf = ft_calloc(sizeof(char), (ft_check_new_line(tmp) + 2));
+	else
+		buf = ft_calloc(sizeof(char), (ft_strlen(tmp) + 1));
+	if (!buf)
+		return (NULL);
 	while (tmp[x] && tmp[x] != '\n')
 	{
 		buf[x] = tmp[x];
@@ -75,12 +78,12 @@ char	*ft_str_new_line(char *tmp)
 	return (buf);
 }
 
-char	*ft_clean_buffer(char * tmp)
+char	*ft_clean_buffer(char *buffer, char *buf)
 {
 	char	*s;
 
-	s = tmp;
-	s = ft_strchr(s, '\n');
+	s = ft_strjoin(buffer, buf);
+	free(buffer);
 	return (s);
 }
 
@@ -88,19 +91,15 @@ char	*get_next_line(int fd)
 {
 	static char	*str;
 	char		*tmp;
-	static char	*buffer;
-	
-	if (!fd)
-		return(NULL);
+	char		*buffer;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
+		return (NULL);
 	tmp = ft_read_check(fd, str);
-//	printf("tmp %s", tmp);
-	buffer = tmp;
-//	printf("%s\n", tmp);
+	if (!tmp)
+		return (NULL);
 	buffer = ft_str_new_line(tmp);
-//	printf("%s", buffer);
-//	free(tmp);
-	str = ft_clean_buffer(tmp);
-//	free(tmp);
+	str = ft_strchr(tmp);
 	return (buffer);
 }
 
@@ -117,34 +116,5 @@ char	*get_next_line(int fd)
 // 		free(str);
 // 		i++;
 // 	}
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	// str = get_next_line(fd);
-// 	// printf("%s", str);
-// 	//free(str);
 // close(fd);
 // }

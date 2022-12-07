@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:54:16 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/02 21:59:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:31:33 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,48 @@ size_t	ft_strlen(const char *string)
 	return (x);
 }
 
-char	*ft_strchr(const char *a, int c)
+char	*ft_strchr(char *a)
 {
-	size_t			x;
-	unsigned char	cha;
-	
+	size_t	x;
+	size_t	y;
+	char	*tmp;
+
 	x = 0;
-	cha = (char)c;
-//	printf("str dans strchr === %s\n ", a);
+	y = 0;
+	while (a[x] && a[x] != '\n')
+		x++;
+	if (!a[x])
+	{
+		free (a);
+		return (NULL);
+	}
+	tmp = ft_calloc((sizeof(char)), (ft_strlen(a) - x + 1));
+	x++;
 	while (a[x])
 	{
-		if (a[x] == cha)
-			return ((char *)a + (x + 1));
+		tmp[y] = a[x];
+		y++;
 		x++;
 	}
-	if (cha == 0)
-		return ((char *) a + x);
-	return (NULL);
+	free (a);
+	return (tmp);
 }
 
-char	*ft_dup(const char *src, char *tab)
+char	*ft_strdup(const char *src)
 {
+	char	*tab;
 	size_t	i;
 
 	i = 0;
+	tab = ft_calloc(sizeof(char), ft_strlen(src) + 1);
+	if (!tab)
+		return (NULL);
 	while (src[i])
 	{
 		tab[i] = src[i];
 		i++;
 	}
 	tab[i] = 0;
-	return (tab);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*tab;
-
-	tab = malloc(sizeof(char) * ft_strlen(src) + 1);
-	if (!tab)
-		return (NULL);
-	ft_dup(src, tab);
 	return (tab);
 }
 
@@ -98,7 +99,13 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	x = 0;
 	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 1));
+	if (!s1 && !s2)
+		return (NULL);
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
+	tab = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!tab)
 		return (NULL);
 	while (s1[x])
@@ -107,12 +114,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 		x++;
 	}
 	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
+		tab[x++] = s2[y++];
 	tab[x] = '\0';
-	free (s1);
 	return (tab);
 }
