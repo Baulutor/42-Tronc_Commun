@@ -6,12 +6,11 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:12:55 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/19 12:11:47 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/11/29 19:00:30 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <ctype.h>
 
 int	ft_isprint(int a)
 {

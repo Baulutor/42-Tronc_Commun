@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:08 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/25 10:13:33 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/11/25 13:00:20 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_printhexamin(int a)
 	x = 0;
 	if (nbr >= 16)
 	{
-		x += ft_printhexamin(nbr / 16);
+		x += ft_printhexamin(nbr / 16);  
 		x += ft_printhexamin(nbr % 16);
 	}
 	else if (nbr >= 10 && nbr < 16)

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:54:16 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/07 15:31:33 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/12/08 13:42:50 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *string)
 	size_t	x;
 
 	x = 0;
-	while (string[x] != 0)
+	while (string[x])
 		x++;
 	return (x);
 }
@@ -91,7 +91,7 @@ void	*ft_calloc(size_t elementCount, size_t elementSize)
 	return (tab);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*tab;
 	size_t	x;
@@ -105,7 +105,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 		return (ft_strdup(s2));
 	else if (!s2)
 		return (ft_strdup(s1));
-	tab = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	tab = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!tab)
 		return (NULL);
 	while (s1[x])

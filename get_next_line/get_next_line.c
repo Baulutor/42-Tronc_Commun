@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/07 15:27:09 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/12/08 13:58:42 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char	*ft_clean_buffer(char *buffer, char *buf)
 	char	*s;
 
 	s = ft_strjoin(buffer, buf);
+	if (!s)
+		return (NULL);
 	free(buffer);
 	return (s);
 }
@@ -96,25 +98,9 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
 	tmp = ft_read_check(fd, str);
-	if (!tmp)
+	if (tmp == NULL)
 		return (NULL);
 	buffer = ft_str_new_line(tmp);
 	str = ft_strchr(tmp);
 	return (buffer);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
-// 	int	i = 0;
-// 	fd = open("test.txt", O_RDONLY);
-// 	while (i < 100)
-// 	{
-// 		str = get_next_line(fd);
-// 		printf("%s", str);
-// 		free(str);
-// 		i++;
-// 	}
-// close(fd);
-// }
