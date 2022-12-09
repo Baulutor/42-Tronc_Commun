@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 17:54:16 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/09 14:45:19 by dbaule           ###   ########.fr       */
+/*   Created: 2022/12/08 14:11:03 by dbaule            #+#    #+#             */
+/*   Updated: 2022/12/09 14:53:47 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *string)
 {
@@ -39,11 +39,13 @@ char	*ft_strchr(char *a)
 		return (NULL);
 	}
 	tmp = ft_calloc((sizeof(char)), (ft_strlen(a) - x + 1));
-	if (!tmp)
-		return (tmp = NULL, NULL);
 	x++;
 	while (a[x])
-		tmp[y++] = a[x++];
+	{
+		tmp[y] = a[x];
+		y++;
+		x++;
+	}
 	free (a);
 	a = NULL;
 	return (tmp);
@@ -102,9 +104,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (s1 = NULL, s2 = NULL, NULL);
 	else if (!s1)
-		return (s1 = NULL, ft_strdup(s2));
+		return (ft_strdup(s2));
 	else if (!s2)
-		return (s2 = NULL, ft_strdup(s1));
+		return (ft_strdup(s1));
 	tab = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!tab)
 		return (tab = NULL, NULL);

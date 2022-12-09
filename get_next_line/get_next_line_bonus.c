@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2022/12/09 14:54:31 by dbaule           ###   ########.fr       */
+/*   Created: 2022/12/08 14:09:03 by dbaule            #+#    #+#             */
+/*   Updated: 2022/12/09 14:49:47 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	ft_check_new_line(char *tmp)
 {
@@ -32,7 +32,7 @@ static char	*ft_clean_buffer(char *buffer, char *buf)
 
 	s = ft_strjoin(buffer, buf);
 	if (!s)
-		return (free(buffer), buffer = NULL, s = NULL, NULL);
+		return (free(buffer), buffer = NULL, NULL);
 	free(buffer);
 	buffer = NULL;
 	return (s);
@@ -51,7 +51,8 @@ static char	*ft_read_check(int fd, char *str)
 		x = read(fd, j, BUFFER_SIZE);
 		if (x == -1)
 		{
-			free (str);
+			if (str)
+				free (str);
 			str = NULL;
 			return (NULL);
 		}
@@ -70,7 +71,7 @@ static char	*ft_str_new_line(char *tmp)
 
 	x = 0;
 	if (tmp[0] == '\0')
-		return (tmp = NULL, NULL);
+		return (NULL);
 	if (ft_check_new_line(tmp) != -1)
 		buf = ft_calloc(sizeof(char), (ft_check_new_line(tmp) + 2));
 	else
@@ -94,26 +95,28 @@ static char	*ft_str_new_line(char *tmp)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	char		*tmp;
+	static char	*str[OPEN_MAX];
 	char		*buffer;
 
-	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 	{
-		if (str)
+		if (str[fd])
 		{
-			str[0] = 0;
-			free(str);
-			str = NULL;
+			str[fd][0] = 0;
+			free (str[fd]);
+			str[fd] = NULL;
 		}
 		return (NULL);
 	}
-	tmp = ft_read_check(fd, str);
-	if (tmp == NULL)
-		return (NULL);
-	buffer = ft_str_new_line(tmp);
-	str = ft_strchr(tmp);
-	if (str == NULL)
-		free(str);
+	str[fd] = ft_read_check(fd, str[fd]);
+	if (!str[fd])
+		return (str[fd] = NULL, NULL);
+	buffer = ft_str_new_line(str[fd]);
+	str[fd] = ft_strchr(str[fd]);
+	if (!buffer)
+	{
+		free(str[fd]);
+		str[fd] = NULL;
+	}
 	return (buffer);
 }
