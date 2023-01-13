@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:19:03 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/22 18:36:04 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/13 14:34:20 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *a, int c);
 char	*ft_dup(const char *src, char *tab);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char const *s2);
 size_t	ft_strlcat(char *dest, char const *src, unsigned long size);
 size_t	ft_strlen(const char *string);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
