@@ -6,42 +6,25 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/13 15:35:03 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:49:02 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// how many number have to be malloc
-
-int count_numbers(char **buf)
-{
-	size_t	x;
-	
-	x = 0;
-	while (buf[x])
-		x++;
-	return (x);
-}
 
 // split numbers into a array of int
 
 int	*stacks_a(char *numbers)
 {
 	char	**buf;
-	int	*array;
-	int x;
+	int		*array;
+	int		x;
 	int		count;
 
 	x = 0;
-	
-	while (numbers[x])
-	{
-		buf = ft_split(numbers, ' ');
-		x++;
-	}
+	buf = ft_split(numbers, ' ');
 	count = count_numbers(buf);
-	array = malloc(sizeof(int *) * count);
+	array = malloc(sizeof(int *) * (count)); // mal malloc, 1 seule valeur ou 4 font begueiller
 	while (buf[x])
 	{
 		array[x] = ft_atoi(buf[x]);
@@ -57,14 +40,22 @@ int main (int argc, char **argv)
 	size_t	x;
 	(void)argc;
 	
-	x = 0;
+
 	if (verif(argv) == -1)
-		return (printf("Error\n"));
+		return (ft_printf("Error\n"));
 	numbers = join_numbers(argv);
-	array = stacks_a(numbers);
-	while (array[x])
+	if (error_overflow(numbers) == -1)
 	{
-		printf("%d\n",array[x]);
+		ft_printf("Error\n");
+		return (free(numbers), numbers = NULL, 0);
+	}
+	array = stacks_a(numbers);
+	check_duplicate(array); // recupere la valeur du nombre de numero dans le tab de int 
+	x = 0;
+	int max = 2;
+	while (x < max)
+	{
+		ft_printf("%d\n",array[x]);
 		x++;
 	}
 	return (0);

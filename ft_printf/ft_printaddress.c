@@ -6,13 +6,13 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:01:26 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/25 15:37:42 by dbaule           ###   ########.fr       */
+/*   Updated: 2022/11/25 10:15:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_hexaaddress(unsigned long a)
+static int	ft_hexaaddress(unsigned long long a)
 {
 	unsigned long long	nbr;
 	size_t				x;

@@ -6,71 +6,25 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:14:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/13 15:34:00 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:13:58 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// ft_strlen for double array
+// how many number have to be malloc
 
-int ft_strlen_array(char **argv)
+int count_numbers(char **buf)
 {
 	size_t	x;
-
+	
 	x = 0;
-	while (argv[x])
+	while (buf[x])
 		x++;
 	return (x);
 }
 
-int ft_strlen_double(char **argv)
-{
-	size_t	x;
-	size_t	y;
-
-	x = 0;
-	y = 0;
-	while (argv[x])
-	{
-		while (argv[x][y])
-			y++;
-		x++;
-	}
-	return (y);
-}
-
-
-// add the last numbers to the chain
-
-char	*add_last(char *argv, char *numbers)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	// if (!numbers)
-	// {
-	// 	numbers = malloc(sizeof(char) * ft_strlen(argv) + 2);
-	// 	if (!numbers)
-	// 		return (NULL);
-	// }
-	while (numbers[x])
-		x++;
-	while (argv[y])
-	{
-		numbers[x] = argv[y];
-		y++;
-		x++;
-	}
-	numbers[x] = ' ';
-	numbers[x + 1] = '\0';
-	return (numbers);
-}
-
 // put all the numbers in the stack A
-
 
 char	*join_numbers(char **argv)
 {
@@ -78,20 +32,27 @@ char	*join_numbers(char **argv)
 	int		y;
 	
 	y = 1;
-	while (argv[y + 1] != 0)
+
+	if (!argv[2])
 	{
-		numbers = ft_strjoin(argv[y], argv[y + 1]);
-		y++;
+		numbers = ft_strdup(argv[y]);
+		if (!numbers)
+			return (NULL);
+		return(numbers);
 	}
-	if (argv[y])
+	numbers = malloc(sizeof(char) * (ft_strlen(argv[y]) + 2));
+	if (!numbers)
+		return (NULL);
+	while (argv[y] != 0)
 	{
-		numbers = add_last(argv[y], numbers);
+		numbers = ft_strjoin(numbers, argv[y]); // prend pas en compte s'il y a une string ??
+		y++;
 	}
 	return (numbers);
 }
 
 
-// look at the argv if there is no problem
+// look at the argv if there is no problem but not if the numbers is too high or too low
 
 int	verif(char **argv)
 {
@@ -100,13 +61,14 @@ int	verif(char **argv)
 
 	x = 1;
 	y = 0;
+	if (!argv[1])
+		return (-1); // il faut gérer les chaines vides entre " "
 	while (argv[x])
 	{
 		while (argv[x][y])
 		{
-			if (((argv[x][y] > '9' || argv[x][y] < '0') && (argv[x][y] != ' '))
-			&& ((argv[x][y] == '-') && (argv[x][y + 1] < '0' || argv[x][y + 1] > '9'))
-			&& ((argv[x][y] == '+') && (argv[x][y + 1] < '0' || argv[x][y + 1] > '9'))) // les signes nazes tu gere pas si il y a un signe seul sans rien
+			if (((argv[x][y] > '9' || argv[x][y] < '0') && argv[x][y] != ' ' && argv[x][y] != '-' && argv[x][y] != '+')
+				|| ((argv[x][y] == '-' || argv[x][y] == '+') && (argv[x][y + 1] > '9' || argv[x][y + 1] < '0')))
 				return (-1);
 			y++;
 		}
@@ -114,4 +76,52 @@ int	verif(char **argv)
 		y = 0;
 	}
 	return (0);
+}
+
+// check that the numbers aren't overflowing a 'int' type number
+
+int	error_overflow(char *numbers)
+{
+	size_t	x;
+	size_t	y;
+	size_t	index;
+	int		buf;
+
+	y = 0;
+	x = 0;
+	index = 0;
+	while(numbers[x])
+	{
+		while (numbers[x] == '0')
+			x++;
+		while(numbers[x] >= '0' && numbers[x] <= '9')
+		{
+			if (y > 9)
+			{
+				buf = ft_atoi(numbers + index);
+				if (buf == 0 || buf == -1)
+					return (-1);
+			}
+			y++;
+			x++;
+		}
+		index = y;
+		y = 0;
+		x++;
+	}
+	return (0);
+}
+
+int	check_duplicate(int *array, int count)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	y = 1;
+	while (x < count)
+	{
+		if (array[x] == array[y])
+		
+	}
 }

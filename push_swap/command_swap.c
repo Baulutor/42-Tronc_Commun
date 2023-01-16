@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:04:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/10 19:45:14 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:05:35 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 void	sa_instruct(int a)
 {
-	size_t	x;
-	char	y[3];
-
-	x = 0;
-	read (a, y, 1);
-	//write (a , y[2], ft_strlen(y[2]));
+	
 }

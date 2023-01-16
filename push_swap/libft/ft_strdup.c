@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:24:40 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/22 17:59:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:16:38 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_dup(const char *src, char *tab)
 		tab[i] = src[i];
 		i++;
 	}
-	tab[i] = 0;
+	tab[i] = ' ';
+	tab[i + 1] = 0;
 	return (tab);
 }
 
@@ -30,7 +31,7 @@ char	*ft_strdup(const char *src)
 {
 	char	*tab;
 
-	tab = malloc(sizeof(char) * ft_strlen(src) + 1);
+	tab = malloc(sizeof(char) * ft_strlen(src) + 2);
 	if (!tab)
 		return (0);
 	ft_dup(src, tab);

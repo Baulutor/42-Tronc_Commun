@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/13 14:54:06 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/16 10:21:02 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ char	*ft_strjoin(char *s1, char const *s2)
 		tab[x] = s1[x];
 		x++;
 	}
+	tab[x] = ' ';
+	x++;
 	while (s2[y])
 	{
 		tab[x] = s2[y];
 		x++;
 		y++;
 	}
-	tab[x] = ' ';
-	tab[x + 1] = '\0';
+	tab[x] = '\0';
 //	free (s1);
 	return (tab);
 }
