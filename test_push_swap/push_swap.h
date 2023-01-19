@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 16:32:23 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:22:12 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,17 @@
 
 struct s_numbers_list
 {
-	int	*array_a;
-	int	count;
-	int	*array_b;
+	int		content;
+	int		count;
+	struct s_numbers_list *next;
 
 }	typedef	a_b_list;
+
+struct s_List
+{
+    int	value;
+	struct s_List *next;
+}	typedef chain_list;
 
 void	instruct_sa(int a);
 char	*join_numbers(char **argv);

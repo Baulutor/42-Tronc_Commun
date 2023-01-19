@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/08 16:17:55 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/15 17:13:59 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-char	*ft_strjoin(char *s1, char const *s2)
+int	ft_strncmp(const char *a, const char *b, size_t n)
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	unsigned int	x;
+	unsigned char	*cha;
+	unsigned char	*cha2;
 
 	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
+	cha = (unsigned char *) a;
+	cha2 = (unsigned char *) b;
+	while ((cha2[x] || cha[x]) && x < n)
 	{
-		tab[x] = s1[x];
+		if (cha2[x] < cha[x])
+			return (1);
+		else if (cha2[x] > cha[x])
+			return (-1);
 		x++;
 	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+	return (0);
 }

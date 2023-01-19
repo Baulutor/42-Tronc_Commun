@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/10 19:24:40 by dbaule            #+#    #+#             */
+/*   Updated: 2023/01/16 17:16:38 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_dup(const char *src, char *tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+	{
+		tab[i] = src[i];
+		i++;
+	}
+	tab[i] = ' ';
+	tab[i + 1] = 0;
+	return (tab);
+}
+
+char	*ft_strdup(const char *src)
 {
 	char	*tab;
-	size_t	x;
-	size_t	y;
 
-	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
+	tab = malloc(sizeof(char) * ft_strlen(src) + 2);
 	if (!tab)
-		return (NULL);
-	while (s1[x])
-	{
-		tab[x] = s1[x];
-		x++;
-	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
+		return (0);
+	ft_dup(src, tab);
 	return (tab);
 }

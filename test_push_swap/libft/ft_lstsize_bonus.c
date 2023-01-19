@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/20 15:24:48 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/22 09:54:50 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+int	ft_lstsize(t_list *lst)
 {
-	char	*tab;
 	size_t	x;
-	size_t	y;
 
 	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
+	while (lst)
 	{
-		tab[x] = s1[x];
+		lst = lst->next;
 		x++;
 	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+	return (x);
 }

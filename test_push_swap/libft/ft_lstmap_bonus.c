@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/21 16:14:54 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/22 09:55:34 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	t_list	*tmp;
+	t_list	*x;
 
-	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
+	if (!lst || !*(*f))
+		return (0);
+	tmp = NULL;
+	while (lst)
 	{
-		tab[x] = s1[x];
-		x++;
+		x = ft_lstnew((f)(lst->content));
+		if (!x)
+		{
+			ft_lstclear(&x, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&tmp, x);
+		lst = lst->next;
+		x = x->next;
 	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+	return (tmp);
 }

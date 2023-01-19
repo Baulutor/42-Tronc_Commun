@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_swap.c                                     :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 18:04:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/16 17:05:35 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/14 11:52:54 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/22 18:05:11 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	sa_instruct(int a)
+void	ft_putendl_fd(char *s, int fd)
 {
-	
+	if (!s)
+		return ;
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }

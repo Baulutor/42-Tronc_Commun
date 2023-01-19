@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/11 10:00:28 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/23 21:43:55 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	unsigned int	y;
+	char			*tab;
 
-	x = 0;
 	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s))
+		tab = (char *)malloc(sizeof(char) * ((ft_strlen(s) - start) + 1));
+	else if ((len + start) > ft_strlen(s))
+		tab = (char *)malloc(sizeof(char) * (len));
+	else
+		tab = (char *)malloc(sizeof(char) * (len + 1));
 	if (!tab)
 		return (NULL);
-	while (s1[x])
+	while (y < len && s[start])
 	{
-		tab[x] = s1[x];
-		x++;
-	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
+		tab[y] = s[start];
 		y++;
+		start++;
 	}
-	tab[x] = '\0';
-	free(s1);
+	tab[y] = '\0';
 	return (tab);
 }

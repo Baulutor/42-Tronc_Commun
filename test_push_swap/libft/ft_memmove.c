@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/10 19:11:12 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/22 18:07:14 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+void	*ft_memmove(void *destination, const void *source, size_t size)
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	size_t				i;
 
-	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
+	if ((char *)destination > (char *)source)
 	{
-		tab[x] = s1[x];
-		x++;
+		while (size > 0)
+		{
+			((char *)destination)[size - 1] = ((char *)source)[size - 1];
+			size--;
+		}
 	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
+	else if ((char *) destination < (char *)source)
 	{
-		tab[x] = s2[y];
-		x++;
-		y++;
+		i = 0;
+		while (size > i)
+		{
+			((char *)destination)[i] = ((char *)source)[i];
+			i++;
+		}
 	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+	return ((void *)(char *)destination);
 }

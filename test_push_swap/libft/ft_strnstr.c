@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:23:18 by dbaule           ###   ########.fr       */
+/*   Created: 2022/11/08 18:50:04 by dbaule            #+#    #+#             */
+/*   Updated: 2022/11/18 16:37:28 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	unsigned int	x;
+	unsigned int	y;
 
 	x = 0;
 	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
+	if (little[y] == 0)
+		return ((char *)big);
+	while (big[x] && len > x && little[y])
 	{
-		tab[x] = s1[x];
+		while ((big[x + y] == little[y]) && len > (x + y))
+		{
+			if (little[y + 1] == 0)
+				return ((char *)big + x);
+			y++;
+		}
+		y = 0;
 		x++;
 	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+	return (NULL);
 }
