@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:14:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/17 18:43:12 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/25 15:49:48 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,22 @@ char	*join_numbers(char **argv)
 		numbers = ft_strjoin(numbers, argv[y]);
 		y++;
 	}
+	ft_printf("%s la string\n\n", numbers);
 	return (numbers);
+}
+
+int verif_spacebar(char *argv)
+{
+	size_t	x;
+
+	x = 0;
+	while (argv[x] == ' ')
+	{
+		x++;
+		if (!argv[x])
+			return (-1);
+	}
+	return (0);
 }
 
 
@@ -66,6 +81,8 @@ int	verif(char **argv)
 	{
 		while (argv[x][y])
 		{
+			if (verif_spacebar(argv[x]) == -1)
+				return (-1);
 			if (((argv[x][y] > '9' || argv[x][y] < '0') && argv[x][y] != ' ' && argv[x][y] != '-' && argv[x][y] != '+')
 				|| ((argv[x][y] == '-' || argv[x][y] == '+') && (argv[x][y + 1] > '9' || argv[x][y + 1] < '0'))
 				|| ((argv[x][y] == '-' || argv[x][y] == '+') && (argv[x][y - 1] <= '9' && argv[x][y - 1] >= '0')))

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/24 18:26:03 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:13:23 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ struct s_numbers_list
 
 }	typedef	a_b_list;
 
-struct s_linked_list
+struct s_linked_list_a
 {
 	int value;
-	struct s_linked_list *next;
-}typedef list;
+	int	count_a;
+	t_list	*a;
+	struct s_linked_list_a *next;
+}typedef a_list;
 
 void	instruct_sa(int a);
 char	*join_numbers(char **argv);
@@ -37,6 +39,6 @@ int		verif(char **argv);
 int		count_numbers(char **buf);
 int		error_overflow(char *numbers);
 int		check_duplicate(a_b_list array);
-list	*linked_list_initialise(a_b_list elem);
+a_list	*linked_list_initialise(a_b_list elem);
 
 #endif
