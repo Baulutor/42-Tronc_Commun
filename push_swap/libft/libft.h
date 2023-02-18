@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:19:03 by dbaule            #+#    #+#             */
-/*   Updated: 2023/01/13 14:34:20 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:10:22 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	int				*content;
 	struct s_list	*next;
 }					t_list;
 
