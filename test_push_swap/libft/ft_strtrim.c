@@ -30,7 +30,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
-	int		x;
 	char	*tab;
 
 	if (!s1)
@@ -38,7 +37,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!set)
 		return (ft_strdup(s1));
 	start = 0;
-	x = 0;
 	end = ft_strlen(s1);
 	while (s1[start] && is_in_charset(s1[start], set))
 			start++;

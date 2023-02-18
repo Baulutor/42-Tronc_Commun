@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   command_swap_push.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:09:02 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/18 11:28:47 by dbaule           ###   ########.fr       */
+/*   Created: 2023/02/18 16:28:10 by dbaule            #+#    #+#             */
+/*   Updated: 2023/02/18 16:38:33 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+void	ss_instruct(t_stacklist *array)
 {
-	char	*tab;
-	size_t	x;
-	size_t	y;
+	sa_instruct(array);
+	sb_instruct(&array);
+}
 
-	x = 0;
-	y = 0;
-	tab = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 2));
-	if (!tab)
-		return (NULL);
-	while (s1[x])
-	{
-		tab[x] = s1[x];
-		x++;
-	}
-	tab[x] = ' ';
-	x++;
-	while (s2[y])
-	{
-		tab[x] = s2[y];
-		x++;
-		y++;
-	}
-	tab[x] = '\0';
-	free(s1);
-	return (tab);
+void	rr_instruct(t_stacklist **lst_a, t_stacklist **lst_b)
+{
+	rb_instruct(lst_b);
+	ra_instruct(lst_a);
+}
+
+void	rrr_instruct(t_stacklist **lst_a, t_stacklist **lst_b)
+{
+	rrb_instruct(lst_b);
+	rra_instruct(lst_a);
 }
