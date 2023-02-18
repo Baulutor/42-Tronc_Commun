@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:12:33 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/18 16:29:11 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/18 16:59:13 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	rb_instruct(t_stacklist **lst)
 	t_stacklist	*buf;
 	t_stacklist	*tmp;
 
+	if (!((*lst)->value) || (*lst)->pos_b == NULL)
+		return ;
 	buf = *lst;
 	tmp = *lst;
 	while(tmp->pos_b != NULL)
@@ -57,6 +59,8 @@ void	rrb_instruct(t_stacklist **lst)
 	t_stacklist	*buf;
 	t_stacklist	*tmp;
 
+	if (!((*lst)->value) || (*lst)->pos_b == NULL)
+		return ;
 	buf = *lst;
 	tmp = *lst;
 	while(tmp->pos_b->pos_b != NULL)

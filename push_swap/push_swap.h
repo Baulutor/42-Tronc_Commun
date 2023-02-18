@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/18 16:33:51 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/18 17:03:18 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct t_linked_list
 {
 	int value;
 	int count_a;
-	struct t_linked_list	*pos_a;
 	struct t_linked_list	*pos_b;
 	struct t_linked_list	*next;
 }	t_stacklist;

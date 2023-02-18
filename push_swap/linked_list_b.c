@@ -36,7 +36,6 @@ void	ft_lstadd_b(t_stacklist **lst, t_stacklist *new)
 	}
 	last = ft_lst_last_b((*lst));
 	last->pos_b = ft_lst_new_b(new->value);
-//	ft_printf("%d last gang\n\n", last->value);
 }
 
 void	ft_lst_add_front_b(t_stacklist **lst, t_stacklist *new)
