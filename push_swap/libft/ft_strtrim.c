@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 18:53:21 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/17 18:53:32 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/19 15:41:01 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	start = 0;
 	end = ft_strlen(s1);
 	while (s1[start] && is_in_charset(s1[start], set))
-			start++;
+		start++;
 	while (end > start && is_in_charset(s1[end - 1], set))
 		end--;
 	tab = ft_substr(s1, start, end - start);

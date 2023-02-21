@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:21:26 by dbaule            #+#    #+#             */
-/*   Updated: 2022/11/17 18:54:52 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/19 15:41:10 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	i = 0;
 	while (src[i])
-	i ++;
+		i++;
 	return (i);
 }

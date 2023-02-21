@@ -6,13 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/18 13:49:52 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:35:12 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int verif_spacebar(char *argv)
+int	verif_spacebar(char *argv)
 {
 	size_t	x;
 
@@ -28,13 +28,13 @@ int verif_spacebar(char *argv)
 	return (0);
 }
 
-
-// look at the argv if there is no problem but not if the numbers is too high or too low
+/* look at the argv if there is no problem 
+but not if the numbers is too high or too low*/
 
 int	verif(char **argv)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 1;
 	y = 0;
@@ -71,11 +71,11 @@ int	error_overflow(char *numbers)
 	x = 0;
 	index = 0;
 	x = 0;
-	while(numbers[x])
+	while (numbers[x])
 	{
 		while (numbers[x] == '0')
 			x++;
-		while(numbers[x] >= '0' && numbers[x] <= '9')
+		while (numbers[x] >= '0' && numbers[x] <= '9')
 		{
 			if (y > 8)
 			{
@@ -105,10 +105,10 @@ int	check_duplicate(t_a_b_list array)
 	y = x + 1;
 	while (x < array.count)
 	{
-		while (y < array.count)
+		while (y < array.count && array.array_a[y])
 		{
 			if (array.array_a[y] == array.array_a[x])
-				return(-1);
+				return (-1);
 			y++;
 		}
 		x++;
@@ -117,25 +117,25 @@ int	check_duplicate(t_a_b_list array)
 	return (0);
 }
 
-t_stacklist *error_check_and_initialize(char ** argv)
+s_stack	*error_check_and_initialize(char **argv)
 {
 	t_a_b_list	array;
-	t_stacklist	*stack_a;
+	s_stack		*stack_a;
 	char		*numbers;
-	
+
 	if (verif(argv) == -1)
 		return (ft_printf("Error, please put only numbers, nothing else\n"), NULL);
-	numbers = join_numbers(argv);	
+	numbers = join_numbers(argv);
 	if (numbers == NULL)
 		return (ft_printf("Error of allocation\n"), NULL);
 	if (error_overflow(numbers) == -1)
-		return (ft_printf("Error, one or more numbers exceed the capacity of a integer\n"),free(numbers), numbers = NULL, NULL);
+		return (ft_printf("Error, one or more numbers exceed the capacity of a integer\n"), free(numbers), numbers = NULL, NULL);
 	array = stacks_a(numbers);
 	if (check_duplicate(array) == -1)
 		return (ft_printf("Error, got two or more duplicate numbers"), free(numbers), free(array.array_a), numbers = NULL, array.array_a = NULL, NULL);
-	stack_a = malloc(sizeof(*stack_a));
-	if (!stack_a)
-		return (NULL);
+	stack_a = NULL;
 	stack_a = linked_list_initialise(array);
+	free (numbers);
+	free(array.array_a);
 	return (stack_a);
 }

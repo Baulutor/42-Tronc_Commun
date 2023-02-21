@@ -6,67 +6,75 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:12:33 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/18 16:59:13 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:49:16 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sb_instruct(t_stacklist **lst)
+void	sb_instruct(s_stack **lst)
 {
-	t_stacklist	*buf;
-	t_stacklist	*tmp;
-	int		x;
-	
-	if (!((*lst)->value) || ((*lst)->pos_b == NULL))
+	s_stack	*buf;
+	s_stack	*tmp;
+	int			x;
+
+	if (!((*lst)->value) || ((*lst)->next == NULL))
 		return ;
 	x = 0;
 	buf = *lst;
 	tmp = *lst;
-	while(x++ < 2)
-		tmp = tmp->pos_b;
-	*lst = (*lst)->pos_b; 
-	(*lst)->pos_b = buf;
-	buf->pos_b = tmp;
+	while (x++ < 2)
+		tmp = tmp->next;
+	*lst = (*lst)->next;
+	(*lst)->next = buf;
+	buf->next = tmp;
+	ft_printf("sb\n");
 }
 
-void	pb_instruct(t_stacklist **lst_a, t_stacklist **lst_b)
+void	pb_instruct(s_stack **lst_a, s_stack **lst_b)
 {
+	s_stack *elem;
+
 	if (!(*lst_a))
 		return ;
-	ft_lst_add_front_b(lst_b, (*lst_a));
+	elem = *lst_a;
 	(*lst_a) = (*lst_a)->next;
+	elem->next = NULL;
+	ft_lst_add_front(lst_b, elem);
+	ft_printf("pb\n"); 
 }
 
-void	rb_instruct(t_stacklist **lst)
+void	rb_instruct(s_stack **lst)
 {
-	t_stacklist	*buf;
-	t_stacklist	*tmp;
+	s_stack	*buf;
+	s_stack	*tmp;
 
-	if (!((*lst)->value) || (*lst)->pos_b == NULL)
+	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
 	buf = *lst;
 	tmp = *lst;
-	while(tmp->pos_b != NULL)
-		tmp = tmp->pos_b;
-	tmp->pos_b = buf;
-	*lst = (*lst)->pos_b;
-	buf->pos_b = NULL;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = buf;
+	*lst = (*lst)->next;
+	buf->next = NULL;
+	ft_printf("rb\n");
 }
 
-void	rrb_instruct(t_stacklist **lst)
+void	rrb_instruct(s_stack **lst)
 {
-	t_stacklist	*buf;
-	t_stacklist	*tmp;
+	s_stack	*buf;
+	s_stack	*tmp;
 
-	if (!((*lst)->value) || (*lst)->pos_b == NULL)
+	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
 	buf = *lst;
 	tmp = *lst;
-	while(tmp->pos_b->pos_b != NULL)
-		tmp = tmp->pos_b;
-	while((*lst)->pos_b != NULL)
-		*lst = (*lst)->pos_b;
-	(*lst)->pos_b = buf;
-	tmp->pos_b = NULL;
+	while (tmp->next->next != NULL)
+		tmp = tmp->next;
+	while ((*lst)->next != NULL)
+		*lst = (*lst)->next;
+	(*lst)->next = buf;
+	tmp->next = NULL;
+	ft_printf("rrb\n");
 }
