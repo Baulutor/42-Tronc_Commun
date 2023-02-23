@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:11 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:42:13 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 		return (0);
 	stack_b = NULL;
 	organize_index(stack_a);
-	stack_a = sorting_stack(stack_a, stack_b);
+//	stack_a = sorting_stack(stack_a, stack_b);
 	while(stack_a != NULL)
 	{
 		ft_printf("%d stack a\n", stack_a->index);

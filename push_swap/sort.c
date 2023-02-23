@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:14:08 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/23 17:16:23 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:40:29 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,56 +59,15 @@ void	organize_index(s_stack *stack)
 	}
 }
 
-int		binary_test(s_stack *stack, int x, int end)
-{
-	int	i;
-
-	i = 0;
-	while (i <= end)
-	{
-		if (((stack->index >> x)&1) == 1)
-			return(0);
-		i++;
-	}
-	return (1);
-}
-
-// void	make_instruct(s_stack *stack_a, s_stack *stack_b, int x)
+// int		count_max_binary(int count)
 // {
-
 // }
 
-s_stack	*sorting_stack(s_stack *stack_a, s_stack *stack_b)
-{
-	int	i;
-	int	x;
-	int	j;
-	int count;
-	s_stack	*buf;
-
-	i = 0;
-	x = 1;
-	j = 0;
-	buf = stack_a;
-	count = stack_a->count;
-	while (j < 11)
-	{
-		if (binary_test(buf, x, count) == 0)
-		{
-			while (i <= count)
-			{
-				if (((stack_a->index >> x)&1) == 1)
-					ra_instruct(&stack_a);
-				else
-					pb_instruct(&stack_a, &stack_b);
-				i++;
-			}
-		}
-		while (stack_b != NULL)
-			pa_instruct(&stack_a, &stack_b);
-		i = 0;
-		x++;
-		j++;
-	}
-	return (stack_a);
-}
+// s_stack	*sorting_stack(s_stack *stack_a, s_stack *stack_b)
+// {
+// 	int	count;
+	
+// 	count = count_max_binary(stack_a->count);
+	
+// 	return (stack_a);
+// }
