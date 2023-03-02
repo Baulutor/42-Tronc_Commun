@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:41:58 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/23 14:28:48 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:38:20 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ s_stack	*ft_lst_new(int content)
 
 	link = malloc(sizeof(*link));
 	if (!link)
-		return (0);
+		return (NULL);
 	link->value = content;
-	link->next = 0;
+	link->next = NULL;
 	return (link);
 }
 
@@ -70,13 +70,17 @@ take the number of element that is in my list*/
 s_stack	*linked_list_initialise(t_a_b_list elem)
 {
 	s_stack	*link;
+	s_stack	*buf;
 	int			x;
 
 	x = 0;
 	link = NULL;
 	while (x < elem.count)
 	{
-		ft_lstadd(&link, ft_lst_new(elem.array_a[x]));
+		buf = ft_lst_new(elem.array_a[x]);
+		if (!buf)
+			return (NULL);
+		ft_lstadd(&link, buf);
 		x++;
 	}
 	link->count = x;

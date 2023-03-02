@@ -6,23 +6,24 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:52:39 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/21 17:26:58 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:25:23 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free_all(s_stack **lst_a, s_stack **lst_b)
+void	ft_free_all(s_stack **lst_a)
 {
-	while ((*lst_a) != NULL)
+	s_stack	*s1;
+	s_stack *s2;
+
+	s1 = *lst_a;
+	s2 = *lst_a;
+	while (s2 != NULL)
 	{
-		free((*lst_a));
-		(*lst_a) = (*lst_a)->next;
-	}
-	while (*lst_b != NULL)
-	{
-		free(*lst_b);
-		*lst_b = (*lst_b)->next;
+		s2 = s2->next;
+		free(s1);
+		s1 = s2;
 	}
 }
 

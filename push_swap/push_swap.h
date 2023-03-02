@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/23 16:52:36 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:47:39 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,16 @@ void		rr_instruct(s_stack **lst_a, s_stack **lst_b);
 void		rrb_instruct(s_stack **lst);
 void		rrr_instruct(s_stack **lst_a, s_stack **lst_b);
 
-void		ft_free_all(s_stack **lst_a, s_stack **lst_b);
+void		ft_free_all(s_stack **lst_a);
 void		ft_free_buf(char **buf);
 
 void		organize_index(s_stack *stack);
-s_stack		*sorting_stack(s_stack *stack_a, s_stack *stack_b);
+void		sorting_stack(s_stack **stack_a, s_stack **stack_b);
+void		sorting_two_numbers(s_stack **lst_a);
+
+
+void		sorting_small_stack(s_stack **stack_a);
+
+
 
 #endif

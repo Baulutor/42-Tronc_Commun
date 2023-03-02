@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/21 16:35:12 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:41:37 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ s_stack	*error_check_and_initialize(char **argv)
 		return (ft_printf("Error, got two or more duplicate numbers"), free(numbers), free(array.array_a), numbers = NULL, array.array_a = NULL, NULL);
 	stack_a = NULL;
 	stack_a = linked_list_initialise(array);
+	if (!stack_a)
+		return (NULL);
 	free (numbers);
 	free(array.array_a);
 	return (stack_a);
