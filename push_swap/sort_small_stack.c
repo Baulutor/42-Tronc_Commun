@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:49:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/02 16:07:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/03 17:13:55 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,40 @@ void	sorting_two_numbers(s_stack **lst_a)
 		return ;	
 }
 
-void	sorting_three_numbers(s_stack **stack_a)
+void	sorting_three_numbers(s_stack **stack_a, int first, int second, int third)
 {
-	s_stack	*s1;
-	s_stack	*s2;
-
-	s1 = *stack_a;
-	s2 = *stack_a;
-	while(s1->next != NULL)
-		s1 = s1->next;
-	s2 = s2->next;
-	// if (s1->value > s2->value && s1->value > (*stack_a)->value && (*stack_a)->value < s2->value)
-	// 	return ;
-	if (s1->value < s2->value && s1->value < (*stack_a)->value && s2->value > (*stack_a)->value)
+	if (third < second && third < first && second > first)
 		rra_instruct(stack_a);
-	else if ((*stack_a)->value > s2->value && (*stack_a)->value < s1->value)
+	else if (first > second && first < third)
 		sa_instruct(stack_a);
-	else if (s2->value > s1->value && s2->value < (*stack_a)->value)
+	else if (second > third && second < first)
 	{
 		sa_instruct(stack_a);
 		rra_instruct(stack_a);
 	}
-	else if ((*stack_a)->value > s1->value && (*stack_a)->value)
+	else if (first > third && first > second && second < third)
+		ra_instruct(stack_a);
+	else if (second == (first + third)  && first < third)
+	{
+		sa_instruct(stack_a);
+		ra_instruct(stack_a);
+	}
+}
+
+void	sorting_three_numbers_initialise(s_stack **stack_a)
+{
+	int	first;
+	int	second;
+	int	third;
+	s_stack	*tmp;
+
+	tmp = *stack_a;
+	first = tmp->index;
+	tmp = tmp->next;
+	second = tmp->index;
+	tmp = tmp->next;
+	third = tmp->index;
+	sorting_three_numbers(stack_a, first, second, third);
 }
 
 void	sorting_small_stack(s_stack **stack_a)
@@ -55,5 +67,5 @@ void	sorting_small_stack(s_stack **stack_a)
 	else if ((*stack_a)->count == 2)
 		sorting_two_numbers(stack_a);
 	else if ((*stack_a)->count == 3)
-		sorting_three_numbers(stack_a);
+		sorting_three_numbers_initialise(stack_a);
 }
