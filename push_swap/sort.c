@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:14:08 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/02 14:52:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:06:30 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	initialise_index(s_stack *stack)
 {
-	s_stack *buf;
+	s_stack	*buf;
 
 	buf = stack;
 	while (buf != NULL)
@@ -26,7 +26,7 @@ static void	initialise_index(s_stack *stack)
 
 static int	sort_order(s_stack *stack, int buf)
 {
-	int pos;
+	int	pos;
 
 	pos = 0;
 	while (stack != NULL)
@@ -42,9 +42,9 @@ static int	sort_order(s_stack *stack, int buf)
 
 void	organize_index(s_stack *stack)
 {
-	int buf;
-	int count;
-	int pos;
+	int		buf;
+	int		count;
+	int		pos;
 	s_stack	*tmp;
 
 	tmp = stack;
@@ -61,9 +61,9 @@ void	organize_index(s_stack *stack)
 
 void	sorting_stack(s_stack **lst_a, s_stack **lst_b)
 {
-	int x;
-	int	y;
-	int	z;
+	int		x;
+	int		y;
+	int		z;
 	s_stack	*tmp;
 
 	x = 0;
@@ -75,10 +75,9 @@ void	sorting_stack(s_stack **lst_a, s_stack **lst_b)
 	while (y > x)
 	{
 		z = 0;
-		
-		while(z < (tmp->count))
+		while (z < (tmp->count))
 		{
-			if (((*lst_a)->index >> x &1) == 0)
+			if (((*lst_a)->index >> x & 1) == 0)
 				pb_instruct(lst_a, lst_b);
 			else
 				ra_instruct(lst_a);

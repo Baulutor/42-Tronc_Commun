@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/03 16:39:45 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:39:30 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,16 @@ int	main(int argc, char **argv)
 	s_stack	*stack_a;
 	s_stack	*stack_b;
 
-
 	(void)argc;
 	stack_a = error_check_and_initialize(argv);
 	if (stack_a == NULL)
 		return (0);
 	stack_b = NULL;
 	organize_index(stack_a);
-	if (stack_a->count < 5)
-		sorting_small_stack(&stack_a);
+	if (stack_a->count < 6)
+		sorting_small_stack(&stack_a, &stack_b);
 	else
 		sorting_stack(&stack_a, &stack_b);
-	while (stack_a != NULL)
-	{
-		ft_printf("%d stack_a\n", stack_a->value);
-		stack_a = stack_a->next;
-	}
 	ft_free_all(&stack_a);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/02 14:41:37 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:12:14 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,20 +124,20 @@ s_stack	*error_check_and_initialize(char **argv)
 	char		*numbers;
 
 	if (verif(argv) == -1)
-		return (ft_printf("Error, please put only numbers, nothing else\n"), NULL);
+		return (ft_printf("Error\n"), NULL);
 	numbers = join_numbers(argv);
 	if (numbers == NULL)
-		return (ft_printf("Error of allocation\n"), NULL);
+		return (ft_printf("Error\n"), NULL);
 	if (error_overflow(numbers) == -1)
-		return (ft_printf("Error, one or more numbers exceed the capacity of a integer\n"), free(numbers), numbers = NULL, NULL);
+		return (ft_printf("Error\n"), free(numbers), numbers = NULL, NULL);
 	array = stacks_a(numbers);
 	if (check_duplicate(array) == -1)
-		return (ft_printf("Error, got two or more duplicate numbers"), free(numbers), free(array.array_a), numbers = NULL, array.array_a = NULL, NULL);
+		return (ft_printf("Error\n"), free(numbers), free(array.array_a), numbers = NULL, array.array_a = NULL, NULL);
 	stack_a = NULL;
 	stack_a = linked_list_initialise(array);
 	if (!stack_a)
 		return (NULL);
-	free (numbers);
+	free(numbers);
 	free(array.array_a);
 	return (stack_a);
 }

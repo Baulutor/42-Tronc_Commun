@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:52:39 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/03 16:30:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/04 20:07:29 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_free_all(s_stack **lst_a)
 	while (s1 != NULL)
 	{
 		s2 = s1;
-		s1 = s1->next;		
+		s1 = s1->next;
 		free(s2);
 	}
 	*lst_a = 0;

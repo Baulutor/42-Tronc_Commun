@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2022/11/22 12:12:33 by dbaule           ###   ########.fr        #
+#    Updated: 2023/03/06 17:58:51 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,6 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo " Done!"
 
 $(OBJS): %.o:%.c ${INCS} Makefile
 	@echo " compiling: $<"
@@ -104,11 +103,11 @@ $(OBJS_BONUS):%.o:%.c
 
 # clean commands
 clean:
-	@echo "remove all objects files"
 	@rm -rf *.o
-	@echo "${GREEN}> Clean${RESET}"
+	@echo "${GREEN}> Clean libft${RESET}"
 
-fclean: clean
+fclean:
+	@rm -rf *.o
 	@echo "remove $(NAME)"
 	@rm -rf $(NAME)
 

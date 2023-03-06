@@ -3,55 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbaule <dbaule@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/01/11 13:59:49 by dbaule           ###   ########.fr        #
+#    Updated: 2023/03/06 18:46:01 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME		:= libft.a
-INCS		:= libft.h
 
-SRCS		:= ft_isalpha.c \
-			   ft_isdigit.c \
-			   ft_isalnum.c \
-			   ft_isascii.c \
-			   ft_isprint.c \
-			   ft_toupper.c \
-			   ft_tolower.c \
-			   ft_atoi.c \
-			   ft_strdup.c \
-			   ft_strchr.c \
-			   ft_strrchr.c \
-			   ft_strlen.c \
-			   ft_strlcpy.c \
-			   ft_strlcat.c \
-			   ft_strncmp.c \
-			   ft_strnstr.c \
-			   ft_substr.c \
-			   ft_strjoin.c \
-			   ft_strtrim.c \
-			   ft_split.c \
-			   ft_itoa.c \
-			   ft_strmapi.c \
-			   ft_striteri.c \
-			   ft_calloc.c \
-			   ft_bzero.c \
-			   ft_memset.c \
-			   ft_memcpy.c \
-			   ft_memmove.c \
-			   ft_memchr.c \
-			   ft_memcmp.c \
-			   ft_putchar_fd.c \
-			   ft_putstr_fd.c \
-			   ft_putendl_fd.c \
-			   ft_putnbr_fd.c
+NAME		:= push_swap
+INCS		:= push_swap.h
+
+SRCS		:=	command_swap_push_a.c \
+				command_swap_push_b.c \
+				command_swap_push.c \
+				error_check.c \
+				free.c \
+				linked_list.c \
+				push_swap_utils.c \
+				push_swap.c \
+				sort_small_stack.c \
+				sort.c \
 
 OBJS		:= $(SRCS:%.c=%.o)
 
-OBJS_BONUS	:= $(SRCS_BONUS:%.c=%.o)
+# Others makefile remaining for the compilation
+
+DIR_FT_PRINTF	= ft_printf/
+FT_PRINTF		= $(addprefix $(DIR_FT_PRINTF), libftprintf.a)
+
+DIR_LIBFT	= libft/
+LIBFT		= $(addprefix $(DIR_LIBFT), libft.a)
 
 # Compiler options
 CC			:= cc
@@ -74,39 +57,48 @@ RESET		:= $(shell tput -Txterm sgr0)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo " Done!"
+	@echo ${YELLOW}"\nDone!"
 
 $(OBJS): %.o:%.c ${INCS} Makefile
 	@echo " compiling: $<"
 	@$(CC) $(CC_FLAGS) -I. -c $< -o $@
 
-bonus:	$(OBJS) $(OBJS_BONUS)
-	@ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
-	@ranlib $(NAME)
-	@echo " Bonus Done!"
+${FT_PRINTF}:	EXE_FT_PRINTF
 
-$(OBJS_BONUS):%.o:%.c
-	@echo " compiling: $<"
-	@$(CC) $(CC_FLAGS) -I. -c $< -o $@
+${LIBFT}:		EXE_LIBFT
 
 # clean commands
 clean:
 	@echo "remove all objects files"
+	@make clean -s -C ${DIR_FT_PRINTF}
+	@make clean -s -C ${DIR_LIBFT}
 	@rm -rf *.o
-	@echo "${GREEN}> Clean${RESET}"
+	@echo "${GREEN}> Clean push_swap${RESET}"
 
 fclean: clean
 	@echo "remove $(NAME)"
+	@make fclean -s -C ${DIR_FT_PRINTF}
+	@make fclean -s -C ${DIR_LIBFT}
 	@rm -rf $(NAME)
 
 re: fclean all
 
 # utility
 norm:
-	@echo "${LIGHTPURPLE}> Norminette Libft${RESET}"
-	@norminette -R CheckDefine $(SRCS) $(SRCS_BONUS)
+	@make norm -s -C ${DIR_FT_PRINTF}
+	@make norm -s -C ${DIR_LIBFT}
+	@echo "${LIGHTPURPLE}> Norminette push_swap${RESET}"
+	@norminette -R CheckDefine $(SRCS)
+
+FORCE:
+
+EXE_FT_PRINTF:
+		@make -s -C ${DIR_FT_PRINTF}
+
+EXE_LIBFT: 
+		@make -s -C ${DIR_LIBFT}
 
 .PHONY: all clean fclean re norm print_clean bonus

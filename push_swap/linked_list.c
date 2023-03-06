@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:41:58 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/02 14:38:20 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/06 18:11:46 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ s_stack	*linked_list_initialise(t_a_b_list elem)
 {
 	s_stack	*link;
 	s_stack	*buf;
-	int			x;
+	int		x;
 
 	x = 0;
 	link = NULL;
