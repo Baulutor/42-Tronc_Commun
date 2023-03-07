@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/03/06 17:58:51 by dbaule           ###   ########.fr        #
+#    Updated: 2023/03/07 17:38:21 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,7 @@ re: fclean all
 
 # utility
 norm:
-	@echo "${LIGHTPURPLE}> Norminette Libft${RESET}"
-	@norminette -R CheckDefine $(SRCS) $(SRCS_BONUS)
+	@echo "\n${LIGHTPURPLE}> Norminette Libft${RESET}"
+	@norminette -R CheckDefine
 
 .PHONY: all clean fclean re norm print_clean bonus

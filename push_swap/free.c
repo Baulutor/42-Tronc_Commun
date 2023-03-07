@@ -6,16 +6,18 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:52:39 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/04 20:07:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:14:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free_all(s_stack **lst_a)
+//freeing the linked list when I finished used the linked list
+
+void	ft_free_all(t_stacks **lst_a)
 {
-	s_stack	*s1;
-	s_stack	*s2;
+	t_stacks	*s1;
+	t_stacks	*s2;
 
 	s1 = *lst_a;
 	while (s1 != NULL)
@@ -26,6 +28,8 @@ void	ft_free_all(s_stack **lst_a)
 	}
 	*lst_a = 0;
 }
+
+// freeing the double array use to be in the linked list
 
 void	ft_free_buf(char **buf)
 {

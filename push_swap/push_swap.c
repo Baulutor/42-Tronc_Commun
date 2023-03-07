@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/04 20:39:30 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:14:17 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_a_b_list	stacks_a(char *numbers)
 
 int	main(int argc, char **argv)
 {
-	s_stack	*stack_a;
-	s_stack	*stack_b;
+	t_stacks	*stack_a;
+	t_stacks	*stack_b;
 
 	(void)argc;
 	stack_a = error_check_and_initialize(argv);

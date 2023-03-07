@@ -6,15 +6,15 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:14:08 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/04 20:06:30 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:17:59 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	initialise_index(s_stack *stack)
+static void	initialise_index(t_stacks *stack)
 {
-	s_stack	*buf;
+	t_stacks	*buf;
 
 	buf = stack;
 	while (buf != NULL)
@@ -24,7 +24,7 @@ static void	initialise_index(s_stack *stack)
 	}
 }
 
-static int	sort_order(s_stack *stack, int buf)
+static int	sort_order(t_stacks *stack, int buf)
 {
 	int	pos;
 
@@ -40,12 +40,12 @@ static int	sort_order(s_stack *stack, int buf)
 
 // put an index on numbers to determinate where they should be 
 
-void	organize_index(s_stack *stack)
+void	organize_index(t_stacks *stack)
 {
-	int		buf;
-	int		count;
-	int		pos;
-	s_stack	*tmp;
+	int			buf;
+	int			count;
+	int			pos;
+	t_stacks	*tmp;
 
 	tmp = stack;
 	count = stack->count;
@@ -59,16 +59,15 @@ void	organize_index(s_stack *stack)
 	}
 }
 
-void	sorting_stack(s_stack **lst_a, s_stack **lst_b)
+void	sorting_stack(t_stacks **lst_a, t_stacks **lst_b)
 {
-	int		x;
-	int		y;
-	int		z;
-	s_stack	*tmp;
+	int			x;
+	int			y;
+	int			z;
+	t_stacks	*tmp;
 
 	x = 0;
 	y = 0;
-	z = 0;
 	tmp = *lst_a;
 	while (((*lst_a)->count + 1) >> y != 0)
 		y++;

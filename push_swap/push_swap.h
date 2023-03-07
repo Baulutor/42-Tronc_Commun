@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/04 18:54:46 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:52:03 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,58 +22,55 @@ typedef struct s_numbers_list
 	int	count;
 }	t_a_b_list;
 
-typedef struct s_stack
+typedef struct s_stacks
 {
-	int value;
-	int count;
-	int	index;
-	struct s_stack *next;
-}	s_stack;
+	int				value;
+	int				count;
+	int				index;
+	struct s_stacks	*next;
+}	t_stacks;
 
-s_stack 	*ft_lst_new(int content);
-s_stack		*ft_lst_last(s_stack *lst);
-void		ft_lstadd(s_stack **lst, s_stack *new);
-s_stack		*linked_list_initialise(t_a_b_list elem);
-void		ft_lst_add_front(s_stack **lst, s_stack *new);
-
-// void		ft_lst_add_front_b(s_stack *lst, s_stack new);
-// t_stacklist	*ft_lst_new_b(int content);
-// t_stacklist	*ft_lst_last_b(s_stack lst);
-// void		ft_lstadd_b(s_stack *lst, s_stack new);
+t_stacks	*ft_lst_new(int content);
+t_stacks	*ft_lst_last(t_stacks *lst);
+void		ft_lstadd(t_stacks **lst, t_stacks *new);
+t_stacks	*linked_list_initialise(t_a_b_list elem);
+void		ft_lst_add_front(t_stacks **lst, t_stacks *new);
 
 void		instruct_sa(int a);
 char		*join_numbers(char **argv);
 int			verif(char **argv);
 int			count_numbers(char **buf);
 int			error_overflow(char *numbers);
+int			atoi_test(size_t y, size_t index, char *numbers);
+int			int_condition(char **argv, int x, int y);
 int			check_duplicate(t_a_b_list array);
 t_a_b_list	stacks_a(char *numbers);
-s_stack 	*error_check_and_initialize(char ** argv);
-s_stack		*linked_list_initialise(t_a_b_list elem);
+t_stacks	*error_check_and_initialize(char **argv);
+t_stacks	*linked_list_initialise(t_a_b_list elem);
 
-void		sa_instruct(s_stack **lst);
-void		ss_instruct(s_stack **lst_a, s_stack **lst_b);
-void		ra_instruct(s_stack **lst);
-void		rra_instruct(s_stack **lst);
-void		pa_instruct(s_stack **lst_a, s_stack **lst_b);
+void		sa_instruct(t_stacks **lst);
+void		ss_instruct(t_stacks **lst_a, t_stacks **lst_b);
+void		ra_instruct(t_stacks **lst);
+void		rra_instruct(t_stacks **lst);
+void		pa_instruct(t_stacks **lst_a, t_stacks **lst_b);
 
-void		sb_instruct(s_stack **lst);
-void		pb_instruct(s_stack **lst_a, s_stack **stack_b);
-void		rb_instruct(s_stack **lst);
-void		rr_instruct(s_stack **lst_a, s_stack **lst_b);
-void		rrb_instruct(s_stack **lst);
-void		rrr_instruct(s_stack **lst_a, s_stack **lst_b);
+void		sb_instruct(t_stacks **lst);
+void		pb_instruct(t_stacks **lst_a, t_stacks **stack_b);
+void		rb_instruct(t_stacks **lst);
+void		rr_instruct(t_stacks **lst_a, t_stacks **lst_b);
+void		rrb_instruct(t_stacks **lst);
+void		rrr_instruct(t_stacks **lst_a, t_stacks **lst_b);
 
-void		ft_free_all(s_stack **lst_a);
+void		ft_free_all(t_stacks **lst_a);
 void		ft_free_buf(char **buf);
 
-void		organize_index(s_stack *stack);
-void		sorting_stack(s_stack **stack_a, s_stack **stack_b);
-void		sorting_two_numbers(s_stack **lst_a);
+void		organize_index(t_stacks *stack);
+void		sorting_stack(t_stacks **stack_a, t_stacks **stack_b);
+void		sorting_two_numbers(t_stacks **lst_a);
+void		sorting_three_numbers_initialise(t_stacks **stack_a);
+void		sorting_four_numbers(t_stacks **stack_a, t_stacks **stack_b, int z);
+void		sorting_five_numbers(t_stacks **stack_a, t_stacks **stack_b);
 
-
-void		sorting_small_stack(s_stack **stack_a, s_stack **stack_b);
-
-
+void		sorting_small_stack(t_stacks **stack_a, t_stacks **stack_b);
 
 #endif

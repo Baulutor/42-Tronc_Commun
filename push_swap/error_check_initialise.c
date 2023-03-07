@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_check.c                                      :+:      :+:    :+:   */
+/*   error_check_initialise.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/04 20:12:14 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:54:14 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ int	verif(char **argv)
 			return (-1);
 		while (argv[x][y])
 		{
-			if (((argv[x][y] > '9' || argv[x][y] < '0') && argv[x][y] != ' ' && argv[x][y] != '-' && argv[x][y] != '+')
-				|| ((argv[x][y] == '-' || argv[x][y] == '+') && (argv[x][y + 1] > '9' || argv[x][y + 1] < '0'))
-				|| ((argv[x][y] == '-' || argv[x][y] == '+') && (argv[x][y - 1] <= '9' && argv[x][y - 1] >= '0')))
+			if (int_condition(argv, x, y) == -1)
 				return (-1);
 			y++;
 		}
@@ -65,24 +63,18 @@ int	error_overflow(char *numbers)
 	size_t	x;
 	size_t	y;
 	size_t	index;
-	int		buf;
 
 	y = 0;
 	x = 0;
 	index = 0;
-	x = 0;
 	while (numbers[x])
 	{
 		while (numbers[x] == '0')
 			x++;
 		while (numbers[x] >= '0' && numbers[x] <= '9')
 		{
-			if (y > 8)
-			{
-				buf = ft_atoi(numbers + index);
-				if (buf == 0 || buf == -1)
-					return (-1);
-			}
+			if (atoi_test(y, index, numbers) == -1)
+				return (-1);
 			y++;
 			x++;
 		}
@@ -117,10 +109,10 @@ int	check_duplicate(t_a_b_list array)
 	return (0);
 }
 
-s_stack	*error_check_and_initialize(char **argv)
+t_stacks	*error_check_and_initialize(char **argv)
 {
 	t_a_b_list	array;
-	s_stack		*stack_a;
+	t_stacks	*stack_a;
 	char		*numbers;
 
 	if (verif(argv) == -1)
@@ -132,7 +124,8 @@ s_stack	*error_check_and_initialize(char **argv)
 		return (ft_printf("Error\n"), free(numbers), numbers = NULL, NULL);
 	array = stacks_a(numbers);
 	if (check_duplicate(array) == -1)
-		return (ft_printf("Error\n"), free(numbers), free(array.array_a), numbers = NULL, array.array_a = NULL, NULL);
+		return (ft_printf("Error\n"), free(numbers), free(array.array_a),
+			numbers = NULL, array.array_a = NULL, NULL);
 	stack_a = NULL;
 	stack_a = linked_list_initialise(array);
 	if (!stack_a)

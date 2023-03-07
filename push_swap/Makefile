@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/03/06 18:46:01 by dbaule           ###   ########.fr        #
+#    Updated: 2023/03/07 17:37:54 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,15 @@ INCS		:= push_swap.h
 SRCS		:=	command_swap_push_a.c \
 				command_swap_push_b.c \
 				command_swap_push.c \
-				error_check.c \
+				error_check_initialise.c \
+				manage_error.c \
 				free.c \
 				linked_list.c \
 				push_swap_utils.c \
 				push_swap.c \
 				sort_small_stack.c \
 				sort.c \
+				sort_five_and_four_stack.c \
 
 OBJS		:= $(SRCS:%.c=%.o)
 
@@ -58,9 +60,8 @@ RESET		:= $(shell tput -Txterm sgr0)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
 	@echo ${YELLOW}"\nDone!"
+	@$(CC) $(CC_FLAGS) -I. $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME) 
 
 $(OBJS): %.o:%.c ${INCS} Makefile
 	@echo " compiling: $<"
@@ -90,15 +91,13 @@ re: fclean all
 norm:
 	@make norm -s -C ${DIR_FT_PRINTF}
 	@make norm -s -C ${DIR_LIBFT}
-	@echo "${LIGHTPURPLE}> Norminette push_swap${RESET}"
-	@norminette -R CheckDefine $(SRCS)
-
-FORCE:
+	@echo "\n${LIGHTPURPLE}> Norminette push_swap${RESET}"
+	@norminette -R CheckDefine $(SRCS) $(INCS)
 
 EXE_FT_PRINTF:
-		@make -s -C ${DIR_FT_PRINTF}
+	@make -s -C ${DIR_FT_PRINTF}
 
 EXE_LIBFT: 
-		@make -s -C ${DIR_LIBFT}
+	@make -s -C ${DIR_LIBFT}
 
-.PHONY: all clean fclean re norm print_clean bonus
+.PHONY: all clean fclean re norm print_clean EXE_FT_PRINTF EXE_LIBFT

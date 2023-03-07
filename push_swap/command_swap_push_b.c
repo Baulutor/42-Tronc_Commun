@@ -6,16 +6,16 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:12:33 by dbaule            #+#    #+#             */
-/*   Updated: 2023/02/21 17:49:16 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:20:04 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sb_instruct(s_stack **lst)
+void	sb_instruct(t_stacks **lst)
 {
-	s_stack	*buf;
-	s_stack	*tmp;
+	t_stacks	*buf;
+	t_stacks	*tmp;
 	int			x;
 
 	if (!((*lst)->value) || ((*lst)->next == NULL))
@@ -31,9 +31,9 @@ void	sb_instruct(s_stack **lst)
 	ft_printf("sb\n");
 }
 
-void	pb_instruct(s_stack **lst_a, s_stack **lst_b)
+void	pb_instruct(t_stacks **lst_a, t_stacks **lst_b)
 {
-	s_stack *elem;
+	t_stacks	*elem;
 
 	if (!(*lst_a))
 		return ;
@@ -41,13 +41,13 @@ void	pb_instruct(s_stack **lst_a, s_stack **lst_b)
 	(*lst_a) = (*lst_a)->next;
 	elem->next = NULL;
 	ft_lst_add_front(lst_b, elem);
-	ft_printf("pb\n"); 
+	ft_printf("pb\n");
 }
 
-void	rb_instruct(s_stack **lst)
+void	rb_instruct(t_stacks **lst)
 {
-	s_stack	*buf;
-	s_stack	*tmp;
+	t_stacks	*buf;
+	t_stacks	*tmp;
 
 	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
@@ -61,10 +61,10 @@ void	rb_instruct(s_stack **lst)
 	ft_printf("rb\n");
 }
 
-void	rrb_instruct(s_stack **lst)
+void	rrb_instruct(t_stacks **lst)
 {
-	s_stack	*buf;
-	s_stack	*tmp;
+	t_stacks	*buf;
+	t_stacks	*tmp;
 
 	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
