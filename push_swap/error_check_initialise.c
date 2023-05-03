@@ -6,19 +6,19 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 17:54:14 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/04/20 18:25:28 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	verif_spacebar(char *argv)
+static int	verif_spacebar(char *argv)
 {
 	size_t	x;
 
 	x = 0;
 	if (argv[x] == '\0')
-		return (-1);
+		return (0);
 	while (argv[x] == ' ' || (argv[x] < '0' && argv[x] > '9'))
 	{
 		x++;
@@ -31,15 +31,13 @@ int	verif_spacebar(char *argv)
 /* look at the argv if there is no problem 
 but not if the numbers is too high or too low*/
 
-int	verif(char **argv)
+static int	verif(char **argv)
 {
 	int	x;
 	int	y;
 
 	x = 1;
 	y = 0;
-	if (!argv[1])
-		return (-1);
 	while (argv[x])
 	{
 		if (verif_spacebar(argv[x]) == -1)
@@ -88,7 +86,7 @@ int	error_overflow(char *numbers)
 
 // check if the array didn't have two same value, send an error if it the case.
 
-int	check_duplicate(t_a_b_list array)
+static int	check_duplicate(t_a_b_list array)
 {
 	int	x;
 	int	y;
@@ -123,13 +121,15 @@ t_stacks	*error_check_and_initialize(char **argv)
 	if (error_overflow(numbers) == -1)
 		return (ft_printf("Error\n"), free(numbers), numbers = NULL, NULL);
 	array = stacks_a(numbers);
+	if (array.array_a == NULL)
+		return (NULL);
 	if (check_duplicate(array) == -1)
 		return (ft_printf("Error\n"), free(numbers), free(array.array_a),
 			numbers = NULL, array.array_a = NULL, NULL);
 	stack_a = NULL;
 	stack_a = linked_list_initialise(array);
 	if (!stack_a)
-		return (NULL);
+		return (free(numbers), free(array.array_a), NULL);
 	free(numbers);
 	free(array.array_a);
 	return (stack_a);

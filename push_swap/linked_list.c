@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:41:58 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 17:19:27 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/04/20 18:25:54 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* take each element and allocate them space 
 to exist in my linked list */
 
-t_stacks	*ft_lst_new(int content)
+static t_stacks	*ft_lst_new(int content)
 {
 	t_stacks	*link;
 
@@ -29,7 +29,7 @@ t_stacks	*ft_lst_new(int content)
 
 //put me at the end of my linked list
 
-t_stacks	*ft_lst_last(t_stacks *lst)
+static t_stacks	*ft_lst_last(t_stacks *lst)
 {
 	while (lst != NULL && lst->next != NULL)
 		lst = lst->next;
@@ -81,10 +81,11 @@ t_stacks	*linked_list_initialise(t_a_b_list elem)
 	{
 		buf = ft_lst_new(elem.array_a[x]);
 		if (!buf)
-			return (NULL);
+			return (ft_free_all(&buf), NULL);
 		ft_lstadd(&link, buf);
 		x++;
 	}
-	link->count = x;
+	if (link)
+		link->count = x;
 	return (link);
 }

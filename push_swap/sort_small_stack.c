@@ -6,13 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:49:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 18:01:01 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:40:17 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sorting_two_numbers(t_stacks **lst_a)
+static void	sorting_two_numbers(t_stacks **lst_a)
 {
 	t_stacks	*buf;
 
@@ -26,7 +26,7 @@ void	sorting_two_numbers(t_stacks **lst_a)
 
 // operation needed to do for sorting 3 numbers of a stack
 
-void	operation_sorting(t_stacks **stack_a, int first, int second, int third)
+static void	command_sort(t_stacks **stack_a, int first, int second, int third)
 {
 	if (third < second && third < first && second > first)
 		rra_instruct(stack_a);
@@ -59,7 +59,7 @@ void	sorting_three_numbers_initialise(t_stacks **stack_a)
 	second = tmp->index;
 	tmp = tmp->next;
 	third = tmp->index;
-	operation_sorting(stack_a, first, second, third);
+	command_sort(stack_a, first, second, third);
 }
 
 // the hub of stack between 1 and 5
