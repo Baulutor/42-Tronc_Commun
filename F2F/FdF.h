@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:44:06 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/17 14:31:40 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/04/28 16:10:17 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct data
 # include <unistd.h>
 # include <stdint.h>
 # include <stdio.h>
+# include <math.h>
 
 # include "get_next_line/get_next_line.h"
 # include "mlx/mlx_linux/mlx.h"
@@ -50,10 +51,12 @@ size_t	ft_strlen(const char *string);
 char	*ft_strchr(char *a);
 void	*ft_calloc(size_t elementCount, size_t elementSize);
 
-int	get_width(char *argv);
-int	get_height(char *argv);
+t_data	*get_width_and_height(char *argv, t_data *data);
 
 void bresenham(float x, float y, float x1, float y1, t_data *data);
 void drawing(t_data *data);
+
+
+void	free_double_array(char **array);
 
 #endif

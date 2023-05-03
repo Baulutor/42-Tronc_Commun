@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"mlx_int.h": "c",
+			"get_next_line.h": "c",
+			"ft_printf.h": "c",
+			"stdlib.h": "c",
+			"fcntl.h": "c"
+		}
+	}
+}

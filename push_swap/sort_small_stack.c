@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:49:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 17:18:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:01:01 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	sorting_two_numbers(t_stacks **lst_a)
 	else
 		return ;
 }
+
+// operation needed to do for sorting 3 numbers of a stack
 
 void	operation_sorting(t_stacks **stack_a, int first, int second, int third)
 {
@@ -59,6 +61,8 @@ void	sorting_three_numbers_initialise(t_stacks **stack_a)
 	third = tmp->index;
 	operation_sorting(stack_a, first, second, third);
 }
+
+// the hub of stack between 1 and 5
 
 void	sorting_small_stack(t_stacks **stack_a, t_stacks **stack_b)
 {

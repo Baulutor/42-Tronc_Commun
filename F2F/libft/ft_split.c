@@ -6,14 +6,14 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:29:47 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/14 11:38:47 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/04/28 17:05:54 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-// rajoute des case des case avec la valeur 0!
+// rajoute des case avec la valeur 0!
 
 // static int	check_space(const char *s, int x)
 // {
@@ -32,7 +32,6 @@
 // 	}
 // 	return (0);
 // }
-
 static size_t	nbrwords(char const *s, char c)
 {
 	size_t	count;
@@ -42,7 +41,7 @@ static size_t	nbrwords(char const *s, char c)
 	count = 0;
 	if (!s)
 		return (0);
-	if (s[x] && s[x] != c /*&& s[x] != '\n'*/) // lie a checkspace
+	if (s[x] && s[x] != c)
 	{
 		x++;
 		count++;
@@ -53,8 +52,6 @@ static size_t	nbrwords(char const *s, char c)
 			count++;
 		x++;
 	}
-	if (s[x - 1] == '\n' && s[x - 2] == ' ')
-		count--;
 	return (count);
 }
 
@@ -87,14 +84,20 @@ static char	**ft_splitdub(char **tab, const char *s, char c, size_t x)
 	}
 	while (x <= ft_strlen(s))
 	{
-		if ((s[x] && s[x] == c /*&& check_space(s, x) == 0*/) || s[x] == 0) // check plus haut
+		if ((s[x] && s[x] == c) || s[x] == 0)
 		{
 			tab[count++] = ft_substr(s, index, x - index);
 			if (!tab[count - 1])
 				return (ft_freetab(tab));
 			index = x;
-			while (s[x] == c && x++)
+			while (s[x] == c)
+			{
+				if (s[x + 1] && s[x + 1] == '\n')
+					return (tab);
 				index++;
+				if (s[x + 1])
+					x++;
+			}
 		}
 		x++;
 	}
@@ -125,6 +128,6 @@ char	**ft_split(char const *s, char c)
 		tab[0] = 0;
 		return (tab);
 	}
-	tab = ft_splitdub(tab, s, c, x);
+	ft_splitdub(tab, s, c, x);
 	return (tab);
 }

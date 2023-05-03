@@ -6,13 +6,13 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/04/17 11:20:00 by dbaule           ###   ########.fr        #
+#    Updated: 2023/04/27 16:39:00 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 BONUS_DIR = ./bonus/
 SRCS =	FdF.c \
 		FdF_utils.c \
