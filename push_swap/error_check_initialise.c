@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:16:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/20 18:25:28 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/03 17:42:46 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	check_duplicate(t_a_b_list array)
 	y = x + 1;
 	while (x < array.count)
 	{
-		while (y < array.count && array.array_a[y])
+		while (y < array.count)
 		{
 			if (array.array_a[y] == array.array_a[x])
 				return (-1);
