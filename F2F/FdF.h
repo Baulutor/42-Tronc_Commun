@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:44:06 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/28 16:10:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/04 11:39:34 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ typedef struct data
 	int		height;
 	int		color;
 	int		zoom;
+
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	
+	int		pos_tabx;
+	int		pos_taby;
+
 	
 	int		**z_matrix;
 } t_data;
@@ -53,7 +63,7 @@ void	*ft_calloc(size_t elementCount, size_t elementSize);
 
 t_data	*get_width_and_height(char *argv, t_data *data);
 
-void bresenham(float x, float y, float x1, float y1, t_data *data);
+void bresenham(int x, int y, float x1, float y1, t_data *data);
 void drawing(t_data *data);
 
 

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 16:25:41 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/04 16:27:39 by dbaule           ###   ########.fr       */
+/*   Created: 2023/05/04 16:22:19 by dbaule            #+#    #+#             */
+/*   Updated: 2023/05/04 16:31:07 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-int main (int argc, char **argv)
-{
-	int	id;
-	if (!argv[5])
-		return (1);
-	id = fork();
-	if (id == 0)
-	{
-		exec_hub(argv[1], argv[2]);
-	}
-}
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
+
+
+int	exec_hub(const char fd, const char cmd);
+
+#endif
