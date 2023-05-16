@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:12:33 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 17:20:04 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/16 15:47:28 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	sb_instruct(t_stacks **lst)
 	t_stacks	*buf;
 	t_stacks	*tmp;
 	int			x;
+	int			print;
+
 
 	if (!((*lst)->value) || ((*lst)->next == NULL))
 		return ;
+	print = (*lst)->print;
 	x = 0;
 	buf = *lst;
 	tmp = *lst;
@@ -28,7 +31,8 @@ void	sb_instruct(t_stacks **lst)
 	*lst = (*lst)->next;
 	(*lst)->next = buf;
 	buf->next = tmp;
-	ft_printf("sb\n");
+	if (print != 1)
+		ft_printf("sb\n");
 }
 
 void	pb_instruct(t_stacks **lst_a, t_stacks **lst_b)
@@ -48,9 +52,11 @@ void	rb_instruct(t_stacks **lst)
 {
 	t_stacks	*buf;
 	t_stacks	*tmp;
+	int			print;
 
 	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
+	print = (*lst)->print;
 	buf = *lst;
 	tmp = *lst;
 	while (tmp->next != NULL)
@@ -58,16 +64,20 @@ void	rb_instruct(t_stacks **lst)
 	tmp->next = buf;
 	*lst = (*lst)->next;
 	buf->next = NULL;
-	ft_printf("rb\n");
+	if (print != 1)
+		ft_printf("rb\n");
 }
 
 void	rrb_instruct(t_stacks **lst)
 {
 	t_stacks	*buf;
 	t_stacks	*tmp;
+	int			print;
+
 
 	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;
+	print = (*lst)->print;
 	buf = *lst;
 	tmp = *lst;
 	while (tmp->next->next != NULL)
@@ -76,5 +86,6 @@ void	rrb_instruct(t_stacks **lst)
 		*lst = (*lst)->next;
 	(*lst)->next = buf;
 	tmp->next = NULL;
-	ft_printf("rrb\n");
+	if (print != 1)
+		ft_printf("rrb\n");
 }
