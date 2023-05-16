@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 16:38:41 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/16 16:45:17 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void		sorting_small_stack(t_stacks **stack_a, t_stacks **stack_b);
 void		ft_free_all(t_stacks **lst_a);
 void		ft_free_buf(char **buf);
 
-t_stacks		*init_print(t_stacks **stack_a);
+t_stacks	*init_print(t_stacks **stack_a);
 
 #endif

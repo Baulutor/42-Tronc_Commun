@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 16:42:09 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/16 16:45:30 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ int	main(int argc, char **argv)
 		sorting_small_stack(&stack_a, &stack_b);
 	else
 		sorting_stack(&stack_a, &stack_b);
-
-	while (stack_a != NULL)
-	{
-		ft_printf("%d\n", stack_a->index);
-		stack_a = stack_a->next;
-	}
 	ft_free_all(&stack_a);
 	return (0);
 }

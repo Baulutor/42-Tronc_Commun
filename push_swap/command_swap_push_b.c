@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:12:33 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 15:47:28 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/16 16:46:16 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	sb_instruct(t_stacks **lst)
 	t_stacks	*tmp;
 	int			x;
 	int			print;
-
 
 	if (!((*lst)->value) || ((*lst)->next == NULL))
 		return ;
@@ -73,7 +72,6 @@ void	rrb_instruct(t_stacks **lst)
 	t_stacks	*buf;
 	t_stacks	*tmp;
 	int			print;
-
 
 	if (!((*lst)->value) || (*lst)->next == NULL)
 		return ;

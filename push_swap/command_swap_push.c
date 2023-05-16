@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:28:10 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 16:38:38 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/16 16:47:17 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	rrr_instruct(t_stacks **lst_a, t_stacks **lst_b)
 	(*lst_a)->print = 0;
 	(*lst_b)->print = 0;
 }
+
 t_stacks	*init_print(t_stacks **stack_a)
 {
 	t_stacks	*buf;
