@@ -6,15 +6,14 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:14:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/24 16:02:12 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/31 17:09:41 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
-static void bresenham(int x, int y, float x1, float y1, t_data *data);
-static void assign_pos(t_data *data, float *x1, float *y1, int *x, int *y, float *new_x, float *new_y);
+static void	bresenham(int x, int y, float x1, float y1, t_data *data);
 static void	isometric(float *x, float *y, int z);
-static void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 void drawing(t_data *data)
 {
@@ -34,7 +33,7 @@ void drawing(t_data *data)
 			if (y < data->height - 1)
 				bresenham(x, y, x, y + 1, data);
 			x++;
-			data->pos_tabx = x;
+			data->pos_tabx = x;	
 		}
 		y++;
 		data->pos_taby = y;
@@ -43,51 +42,38 @@ void drawing(t_data *data)
 
 static void bresenham(int x, int y, float x1, float y1, t_data *data)
 {
-	float x_step;
-	float y_step;
-	float new_x;
-	float new_y;
+	t_pos pos;
 	int max;
+
 	int z;
 	int	z1;
 
 	z = data->z_matrix[(int)y][(int)x];
 	z1 = data->z_matrix[(int)y1][(int)x1];
-	assign_pos(data, &x1, &y1, &x, &y, &new_x, &new_y);
-	
-	new_x *= data->zoom;
-	new_y *= data->zoom;
+	assign_pos(data, &x1, &y1, &x, &y, &pos.new_x, &pos.new_y);
+	pos.new_x *= data->zoom;
+	pos.new_y *= data->zoom;
+	// assign_zoom(data, &pos);
 	x1 *= data->zoom;
 	y1 *= data->zoom;
 	z *= data->zoom;
 	z1 *= data->zoom;
 	data->color = (z || z1) ? 0x800000 : 0xffffff;
-	isometric(&new_x, &new_y, z);
+	isometric(&pos.new_x, &pos.new_y, z);
 	isometric(&x1, &y1, z1);
-	new_x += 960;
-	new_y += 540;
-	x1 += 960;
-	y1 += 540;
-	x_step = x1 - new_x;
-	y_step = y1 - new_y;
-	max = fmax(fabs(x_step), fabs(y_step));
-	x_step /= max;
-	y_step /= max;
-	while ((int)(new_x - x1) || (int)(new_y - y1))
+	pos.x_step = x1 - pos.new_x;
+	pos.y_step = y1 - pos.new_y;
+	max = fmax(fabs(pos.x_step), fabs(pos.y_step));
+	pos.x_step /= max;
+	pos.y_step /= max;
+	while (check_inbound(pos.new_x, pos.new_y) && ((int)(pos.new_x - x1) || (int)(pos.new_y - y1)))
 	{
-		mlx_pixel_put(data->mlx, data->win, x, y, data->color);
-		// my_mlx_pixel_put(data, (int)new_x, (int)new_y, data->color);
-		new_x += x_step;
-		new_y += y_step;
+		my_mlx_pixel_put(data, (int)pos.new_x + 960, (int)pos.new_y + 540, data->color);
+		pos.new_x += pos.x_step;
+		pos.new_y += pos.y_step;
 	}
 }
-static void assign_pos(t_data *data, float *x1, float *y1, int *x, int *y, float *new_x, float *new_y)
-{
-	*new_x = *x - data->width / 2;
-	*new_y = *y - data->height / 2;
-	*x1 -= data->width / 2;
-	*y1 -= data->height / 2;
-}
+
 
 static void	isometric(float *x, float *y, int z)
 {
@@ -95,10 +81,12 @@ static void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.5) - z;
 }
 
-static void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
+
+

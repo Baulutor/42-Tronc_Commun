@@ -6,13 +6,26 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:45:19 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/12 15:06:51 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/31 15:39:40 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "FdF.h"
 
+static int	verif_spacebar(char *str);
+static int	int_condition(char *str);
+
+int	verif(char *str)
+{
+	if (!str[1])
+		return (0);
+	if (verif_spacebar(str) == -1)
+		return (-1);
+	if (int_condition(str) == -1)
+		return (-1);
+	return (0);
+}
 static int	verif_spacebar(char *str)
 {
 	size_t	x;
@@ -50,16 +63,6 @@ static int	int_condition(char *str)
 	return (0);
 }
 
-int	verif(char *str)
-{
-	if (!str[1])
-		return (0);
-	if (verif_spacebar(str) == -1)
-		return (-1);
-	if (int_condition(str) == -1)
-		return (-1);
-	return (0);
-}
 
 // static int	atoi_test(size_t y, size_t index, char *numbers)
 // {

@@ -6,38 +6,44 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/23 14:59:45 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:47:49 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
+static char	*ft_read_check(int fd, char *str);
+static char	*ft_clean_buffer(char *buffer, char *buf);
+static int	ft_check_new_line(char *tmp);
+static char	*ft_str_new_line(char *tmp);
 
-static int	ft_check_new_line(char *tmp)
+char	*get_next_line(int fd)
 {
-	size_t	x;
+	static char	*str;
+	char		*tmp;
+	char		*buffer;
 
-	x = 0;
-	while (tmp[x])
+	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1 || fd < 0)
 	{
-		if (tmp[x] == '\n')
-			return (x);
-		x++;
+		if (str)
+		{
+			str[0] = 0;
+			free(str);
+			str = NULL;
+		}
+		return (NULL);
 	}
-	return (-1);
+	tmp = ft_read_check(fd, str);
+	if (tmp == NULL)
+		return (NULL);
+	buffer = ft_str_new_line(tmp);
+	str = ft_strchr(tmp);
+	if (buffer == NULL)
+	{
+		free(str);
+		str = NULL;
+	}
+	return (buffer);
 }
-
-static char	*ft_clean_buffer(char *buffer, char *buf)
-{
-	char	*s;
-
-	s = ft_strjoin(buffer, buf);
-	if (!s)
-		return (perror("malloc"), free(buffer), buffer = NULL, s = NULL, NULL);
-	free(buffer);
-	buffer = NULL;
-	return (s);
-}
-
 static char	*ft_read_check(int fd, char *str)
 {
 	ssize_t	x;
@@ -53,7 +59,7 @@ static char	*ft_read_check(int fd, char *str)
 		{
 			free (str);
 			str = NULL;
-			return (perror("read"),NULL);
+			return (NULL);
 		}
 		j[x] = 0;
 		str = ft_clean_buffer(str, j);
@@ -61,6 +67,32 @@ static char	*ft_read_check(int fd, char *str)
 			break ;
 	}
 	return (str);
+}
+
+static char	*ft_clean_buffer(char *buffer, char *buf)
+{
+	char	*s;
+
+	s = ft_strjoin(buffer, buf);
+	if (!s)
+		return (free(buffer), buffer = NULL, s = NULL, NULL);
+	free(buffer);
+	buffer = NULL;
+	return (s);
+}
+
+static int	ft_check_new_line(char *tmp)
+{
+	size_t	x;
+
+	x = 0;
+	while (tmp[x])
+	{
+		if (tmp[x] == '\n')
+			return (x);
+		x++;
+	}
+	return (-1);
 }
 
 static char	*ft_str_new_line(char *tmp)
@@ -92,31 +124,6 @@ static char	*ft_str_new_line(char *tmp)
 	return (buf);
 }
 
-char	*get_next_line(int fd)
-{
-	static char	*str;
-	char		*tmp;
-	char		*buffer;
 
-	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1 || fd < 0)
-	{
-		if (str)
-		{
-			str[0] = 0;
-			free(str);
-			str = NULL;
-		}
-		return (perror("read"), NULL);
-	}
-	tmp = ft_read_check(fd, str);
-	if (tmp == NULL)
-		return (NULL);
-	buffer = ft_str_new_line(tmp);
-	str = ft_strchr(tmp);
-	if (buffer == NULL)
-	{
-		free(str);
-		str = NULL;
-	}
-	return (buffer);
-}
+
+

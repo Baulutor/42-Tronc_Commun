@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_fdf.c                                     :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:29:47 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/24 17:21:37 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:37:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char	**ft_splitdub(char **tab, const char *s, char c, size_t x)
 		{
 			tab[count++] = ft_substr(s, index, x - index);
 			if (!tab[count - 1])
-				return (ft_freetab(tab), NULL);
+				return (ft_freetab(tab));
 			index = x;
 			while (s[x] == c)
 			{
@@ -104,14 +104,14 @@ static char	**ft_splitdub(char **tab, const char *s, char c, size_t x)
 	return (tab);
 }
 
-char	**ft_split_fdf(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	size_t	x;
 
 	x = 0;
 	if (!s)
-		return (perror("str"), NULL);
+		return (perror("str"),NULL);
 	tab = malloc(sizeof(char *) * (nbrwords(s, c) + 1));
 	if (!tab)
 		return (perror("malloc"), NULL);

@@ -6,14 +6,13 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/05/24 17:08:49 by dbaule           ###   ########.fr        #
+#    Updated: 2023/05/31 16:25:16 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-# -Werror -Wextra -Wall
-CFLAGS = -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 BONUS_DIR = ./bonus/
 SRCS =	FdF.c \
 		FdF_utils.c \
@@ -21,6 +20,7 @@ SRCS =	FdF.c \
 		get_next_line.c \
 		get_next_line_utils.c \
 		put_pixel.c \
+		put_pixel_utils.c \
 
 OBJ_DIR = objs/
 OBJ = ${SRCS:%.c=${OBJ_DIR}%.o}
@@ -29,9 +29,6 @@ RM = rm -f
 HEADER = FdF.h
 LIBFT = libft/libft.a
 LIBFT_DIR = libft/
-FT_PRINTF = ft_printf/libftprintf.a
-FT_PRINTF_DIR = ft_printf/
-
 # --- OS SELECTION --- #
 
 UNAME_S := $(shell uname -s)
@@ -54,15 +51,15 @@ _GREEN	:=	\033[1;32m]
 
 # --- RULES --- #
 
-${NAME} :	${OBJ} ${LIBFT} ${MLX_A} ${FT_PRINTF}
-		${CC} ${CFLAGS} ${OBJ} ${LIBFT} ${FT_PRINTF} ${MLX_A} ${MLX_FLAGS} -o ${NAME}
+${NAME} :	${OBJ} ${LIBFT} ${MLX_A} 
+		${CC} ${CFLAGS} ${OBJ} ${LIBFT} ${} ${MLX_A} ${MLX_FLAGS} -o ${NAME}
 		@echo "${_GREEN}### ${NAME} created ###${_NOC}\n"
 
 ${NAME_BONUS} :	${OBJ_BONUS} ${LIBFT} ${MLX_A}
 		${CC} ${CFLAGS} ${OBJ_BONUS} ${LIBFT} ${MLX_A} ${MLX_FLAGS} -o ${NAME_BONUS}
 		@echo "${_GREEN}### ${NAME_BONUS} created ###${_NOC}\n"
 
-${OBJ}: ${OBJ_DIR}%.o :	%.c ${HEADER} ${LIBFT} ${FT_PRINTF} ${MLX_A}
+${OBJ}: ${OBJ_DIR}%.o :	%.c ${HEADER} ${LIBFT} ${} ${MLX_A}
 		@mkdir -p objs
 		${CC} ${CFLAGS} -I/usr/include -I${MLX_DIR} -c $< -o $@
 
@@ -76,8 +73,6 @@ ${LIBFT}: FORCE
 ${MLX_A}: FORCE
 		@${MAKE} -sC ${MLX_DIR}
 
-${FT_PRINTF}: FORCE
-			@${MAKE} -sC ${FT_PRINTF_DIR}
 
 FORCE:
 
