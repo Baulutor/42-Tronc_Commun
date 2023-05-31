@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:51:24 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 16:45:30 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/31 10:57:31 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ int	main(int argc, char **argv)
 		return (0);
 	stack_a = error_check_and_initialize(argv);
 	if (stack_a == NULL)
-		return (0);
-	stack_a = init_print(&stack_a);
+		return (-1);
 	stack_b = NULL;
 	organize_index(stack_a);
 	if (check_list(stack_a) == -1)
-		return (ft_free_all(&stack_a), 0);
+		return (ft_free_all(&stack_a), -1);
 	if (stack_a->count < 6)
 		sorting_small_stack(&stack_a, &stack_b);
 	else

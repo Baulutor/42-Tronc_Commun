@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/05/03 18:12:22 by dbaule           ###   ########.fr        #
+#    Updated: 2023/05/31 10:16:50 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ INCS		:= push_swap.h
 
 SRCS		:=	command_swap_push_a.c \
 				command_swap_push_b.c \
-				command_swap_push.c \
 				error_check_initialise.c \
 				manage_error.c \
 				free.c \

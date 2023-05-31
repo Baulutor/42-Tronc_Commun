@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:49:57 by dbaule            #+#    #+#             */
-/*   Updated: 2023/03/07 18:40:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/31 11:12:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static void	command_sort(t_stacks **stack_a, int first, int second, int third)
 	{
 		sa_instruct(stack_a);
 		rra_instruct(stack_a);
+	}
+	else if (first < third && first < second && second > third)
+	{
+		sa_instruct(stack_a);
+		ra_instruct(stack_a);
 	}
 	else if (first > third && first > second && second < third)
 		ra_instruct(stack_a);

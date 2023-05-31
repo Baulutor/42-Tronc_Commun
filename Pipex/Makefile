@@ -6,27 +6,18 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/05/03 18:12:22 by dbaule           ###   ########.fr        #
+#    Updated: 2023/05/16 17:14:51 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 
-NAME		:= push_swap
-INCS		:= push_swap.h
+NAME		:= pipex
+INCS		:= pipex.h
 
-SRCS		:=	command_swap_push_a.c \
-				command_swap_push_b.c \
-				command_swap_push.c \
-				error_check_initialise.c \
-				manage_error.c \
-				free.c \
-				linked_list.c \
-				push_swap_utils.c \
-				push_swap.c \
-				sort_small_stack.c \
-				sort.c \
-				sort_five_and_four_stack.c \
+SRCS		:=	main.c \
+				first_file.c\
+				# pipex_utils.c \
 
 OBJS		:= $(SRCS:%.c=%.o)
 
@@ -40,7 +31,7 @@ LIBFT		= $(addprefix $(DIR_LIBFT), libft.a)
 
 # Compiler options
 CC			:= cc
-CC_FLAGS	:= -Wall -Wextra -Werror
+CC_FLAGS	:= -Wall -Wextra -Werror -g3
 
 # define standard colors
 BLACK		:= $(shell tput -Txterm setaf 0)
@@ -77,12 +68,12 @@ clean:
 	@make clean -s -C ${DIR_FT_PRINTF}
 	@make clean -s -C ${DIR_LIBFT}
 	@rm -rf *.o
-	@echo "${GREEN}> Clean push_swap${RESET}"
+	@echo "${GREEN}> Clean pipex${RESET}"
 
 fclean: clean
 	@echo "remove $(NAME)"
 	@make fclean -s -C ${DIR_FT_PRINTF}
-	@make fclean -s -C ${DIR_LIBFT}
+	# @make fclean -s -C ${DIR_LIBFT}
 	@rm -rf $(NAME)
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:59:21 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/16 16:45:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/31 10:44:27 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_stacks
 	int				value;
 	int				count;
 	int				index;
-	int				print;
 	struct s_stacks	*next;
 }	t_stacks;
 
@@ -48,14 +47,7 @@ void		ra_instruct(t_stacks **lst);
 void		rra_instruct(t_stacks **lst);
 void		pa_instruct(t_stacks **lst_a, t_stacks **lst_b);
 
-void		sb_instruct(t_stacks **lst);
 void		pb_instruct(t_stacks **lst_a, t_stacks **stack_b);
-void		rb_instruct(t_stacks **lst);
-void		rrb_instruct(t_stacks **lst);
-
-void		ss_instruct(t_stacks **lst_a, t_stacks **lst_b);
-void		rr_instruct(t_stacks **lst_a, t_stacks **lst_b);
-void		rrr_instruct(t_stacks **lst_a, t_stacks **lst_b);
 
 void		organize_index(t_stacks *stack);
 void		sorting_stack(t_stacks **stack_a, t_stacks **stack_b);
@@ -66,7 +58,5 @@ void		sorting_small_stack(t_stacks **stack_a, t_stacks **stack_b);
 
 void		ft_free_all(t_stacks **lst_a);
 void		ft_free_buf(char **buf);
-
-t_stacks	*init_print(t_stacks **stack_a);
 
 #endif

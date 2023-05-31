@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/03/07 17:38:21 by dbaule           ###   ########.fr        #
+#    Updated: 2023/05/24 13:51:28 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS		:= ft_isalpha.c \
 			   ft_substr.c \
 			   ft_strjoin.c \
 			   ft_strtrim.c \
-			   ft_split.c \
+			   ft_split_fdf.c \
 			   ft_itoa.c \
 			   ft_strmapi.c \
 			   ft_striteri.c \

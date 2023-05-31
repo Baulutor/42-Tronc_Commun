@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:27:03 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/04 11:49:24 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/24 16:05:52 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	int		map;
 
 	if (!argv[1])
-		return (0);
+		return (-1);
 	data = (t_data*)malloc(sizeof(t_data));
 	if (data == NULL)
 		return (-1);
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 	data->height = 0;
 	data = parsing(argv[1], data);
 	if (data == NULL)
-		return(ft_printf("Error"), free(data), -1);
+		return(free(data), -1);
 	map = open(argv[1], O_RDONLY);
 	if (map == -1)
 		return (-1); // faut free tous le parsing
@@ -42,6 +42,8 @@ int main(int argc, char **argv)
 	if (data->mlx == NULL)
 		return (ft_free_maps(data->z_matrix), free(data), -1);
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "mlx 42");
+	// data->img = mlx_new_image(data->mlx, 1920, 1080);
+	// data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 	if (data->win == NULL)
 		return (ft_free_maps(data->z_matrix), free(data),-1);
 	data->zoom = 30;
@@ -66,18 +68,18 @@ static t_data	*parsing(char *argv, t_data *data)
 		return(NULL);
 	data->z_matrix = (int **)malloc(sizeof(int*) * (data->height + 1)); // pas sur du +1 pareil pour celui d'apres
 	if (data->z_matrix == NULL)
-		return(NULL);
+		return(perror("malloc"), NULL);
 	map = open(argv, O_RDONLY, 0);
 	if (map == -1)
-		return (NULL);
+		return (perror("open"), NULL);
 	while (x <= data->height)
 	{
 		data->z_matrix[x] = (int *)malloc(sizeof(int) * (data->width + 1));
 		if (!(data->z_matrix[x]))
-			return(NULL);
+			return(perror("malloc"), NULL);
 		pars = get_next_line(map);
 		if (pars == NULL && test == 0)
-			return (NULL);
+			return (NULL); 
 		if (pars == NULL)
 		{
 			free (pars);
@@ -105,7 +107,7 @@ static int **put_numbers_in_array(t_data *array, int map)
 	while (array->height > y)
 	{
 		str = get_next_line(map);
-		to_int = ft_split(str, ' ');
+		to_int = ft_split_fdf(str, ' ');
 		free (str);
 		while (to_int[x])
 		{
@@ -117,22 +119,8 @@ static int **put_numbers_in_array(t_data *array, int map)
 		x = 0;
 		y++;
 		free_double_array(to_int);
-		
 	}
 	return (array_return);
-}
-void	ft_free_pars(char **to_free)
-{
-	size_t x;
-
-	x = 0;
-	while (to_free[x])
-	{
-	ft_printf("free_pars\n");
-		free(to_free[x]);
-		x++;
-	}
-	free(to_free);
 }
 
 static void	ft_free_maps(int **data)
@@ -154,6 +142,7 @@ static int	ft_close(t_data *data)
 	// mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
+	// mlx_destroy_image(data->mlx, data->addr);
 	free(data->mlx);
 	ft_free_maps(data->z_matrix);
 	free (data);

@@ -6,13 +6,14 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/04/27 16:39:00 by dbaule           ###   ########.fr        #
+#    Updated: 2023/05/24 17:08:49 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# -Werror -Wextra -Wall
+CFLAGS = -g3 -fsanitize=address
 BONUS_DIR = ./bonus/
 SRCS =	FdF.c \
 		FdF_utils.c \
@@ -23,7 +24,7 @@ SRCS =	FdF.c \
 
 OBJ_DIR = objs/
 OBJ = ${SRCS:%.c=${OBJ_DIR}%.o}
-NAME = FdF
+NAME = fdf
 RM = rm -f
 HEADER = FdF.h
 LIBFT = libft/libft.a

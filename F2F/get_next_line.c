@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/12 09:55:22 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/05/23 14:59:45 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_clean_buffer(char *buffer, char *buf)
 
 	s = ft_strjoin(buffer, buf);
 	if (!s)
-		return (free(buffer), buffer = NULL, s = NULL, NULL);
+		return (perror("malloc"), free(buffer), buffer = NULL, s = NULL, NULL);
 	free(buffer);
 	buffer = NULL;
 	return (s);
@@ -53,7 +53,7 @@ static char	*ft_read_check(int fd, char *str)
 		{
 			free (str);
 			str = NULL;
-			return (NULL);
+			return (perror("read"),NULL);
 		}
 		j[x] = 0;
 		str = ft_clean_buffer(str, j);
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 			free(str);
 			str = NULL;
 		}
-		return (NULL);
+		return (perror("read"), NULL);
 	}
 	tmp = ft_read_check(fd, str);
 	if (tmp == NULL)
