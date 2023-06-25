@@ -1,0 +1,10 @@
+
+.obj/*
+libft/libft.a
+libft/*.o
+*.o
+pipex
+outfile
+*.a
+*.json
+vgcore*
