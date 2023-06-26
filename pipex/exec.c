@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 10:48:21 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/20 10:48:38 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:28:36 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 
 	infile = open(av[1], O_RDONLY);
 	if (infile == -1)
-		return (errors(OPEN, NULL), 1);
+		return (ft_printf_fd(2, "Error: %s: ", av[1]), perror(""), 1);
 	if (dup2(infile, STDIN_FILENO) == -1)
 		return (errors(DUP, NULL), 1);
 	if (dup2(outin[1], STDOUT_FILENO) == -1)
@@ -61,7 +61,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 		return (errors(SPLIT, NULL), 1);
 	cmd = cmd_build(splitted[0], environ);
 	if (cmd == NULL)
-		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
+		return (errors(CMD, splitted[0]), anihilation(splitted),  1);
 	if (close_pipe(outin) == 1)
 		return (free(cmd), anihilation(splitted), 1);
 	if (execve(cmd, splitted, environ) == -1)
@@ -75,10 +75,9 @@ static int	exec_parent(int outin[2], char **av, char **environ)
 	char	**splitted;
 	int		outfile;
 
-	outfile = open(av[4], O_CREAT | O_RDWR | O_TRUNC, S_IRUSR + S_IWUSR + \
-			S_IRGRP + S_IROTH);
+	outfile = open(av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (outfile < 0)
-		return (errors(OPEN, NULL), 1);
+		return (ft_printf_fd(2, "Error: %s: ", av[4]), perror(""), 1);
 	if (dup2(outin[0], STDIN_FILENO) == -1)
 		return (errors(DUP, NULL), 1);
 	if (dup2(outfile, STDOUT_FILENO) == -1)

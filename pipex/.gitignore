@@ -1,8 +1,8 @@
 
-.obj/*
+.obj/*.o
+.obj/bonus_files/*.o
 libft/libft.a
 libft/*.o
-*.o
 pipex
 outfile
 *.a

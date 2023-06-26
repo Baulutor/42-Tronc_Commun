@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:48:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/25 15:59:37 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 18:31:29 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ Forking -> creating a child process that will execute command
 int	exec(t_pipex *struc, int ac, char **av, char **environ)
 {
 	int	id;
+	int	err;
 
 	id = fork();
 	if (id == -1)
@@ -33,8 +34,11 @@ int	exec(t_pipex *struc, int ac, char **av, char **environ)
 	}
 	if (id == 0)
 	{
-		if (exec_child(struc, ac, av, environ) == 1)
+		err = exec_child(struc, ac, av, environ);
+		if (err == 1)
 			return (1);
+		if (err == 2)
+			return (2);
 	}
 	return (0);
 }
@@ -45,7 +49,7 @@ The hub to execute all the child that we need to
 
 static int	exec_child(t_pipex *pip, int ac, char **av, char **environ)
 {
-	int err;
+	int	err;
 
 	if (dup_in_file_child(pip, av) == 1)
 		return (1);
@@ -55,7 +59,7 @@ static int	exec_child(t_pipex *pip, int ac, char **av, char **environ)
 	if (err == 1)
 		return (1);
 	else if (err == 2)
-		return (2); //besoin de faire deux code erreur ?
+		return (2);
 	return (0);
 }
 
@@ -72,7 +76,7 @@ static int	dup_in_file_child(t_pipex *pip, char **av)
 	{
 		infile = open(av[1], O_RDONLY);
 		if (infile == -1)
-			return (errors(OPEN, "0"), 1);
+			return (ft_printf_fd(2, "Error: %s: ", av[1]), perror(""), 1);
 		if (dup2(infile, STDIN_FILENO) == -1)
 			return (errors(DUP, "0"), 1);
 		if (close(infile) == -1)
@@ -85,7 +89,8 @@ static int	dup_in_file_child(t_pipex *pip, char **av)
 	}
 	else if (pip->ind_child != 0)
 	{
-		if (dup2(pip->outin[pip->ind_child - 1 + pip->here_doc][0], STDIN_FILENO) == -1)
+		if (dup2(pip->outin[pip->ind_child - 1 + \
+		pip->here_doc][0], STDIN_FILENO) == -1)
 			return (errors(DUP, "0"), 1);
 	}
 	return (0);
@@ -102,10 +107,9 @@ static int	dup_out_file_child(t_pipex *pip, char **av, int ac)
 
 	if (pip->ind_child == pip->nb_pipe - pip->here_doc)
 	{
-		outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, S_IRUSR + \
-				S_IWUSR + S_IRGRP + S_IROTH);
+		outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (outfile < 0)
-			return (errors(OPEN, "0"), 1);
+			return (ft_printf_fd(2, "Error: %s: ", av[ac - 1]), perror(""), 1);
 		if (dup2(outfile, STDOUT_FILENO) == -1)
 			return (errors(DUP, "0"), 1);
 		if (close(outfile) == -1)
@@ -113,7 +117,8 @@ static int	dup_out_file_child(t_pipex *pip, char **av, int ac)
 	}
 	else
 	{
-		if (dup2(pip->outin[pip->ind_child + pip->here_doc][1], STDOUT_FILENO) == -1)
+		if (dup2(pip->outin[pip->ind_child + pip->here_doc][1], \
+			STDOUT_FILENO) == -1)
 			return (errors(DUP, "0"), 1);
 	}
 	return (0);
@@ -137,5 +142,5 @@ static int	execute_child(t_pipex *pip, char **environ, char **av)
 		return (free(cmd), anihilation(splitted), 2);
 	execve(cmd, splitted, environ);
 	errors(EXEC, "0");
-	return (free(cmd), anihilation(splitted), 2); //pk code erreur 2 ??
+	return (free(cmd), anihilation(splitted), 2);
 }

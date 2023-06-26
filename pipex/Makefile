@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 16:30:03 by eslamber          #+#    #+#              #
-#    Updated: 2023/06/25 15:58:47 by dbaule           ###   ########.fr        #
+#    Updated: 2023/06/26 16:12:20 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #
 
 # Compilation flags
-FLAGS := -Wall -Werror -Wextra
+FLAGS := -Wall -Werror -Wextra -g3
 CC := gcc
 
 #
@@ -67,21 +67,21 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(INC) -c $< -o $@
 
 $(LIB): FORCE
-	make -C libft
+	@make -sC libft
 
 # Debug
 debug:
-	make -C libft debug
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=address \
+	@make -C libft debug
+	@make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=address \
 	-fno-omit-frame-pointer"
 
 val_deb:
-	make -C libft valgrind_deb
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
+	@make -sC libft valgrind_deb
+	@make -sC ./ "FLAGS = -Wall -Werror -Wextra -g"
 
 bonus_deb:
-	make -C libft valgrind_deb
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g" bonus
+	@make -sC libft valgrind_deb
+	@make -sC ./ "FLAGS = -Wall -Werror -Wextra -g" bonus
 
 #
 ### Cleanup rules
@@ -89,11 +89,11 @@ bonus_deb:
 
 clean:
 	@rm -rfv $(OBJ) $(OBJ_B)
-	make -sC libft clean
+	@make -sC libft clean
 
 fclean:
 	@rm -rfv $(OBJ) $(OBJ_B) $(NAME)
-	make -sC libft fclean
+	@make -sC libft fclean
 
 re: fclean all
 
