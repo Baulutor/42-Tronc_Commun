@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:48:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/26 18:31:29 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:30:42 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ static int	dup_out_file_child(t_pipex *pip, char **av, int ac)
 
 	if (pip->ind_child == pip->nb_pipe - pip->here_doc)
 	{
-		outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (pip->here_doc == 1)
+			outfile = open(av[ac - 1], O_APPEND | O_CREAT | O_WRONLY, 0644);
+		else if (pip->here_doc == 0)
+			outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (outfile < 0)
 			return (ft_printf_fd(2, "Error: %s: ", av[ac - 1]), perror(""), 1);
 		if (dup2(outfile, STDOUT_FILENO) == -1)
@@ -124,7 +127,7 @@ static int	dup_out_file_child(t_pipex *pip, char **av, int ac)
 	return (0);
 }
 
-/* get the command from the arguments that the user set it up for the computer
+/* Get the command from the arguments that the user set it up for the computer
 and execute it */
 
 static int	execute_child(t_pipex *pip, char **environ, char **av)

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:40:39 by marvin            #+#    #+#             */
-/*   Updated: 2023/06/25 15:42:20 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 21:03:57 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		check_here_doc(char **av, t_pipex *struc, int ac);
 static int		set_up_heredoc(char **av, t_pipex *struc);
 static int		writing_here_doc(t_pipex *pip, char **av);
+static int		get_str_to_print(t_pipex *pip);
 
 int	prep_pipe(t_pipex *pip, char **av, int ac)
 {
@@ -62,10 +63,6 @@ static int	set_up_heredoc(char **av, t_pipex *stru)
 	stru->str = ft_strdup("\0");
 	if (stru->str == 0)
 		return (close_all_pipes(stru), errors_bonus(STRDUP), 1);
-	stru->buf = ft_strdup("\0");
-	if (stru->buf == 0)
-		return (free(stru->str), close_all_pipes(stru), \
-				errors_bonus(STRDUP), 1);
 	stru->lenght = 1;
 	if (writing_here_doc(stru, av) == 1)
 		return (1);
@@ -76,27 +73,46 @@ static int	set_up_heredoc(char **av, t_pipex *stru)
 
 static int	writing_here_doc(t_pipex *pip, char **av)
 {
-	int	err;
-
+	pip->str_heredoc = NULL;
+	pip->buf = NULL;
 	while (ft_strncmp(av[2], pip->str, pip->lenght) != 0)
 	{
 		free(pip->str);
-		err = write(pip->outin[0][1], pip->buf, ft_strlen(pip->buf));
-		if (pip->buf != NULL && err == -1)
-			return (close_all_pipes(pip), free(pip->buf), \
-					errors_bonus(WRITE), 1);
-		if (pip->buf != NULL)
-			free(pip->buf);
-		if (write(STDOUT_FILENO, "> ", 2) == -1)
-			errors_bonus(WRITE);
-		pip->buf = get_next_line(STDIN_FILENO);
-		if (pip->buf == NULL)
-			errors_bonus(GNL);
+		if (get_str_to_print(pip) == 1)
+			return (1);
 		pip->lenght = ft_strlen(pip->buf);
 		pip->str = ft_strdup(pip->buf);
 		if (pip->str == NULL)
-			errors_bonus(STRDUP);
+			return (free_here_doc(pip), errors_bonus(STRDUP), 1);
 		pip->str[pip->lenght - 1] = '\0';
 	}
+	if (write(pip->outin[0][1], pip->str_heredoc, \
+		ft_strlen(pip->str_heredoc)) == -1)
+		return (free_here_doc(pip), free(pip->str), errors_bonus(WRITE), 1);
+	free(pip->str_heredoc);
+	return (0);
+}
+
+static int	get_str_to_print(t_pipex *pip)
+{
+	if (pip->str_heredoc != NULL)
+	{
+		pip->str_heredoc = ft_strjoin_pip(pip->str_heredoc, pip->buf);
+		if (pip->str_heredoc == NULL)
+			return (errors(JOIN, NULL), 1);
+	}
+	if (pip->buf != NULL && pip->str_heredoc == NULL)
+		return (close_all_pipes(pip), free(pip->buf), 1);
+	if (pip->buf != NULL)
+		free(pip->buf);
+	if (write(STDOUT_FILENO, "> ", 2) == -1)
+		errors_bonus(WRITE);
+	pip->buf = get_next_line(STDIN_FILENO);
+	if (pip->buf == NULL)
+		errors_bonus(GNL);
+	if (pip->str_heredoc == NULL)
+		pip->str_heredoc = ft_strdup(pip->buf);
+	if (pip->str_heredoc == NULL)
+		return (free(pip->buf), errors_bonus(STRDUP), 1);
 	return (0);
 }

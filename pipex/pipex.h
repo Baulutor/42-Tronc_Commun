@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:31:47 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/20 11:08:36 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:07:00 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_errors{
 	CLOSE_P0,
 	CLOSE_P1,
 	JOIN,
+	WAIT,
 }	t_errors;
 
 void	errors(t_errors error, char *cmd);

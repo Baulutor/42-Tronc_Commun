@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 16:30:03 by eslamber          #+#    #+#              #
-#    Updated: 2023/06/26 16:12:20 by dbaule           ###   ########.fr        #
+#    Updated: 2023/06/26 20:27:54 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_B := bonus_files/main_bonus.c \
 		 bonus_files/prep_pipe.c \
 		 errors.c \
 		 bonus_files/errors_bonus.c \
-		 bonus_files/exec_bonus.c
+		 bonus_files/exec_bonus.c \
+		 bonus_files/pipex_utils.c
 OBJ_B := $(SRC_B:%.c=.obj/%.o)
 
 #

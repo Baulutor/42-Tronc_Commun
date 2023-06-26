@@ -1,0 +1,5 @@
+// ./pipex infile "sleep 1" "ssksksk" outfile
+// Append outfile heredoc
+
+// bible.txt
+

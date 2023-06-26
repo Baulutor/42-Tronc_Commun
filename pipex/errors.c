@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 08:38:23 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/26 18:16:14 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 21:08:19 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,6 @@ static void	errors_bis(t_errors error)
 {
 	if (error == JOIN)
 		ft_printf_fd(ERR, "Error : Problem with ft_strjoin function\n");
+	if (error == WAIT)
+		ft_printf_fd(ERR, "Error : Problem with wait function.\n");
 }
