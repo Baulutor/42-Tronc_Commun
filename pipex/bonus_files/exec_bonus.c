@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:48:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/26 19:30:42 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 12:42:37 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ static int	execute_child(t_pipex *pip, char **environ, char **av)
 		return (errors(SPLIT, "0"), 1);
 	cmd = cmd_build(splitted[0], environ);
 	if (cmd == NULL)
-		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
+		return (anihilation(splitted), 1);
 	if (close_all_pipes(pip) == 1)
 		return (free(cmd), anihilation(splitted), 2);
 	execve(cmd, splitted, environ);

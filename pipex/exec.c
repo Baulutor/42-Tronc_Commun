@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 10:48:21 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/27 09:46:49 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 11:28:18 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 		return (errors(SPLIT, NULL), 1);
 	cmd = cmd_build(splitted[0], environ);
 	if (cmd == NULL)
-		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
+		return (anihilation(splitted), 1);
 	if (close_pipe(outin) == 1)
 		return (free(cmd), anihilation(splitted), errors(CLOSE, NULL), 1);
 	if (execve(cmd, splitted, environ) == -1)
@@ -89,7 +89,7 @@ static int	exec_parent(int outin[2], char **av, char **environ)
 		return (errors(SPLIT, NULL), 1);
 	cmd = cmd_build(splitted[0], environ);
 	if (cmd == NULL)
-		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
+		return (anihilation(splitted), 1);
 	if (close_pipe(outin) == 1)
 		return (free(cmd), anihilation(splitted), errors(CLOSE, NULL), 1);
 	if (execve(cmd, splitted, environ) == -1)

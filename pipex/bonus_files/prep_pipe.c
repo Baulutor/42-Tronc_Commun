@@ -6,16 +6,16 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:40:39 by marvin            #+#    #+#             */
-/*   Updated: 2023/06/26 21:03:57 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 12:39:35 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static void		check_here_doc(char **av, t_pipex *struc, int ac);
-static int		set_up_heredoc(char **av, t_pipex *struc);
+static void	check_here_doc(char **av, t_pipex *struc, int ac);
 static int		writing_here_doc(t_pipex *pip, char **av);
 static int		get_str_to_print(t_pipex *pip);
+
 
 int	prep_pipe(t_pipex *pip, char **av, int ac)
 {
@@ -41,8 +41,8 @@ int	prep_pipe(t_pipex *pip, char **av, int ac)
 		}
 		i++;
 	}
-	if (pip->here_doc == 1)
-		set_up_heredoc(av, pip);
+	if (verif_here_doc(pip, av) == 1)
+		return (1);
 	return (0);
 }
 
@@ -55,10 +55,10 @@ static void	check_here_doc(char **av, t_pipex *struc, int ac)
 	struc->nb_proc = ac - 3 - struc->here_doc;
 	struc->nb_pipe = struc->nb_proc - 1 + struc->here_doc;
 	struc->error = OK;
-	struc->outin = (int **) ft_calloc(struc->nb_pipe + 1, sizeof(int *));
+	struc->outin = (int **)ft_calloc(struc->nb_pipe + 1, sizeof(int *));
 }
 
-static int	set_up_heredoc(char **av, t_pipex *stru)
+int	set_up_heredoc(char **av, t_pipex *stru)
 {
 	stru->str = ft_strdup("\0");
 	if (stru->str == 0)

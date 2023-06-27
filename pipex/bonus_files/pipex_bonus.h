@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:35:27 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/26 21:18:12 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 12:38:37 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,7 @@ int		close_all_pipes(t_pipex *struc);
 char	*ft_strjoin_pip(char *dest, char *src);
 
 void	free_here_doc(t_pipex *pip);
+
+int		verif_here_doc(t_pipex *pip, char **av);
+int		set_up_heredoc(char **av, t_pipex *stru);
 #endif

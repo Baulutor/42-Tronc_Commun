@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 16:30:03 by eslamber          #+#    #+#              #
-#    Updated: 2023/06/26 20:27:54 by dbaule           ###   ########.fr        #
+#    Updated: 2023/06/27 12:40:44 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ OBJ := $(SRC:%.c=.obj/%.o)
 # Definition of bonus files variables
 SRC_B := bonus_files/main_bonus.c \
 		 free_struc.c \
-		 bonus_files/free_struc_bonus.c \
 		 cmd_build.c \
 		 bonus_files/prep_pipe.c \
 		 errors.c \
@@ -72,29 +71,29 @@ $(LIB): FORCE
 
 # Debug
 debug:
-	@make -C libft debug
-	@make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=address \
+	make -C libft debug
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=address \
 	-fno-omit-frame-pointer"
 
 val_deb:
-	@make -sC libft valgrind_deb
-	@make -sC ./ "FLAGS = -Wall -Werror -Wextra -g"
+	make -sC libft valgrind_deb
+	make -sC ./ "FLAGS = -Wall -Werror -Wextra -g"
 
 bonus_deb:
-	@make -sC libft valgrind_deb
-	@make -sC ./ "FLAGS = -Wall -Werror -Wextra -g" bonus
+	make -sC libft valgrind_deb
+	make -sC ./ "FLAGS = -Wall -Werror -Wextra -g" bonus
 
 #
 ### Cleanup rules
 #
 
 clean:
-	@rm -rfv $(OBJ) $(OBJ_B)
-	@make -sC libft clean
+	rm -rfv $(OBJ) $(OBJ_B)
+	make -sC libft clean
 
 fclean:
-	@rm -rfv $(OBJ) $(OBJ_B) $(NAME)
-	@make -sC libft fclean
+	rm -rfv $(OBJ) $(OBJ_B) $(NAME)
+	make -sC libft fclean
 
 re: fclean all
 

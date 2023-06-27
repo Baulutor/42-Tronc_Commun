@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:18:37 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/26 21:04:10 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 12:40:20 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,36 @@ void	free_here_doc(t_pipex *pip)
 	free(pip->buf);
 	close_all_pipes(pip);
 	free(pip->str_heredoc);
+}
+int	verif_here_doc(t_pipex *pip, char **av)
+{
+	if (pip->here_doc == 1)
+	{
+		if (set_up_heredoc(av, pip) == 1)
+			return (1);
+	}
+	return (0);
+}
+
+int	close_all_pipes(t_pipex *pi)
+{
+	int	j;
+
+	j = 0;
+	while (j < pi->nb_pipe)
+	{
+		if (close(pi->outin[j][0]) == -1)
+		{
+			pi->error = CLOSE_P0;
+			return (errors(CLOSE_P0, "0"), anihilation((char **) pi->outin), 1);
+		}
+		if (close(pi->outin[j][1]) == -1)
+		{
+			pi->error = CLOSE_P1;
+			return (errors(CLOSE_P1, "0"), anihilation((char **) pi->outin), 1);
+		}
+		j++;
+	}
+	anihilation((char **) pi->outin);
+	return (0);
 }
