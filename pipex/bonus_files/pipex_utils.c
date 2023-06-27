@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:18:37 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/27 12:40:20 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 13:38:32 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_here_doc(t_pipex *pip)
 	close_all_pipes(pip);
 	free(pip->str_heredoc);
 }
+
 int	verif_here_doc(t_pipex *pip, char **av)
 {
 	if (pip->here_doc == 1)

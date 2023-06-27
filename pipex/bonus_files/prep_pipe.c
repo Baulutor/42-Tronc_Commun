@@ -5,17 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 14:40:39 by marvin            #+#    #+#             */
-/*   Updated: 2023/06/27 12:39:35 by dbaule           ###   ########.fr       */
+/*   Created: 2023/06/10 14:40:39 by dbaule            #+#    #+#             */
+/*   Updated: 2023/06/27 13:38:18 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
 static void	check_here_doc(char **av, t_pipex *struc, int ac);
-static int		writing_here_doc(t_pipex *pip, char **av);
-static int		get_str_to_print(t_pipex *pip);
-
+static int	writing_here_doc(t_pipex *pip, char **av);
+static int	get_str_to_print(t_pipex *pip);
 
 int	prep_pipe(t_pipex *pip, char **av, int ac)
 {

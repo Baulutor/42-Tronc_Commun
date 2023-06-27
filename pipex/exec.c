@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 10:48:21 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/27 11:28:18 by dbaule           ###   ########.fr       */
+/*   Created: 2023/06/10 10:48:21 by dbaule            #+#    #+#             */
+/*   Updated: 2023/06/27 13:36:49 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 	int		infile;
 
 	infile = open(av[1], O_RDONLY);
-	if (infile== -1)
+	if (infile == -1)
 		return (ft_printf_fd(2, "Error: %s: ", av[1]), perror(""), 1);
 	if (dup2(infile, STDIN_FILENO) == -1)
 		return (errors(DUP, NULL), 1);

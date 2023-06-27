@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 09:13:17 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/27 13:26:07 by dbaule           ###   ########.fr       */
+/*   Created: 2023/06/17 09:13:17 by dbaule            #+#    #+#             */
+/*   Updated: 2023/06/27 13:37:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static char	*search_command(char *str, char *new);
-static char *check_slash(char *cmd, char *str);
+static char	*check_slash(char *cmd, char *str);
 
 char	*cmd_build(char *str, char **env)
 {
@@ -25,7 +25,7 @@ char	*cmd_build(char *str, char **env)
 	cmd = NULL;
 	cmd = check_slash(cmd, str);
 	if (cmd == NULL && ft_in('/', str) == 1)
-		return (NULL); 
+		return (NULL);
 	while (env[i])
 	{
 		new = ft_strncmp(env[i], "PATH=", 5);
@@ -72,13 +72,14 @@ static char	*search_command(char *str, char *new)
 	}
 	return (anihilation(path), free(cmd), NULL);
 }
-static char *check_slash(char *cmd, char *str)
+
+static char	*check_slash(char *cmd, char *str)
 {
 	if (ft_in('/', str) == 1)
 	{
 		cmd = ft_strdup(str);
 		if (cmd == NULL)
-			return(perror("Error"), NULL);
+			return (perror("Error"), NULL);
 		if (access(cmd, F_OK | X_OK) == -1)
 			return (errors(CMD, str), free(cmd), NULL);
 		return (cmd);
