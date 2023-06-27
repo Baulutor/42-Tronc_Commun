@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:13:17 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/26 19:35:16 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 09:59:02 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ char	*cmd_build(char *str, char **env)
 	size_t	i;
 
 	if (ft_in('/', str) == 1)
-		return (ft_strdup(str));
+	{
+		paths = ft_strdup(str);
+		if (paths == NULL)
+			return(perror(""), NULL);
+		return (paths);
+	}
 	i = 0;
 	while (env[i])
 	{
@@ -66,5 +71,5 @@ static char	*search_command(char *str, char *new)
 		free(cmd);
 		cmd = NULL;
 	}
-	return (anihilation(path), free(cmd), NULL);
+	return (errors(CMD, cmd), anihilation(path), free(cmd), NULL);
 }

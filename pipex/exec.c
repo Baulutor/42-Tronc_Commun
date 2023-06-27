@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 10:48:21 by eslamber          #+#    #+#             */
-/*   Updated: 2023/06/26 18:32:34 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/27 09:46:49 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 	int		infile;
 
 	infile = open(av[1], O_RDONLY);
-	if (infile == -1)
+	if (infile== -1)
 		return (ft_printf_fd(2, "Error: %s: ", av[1]), perror(""), 1);
 	if (dup2(infile, STDIN_FILENO) == -1)
 		return (errors(DUP, NULL), 1);
@@ -63,7 +63,7 @@ static int	exec_child(int outin[2], char **av, char **environ)
 	if (cmd == NULL)
 		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
 	if (close_pipe(outin) == 1)
-		return (free(cmd), anihilation(splitted), 1);
+		return (free(cmd), anihilation(splitted), errors(CLOSE, NULL), 1);
 	if (execve(cmd, splitted, environ) == -1)
 		errors(EXEC, "0");
 	return (free(cmd), anihilation(splitted), 1);
@@ -91,7 +91,7 @@ static int	exec_parent(int outin[2], char **av, char **environ)
 	if (cmd == NULL)
 		return (errors(CMD, splitted[0]), anihilation(splitted), 1);
 	if (close_pipe(outin) == 1)
-		return (free(cmd), anihilation(splitted), 1);
+		return (free(cmd), anihilation(splitted), errors(CLOSE, NULL), 1);
 	if (execve(cmd, splitted, environ) == -1)
 		errors(EXEC, "0");
 	return (free(cmd), anihilation(splitted), 1);

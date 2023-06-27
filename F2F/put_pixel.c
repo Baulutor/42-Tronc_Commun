@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:14:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/31 17:09:41 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 11:05:46 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ static void bresenham(int x, int y, float x1, float y1, t_data *data)
 
 static void	isometric(float *x, float *y, int z)
 {
+	float *x1;
+	
+	x1 = x;
 	*x = (*x - *y) * cos(0.5);
-	*y = (*x + *y) * sin(0.5) - z;
+	*y = (*x1 + *y) * sin(0.5) - z;
 }
 
 static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

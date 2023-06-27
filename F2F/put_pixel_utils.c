@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 15:50:47 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/31 17:10:39 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/26 11:05:45 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void assign_pos(t_data *data, float *x1, float *y1, int *x, int *y, float *new_x, float *new_y)
 {
-	*new_x = *x -( data->width / 2);
+	*new_x = *x -(data->width / 2);
 	*new_y = *y - (data->height / 2);
 	*x1 -= (data->width / 2);
 	*y1 -= (data->height / 2);
