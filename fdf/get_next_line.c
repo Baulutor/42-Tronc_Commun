@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/28 21:47:34 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 13:59:46 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static char	*ft_clean_buffer(char *buffer, char *buf);
 static int	ft_check_new_line(char *tmp);
 static char	*ft_str_new_line(char *tmp);
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int check)
 {
 	static char	*str;
 	char		*tmp;
 	char		*buffer;
-
+	
 	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1 || fd < 0)
 	{
 		if (str)
@@ -32,16 +32,15 @@ char	*get_next_line(int fd)
 		}
 		return (NULL);
 	}
+	if(check == 1)
+		return (free(str), NULL);
 	tmp = ft_read_check(fd, str);
 	if (tmp == NULL)
-		return (NULL);
+		return (free(str), NULL);
 	buffer = ft_str_new_line(tmp);
 	str = ft_strchr_gnl(tmp);
 	if (buffer == NULL)
-	{
-		free(str);
-		str = NULL;
-	}
+		return (free(str), str = NULL, NULL);
 	return (buffer);
 }
 
@@ -54,7 +53,7 @@ static char	*ft_read_check(int fd, char *str)
 	if (!str)
 		str = ft_calloc_gnl(1, 1);
 	if (str == NULL)
-		return (perror("Error"), NULL);
+		return (NULL);
 	while (x > 0)
 	{
 		x = read(fd, j, BUFFER_SIZE);
@@ -111,7 +110,7 @@ static char	*ft_str_new_line(char *tmp)
 	else
 		buf = ft_calloc_gnl(sizeof(char), (ft_strlen(tmp) + 1));
 	if (!buf)
-		return (perror("Error"), buf = NULL, NULL);
+		return (buf = NULL, NULL);
 	while (tmp[x] && tmp[x] != '\n')
 	{
 		buf[x] = tmp[x];

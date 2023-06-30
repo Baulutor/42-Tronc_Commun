@@ -6,7 +6,7 @@
 #    By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 15:13:22 by dbaule            #+#    #+#              #
-#    Updated: 2023/06/28 22:30:55 by dbaule           ###   ########.fr        #
+#    Updated: 2023/06/30 14:17:06 by dbaule           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,10 @@ SRCS =	main.c \
 		get_next_line.c \
 		get_next_line_utils.c \
 		fdf_utils.c \
+		drawing.c \
+		drawing_utils.c \
+		ft_split.c \
+		free.c \
 
 OBJ_DIR = objs/
 OBJ = ${SRCS:%.c=${OBJ_DIR}%.o}

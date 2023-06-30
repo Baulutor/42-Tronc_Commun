@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:54:16 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/28 21:48:51 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:00:04 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,17 @@ char	*ft_strchr_gnl(char *a)
 	while (a[x] && a[x] != '\n')
 		x++;
 	if (!a[x])
-	{
-		free (a);
-		a = NULL;
-		return (NULL);
-	}
+		return (free (a), a = NULL, NULL);
+	if (a[x] == '\n' && a[x + 1] == '\0')
+		return (free(a), NULL);
 	tmp = ft_calloc_gnl((sizeof(char)), (ft_strlen(a) - x + 1));
 	if (!tmp)
-		return (perror("Error"), tmp = NULL, NULL);
-	x++;
+		return (tmp = NULL, free(a), NULL);
+	if (a[x] == '\n')
+		x++;
 	while (a[x])
 		tmp[y++] = a[x++];
-	free (a);
-	a = NULL;
-	return (tmp);
+	return (free(a), a = NULL, tmp);
 }
 
 static char	*ft_strdup_gnl(const char *src)
@@ -47,7 +44,7 @@ static char	*ft_strdup_gnl(const char *src)
 	i = 0;
 	tab = ft_calloc_gnl(sizeof(char), ft_strlen(src) + 1);
 	if (!tab)
-		return (perror("Error"), tab = NULL, NULL);
+		return (tab = NULL, NULL);
 	while (src[i])
 	{
 		tab[i] = src[i];
@@ -97,7 +94,7 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2)
 		return (s2 = NULL, ft_strdup_gnl(s1));
 	tab = ft_calloc_gnl(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!tab)
-		return (perror("Error"), tab = NULL, NULL);
+		return (tab = NULL, NULL);
 	while (s1[x])
 	{
 		tab[x] = s1[x];

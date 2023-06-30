@@ -6,16 +6,16 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 18:42:18 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/28 22:32:46 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:15:25 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-static int	fdf_initialize(t_data *data, char **argv);
-static int	ft_close(t_data *data);
+static int	fdf_initialize(t_data *data);
 static int	parsing(t_data *data);
-static void get_width(char **to_int, t_data *data);
-static int	put_in_array(t_data *data);
+static int	initialize_array(t_data *data);
+static int get_in_array(char **to_int, t_data *data, int x);
+static int	put_number_in_array(char **to_int, int x, t_data *data);
 static int	get_height(t_data *data);
 
 
@@ -25,109 +25,123 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (write(2, "Error : wrong numbers of arguments\n", 36), 1);
-	if (fdf_initialize(&data, argv))
+	data.path = argv[1];
+	data.fd = open(argv[1], O_RDONLY);
+	if (data.fd == -1)
+		return (perror("Error"), 1);
+	data.zoom = 3;
+	data.check = 1;
+	if (fdf_initialize(&data) == 1)
 		return (1);
-	if (parsing(&data))
+	if (parsing(&data) == 1)
 		return (1);
+	data.check = 0;
+	if (drawing(&data) == 1)
+		return (1);
+	mlx_key_hook(data.win, hooks, &data);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	mlx_loop(data.mlx);
+	return (1);
 }
 
 static int	parsing(t_data *data)
 {
 	char	*str;
 	char	**to_int;
-	
-	str = get_next_line(data->fd);
+
+	str = get_next_line(data->fd, 0);
 	if (str == NULL)
-		return (1);
+		return (ft_close(data), 1);
 	to_int = ft_split(str, ' ');
 	free(str);
 	if (to_int == NULL)
-		return (1);
+		return (get_next_line(data->fd, 1), ft_close(data), 1);
 	get_width(to_int, data);
-	get_height(data);
-	put_in_array(data);
+	ft_free_double_char(to_int);
+	if (get_height(data) == 1)
+		return (ft_close(data), 1);
+	if (initialize_array(data) == 1)
+		return(ft_close(data), 1);
 	return (0);
 }
 
-static int	fdf_initialize(t_data *data, char **argv)
+static int	fdf_initialize(t_data *data)
 {
-	data->path = argv[1];
-	data->fd = open(argv[1], O_RDONLY);
-	if (data->fd == -1)
-		return (perror("Error"), 1);
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return(write(2, "Error : mlx init won't start\n", 30), 1);
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "mlx 42");
 	if (data->win == NULL)
-		return (write(2, "Error : new_window won't start\n", 32) , 1);
+		return (write(2, "Error : new_window won't start\n", 32), \
+		 mlx_destroy_display(data->mlx),free(data->mlx), 1);
 	data->img = mlx_new_image(data->mlx, 1920, 1080);
+	if (data->img == NULL)
+		return (write(2, "Error : Cant make a new image\n", 31), \
+		mlx_destroy_window(data->mlx, data->win), \
+		mlx_destroy_display(data->mlx), free(data->mlx), 1);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, \
 	&data->line_length, &data->endian);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	mlx_hook(data->win, 17, 0, ft_close, data->mlx);
-	// mlx_hook(data->win, 2, 1L << 0, ft_close, data->mlx);
-	mlx_loop(data->mlx);
+	if (data->addr == NULL)
+		return (write(2, "Error : Can't get address of the image\n", 40), \
+		ft_close(data), 1);
+	mlx_hook(data->win, 17, 0L, ft_close, data);
 	return (0);
 } 
 
-static int	ft_close(t_data *data)
+static int	initialize_array(t_data *data)
 {
-	ft_free_z_matrix(data);
-	// mlx_clear_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	close(data->fd);
-	free(data->mlx);
-	// free(data->win);
-	// free(data->img);
-	// free (data);
-	exit(EXIT_SUCCESS);
+	char	**to_int;
+	int		x;
+
+	x = 0;
+	data->limit = 0;
+	to_int = NULL;
+	data->z_matrix = malloc(sizeof(int**) * data->height);
+	if (data->z_matrix == NULL)
+		return (perror("Error"), 1);
+	if (get_in_array(to_int, data, x) == 1)
+		return (1);
+	if (close(data->fd) == -1)
+		return (perror("Error"), data->check = 0, 1);
 	return (0);
 }
 
-static void get_width(char **to_int, t_data *data)
+static int get_in_array(char **to_int, t_data *data, int x)
 {
-	int	x;
+	char *str;
 
-	x = 0;
-	while (to_int[x])
-		x++;
-	data->width = x;
-}
-
-static int	put_in_array(t_data *data)
-{
-	char	*str;
-	char	**to_int;
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	data->z_matrix = malloc(sizeof(int*) * data->height);
-	while (y < data->height)
+	while (data->limit < data->height)
 	{
-		str = get_next_line(data->fd);
+		str = get_next_line(data->fd, 0);
 		if (str == NULL && to_int == NULL)
-			return (1);
+			return (perror("Error"), free(data->z_matrix), data->check = 1, 1);
 		else if (str == NULL)
 			break;
 		to_int = ft_split(str, ' ');
 		if (to_int == NULL)
+			return (free(str), get_next_line(data->fd, 1), ft_close(data), 1);
+		free(str);
+		data->z_matrix[data->limit] = malloc(sizeof(int) * data->width);
+		if (data->z_matrix[data->limit] == NULL)
+			return (perror("Error"), data->check = 1, get_next_line(data->fd, 1), ft_free_double_char(to_int), free(data->z_matrix), 1);
+		if (put_number_in_array(to_int, x, data) == 1)
 			return (1);
-		while (to_int[x])
-		{
-			if (check_width(data, to_int) == 1)
-				return (write(2, "Error : wrong map not the same width", 37));
-			data->z_matrix = malloc(sizeof(int) * data->width);
-			data->z_matrix[y][x] = ft_atoi(to_int[x]);
-			x++;
-		}
-		y++;
+		x = 0;
+		data->limit++;
+		ft_free_double_char(to_int);
 	}
-	close(data->fd);
+	return (0);
+}
+static int	put_number_in_array(char **to_int, int x, t_data *data)
+{
+	while (to_int[x])
+	{
+		if (check_width(data, to_int) == 1)
+			return (write(2, "Error : wrong map not the same width or too much newline\n", 58), \
+			ft_free_double_char(to_int), get_next_line(data->fd, 1), data->check = 0, 1);
+		data->z_matrix[data->limit][x] = ft_atoi(to_int[x]);
+		x++;
+	}
 	return (0);
 }
 
@@ -135,15 +149,15 @@ static int	get_height(t_data *data)
 {
 	char	*str;
 
-	str = "pass";
 	data->height = 1;
-	while (str != NULL)
+	while (1)
 	{
-		str = get_next_line(data->fd);
+		str = get_next_line(data->fd, 0);
 		if (str == NULL && data->height == 1)
-			return (1);
+			return (get_next_line(data->fd, 1), 1);
 		if (str == NULL)
 			break;
+		free(str);
 		data->height++;
 	}
 	if (close(data->fd) == -1)
@@ -153,5 +167,3 @@ static int	get_height(t_data *data)
 		return (perror("Error"), 1);
 	return (0);
 }
-
-
