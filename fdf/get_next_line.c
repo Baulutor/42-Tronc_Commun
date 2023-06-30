@@ -6,11 +6,12 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:34:48 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/30 13:59:46 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:54:48 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 static char	*ft_read_check(int fd, char *str);
 static char	*ft_clean_buffer(char *buffer, char *buf);
 static int	ft_check_new_line(char *tmp);
@@ -21,7 +22,9 @@ char	*get_next_line(int fd, int check)
 	static char	*str;
 	char		*tmp;
 	char		*buffer;
-	
+
+	if (check == 1)
+		return (free(str), NULL);
 	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1 || fd < 0)
 	{
 		if (str)
@@ -32,8 +35,6 @@ char	*get_next_line(int fd, int check)
 		}
 		return (NULL);
 	}
-	if(check == 1)
-		return (free(str), NULL);
 	tmp = ft_read_check(fd, str);
 	if (tmp == NULL)
 		return (free(str), NULL);

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 18:42:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/30 14:15:11 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:51:07 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct data
 	void	*mlx;
 	void	*win;
 	int 	check;
+	int		checkgnl;
 
 	void	*img;
 	char	*addr;
@@ -59,7 +60,10 @@ typedef struct data
 	float	y_step;
 }	t_data;
 
+int	fdf_initialize(t_data *data);
+
 void	ft_free_z_matrix(t_data *data, int y);
+void	assign_zoom(t_data *data, float *coor_x, float *coor_y);
 
 int	ft_close(t_data *data);
 
@@ -70,6 +74,7 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2);
 
 void	get_width(char **to_int, t_data *data);
 int		check_width(t_data *data, char **to_int);
+int		get_height(t_data *data);
 
 void	ft_free_double_char(char **tofree);
 

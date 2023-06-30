@@ -6,14 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 22:33:37 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/30 10:59:42 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:53:21 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void	my_mlx_pixel_put(t_data *data, int x, int y);
-static void	assign_zoom(t_data *data, float *coor_x, float *coor_y);
 static void	bresenham(float coor_x1, float coor_y1, t_data *data);
 static int	check_inbound(float new_x, float new_y);
 static void	isometric(float *x, float *y, int z);
@@ -29,9 +28,9 @@ int	drawing(t_data *data)
 		{
 			data->x1 = data->x0 + 1;
 			if (data->x0 < data->width - 1)
-				bresenham(data->x0 + 1, data->y0, data);
+				bresenham(data->x1, data->y0, data);
 			if (data->y0 < data->height - 1)
-				bresenham(data->x0, data->y0 + 1, data);
+				bresenham(data->x0, data->y1, data);
 			data->x0++;
 		}
 		data->y0++;
@@ -41,8 +40,10 @@ int	drawing(t_data *data)
 
 static void	bresenham(float coor_x1, float coor_y1, t_data *data)
 {
-	int max;
+	int	max;
 
+	data->new_x = 0;
+	data->new_y = 0;
 	data->z0 = data->z_matrix[(int)data->y0][(int)data->x0];
 	data->z1 = data->z_matrix[(int)coor_y1][(int)coor_x1];
 	assign_pos(data, &coor_x1, &coor_y1);
@@ -54,7 +55,8 @@ static void	bresenham(float coor_x1, float coor_y1, t_data *data)
 	max = fmax(fabs(data->x_step), fabs(data->y_step));
 	data->x_step /= max;
 	data->y_step /= max;
-	while (check_inbound(data->new_x, data->new_y) && ((int)(data->new_x - coor_x1) || (int)(data->new_y - coor_y1)))
+	while (check_inbound(data->new_x, data->new_y) && \
+	((int)(data->new_x - coor_x1) || (int)(data->new_y - coor_y1)))
 	{
 		my_mlx_pixel_put(data, (int)data->new_x + 960, (int)data->new_y + 540);
 		data->new_x += data->x_step;
@@ -62,22 +64,13 @@ static void	bresenham(float coor_x1, float coor_y1, t_data *data)
 	}
 }
 
-static void	my_mlx_pixel_put(t_data *data, int x, int y)
+static void	isometric(float *x, float *y, int z)
 {
-	char	*dst;
+	float	x1;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = 0xffffff;
-}
-
-static void	assign_zoom(t_data *data, float *coor_x, float *coor_y)
-{
-	data->new_x *= data->zoom;
-	data->new_y *= data->zoom;
-	*coor_x *= data->zoom;
-	*coor_y *= data->zoom;
-	data->z0 *= data->zoom;
-	data->z1 *= data->zoom;
+	x1 = *x;
+	*x = (*x - *y) * cos(0.5);
+	*y = (x1 + *y) * sin(0.5) - z;
 }
 
 static int	check_inbound(float new_x, float new_y)
@@ -88,11 +81,10 @@ static int	check_inbound(float new_x, float new_y)
 	return (1);
 }
 
-static void	isometric(float *x, float *y, int z)
+static void	my_mlx_pixel_put(t_data *data, int x, int y)
 {
-	float x1;
-	
-	x1 = *x;
-	*x = (*x - *y) * cos(0.5);
-	*y = (x1 + *y) * sin(0.5) - z;
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = 0xffffff;
 }

@@ -6,14 +6,15 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:29:47 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/30 13:24:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:41:42 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-static int	nbrwords(char const *s, char c);
-static	char	**ft_lines(char const *s, char c, char **strs, int x);
-static char	*ft_dupstr(char const *s, int i, int j);
+
+static int		nbrwords(char const *s, char c);
+static char		**ft_lines(char const *s, char c, char **strs, int x);
+static char		*ft_dupstr(char const *s, int i, int j);
 
 char	**ft_split(char const *s, char c)
 {

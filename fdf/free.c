@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:16:08 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/30 14:16:45 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/30 16:11:42 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,17 @@ void	ft_free_z_matrix(t_data *data, int y)
 	x = 0;
 	if (data->limit == data->height)
 		y--;
-	while(y >= (int)x)
+	while (y >= (int)x)
 	{
 		free (data->z_matrix[x]);
 		x++;
 	}
 	free (data->z_matrix);
-	
 }
 
 void	ft_free_double_char(char **tofree)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (tofree[x])
