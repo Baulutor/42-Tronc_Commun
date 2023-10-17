@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:13:17 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/27 13:37:53 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/10/17 14:14:45 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,25 @@ static char	*check_slash(char *cmd, char *str);
 
 char	*cmd_build(char *str, char **env)
 {
-	int		new;
 	char	*cmd;
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	cmd = NULL;
 	cmd = check_slash(cmd, str);
 	if (cmd == NULL && ft_in('/', str) == 1)
 		return (NULL);
-	while (env[i])
-	{
-		new = ft_strncmp(env[i], "PATH=", 5);
-		if (!new)
+	if (cmd != NULL)
+		return (cmd);
+	while (env[++i])
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			break ;
-		i++;
-	}
 	if (!env[i])
-		return (NULL);
+		return (errors(CMD, str), free(cmd), NULL);
+	free(cmd);
 	cmd = ft_strdup(&env[i][5]);
 	if (!cmd)
-		return (perror("Error"), NULL);
+		return (perror("Error :"), NULL);
 	cmd = search_command(str, cmd);
 	if (cmd == NULL)
 		return (errors(CMD, str), NULL);
@@ -53,7 +51,7 @@ static char	*search_command(char *str, char *new)
 	path = ft_split(new, ':');
 	free(new);
 	if (path == NULL)
-		return (perror("Error"), NULL);
+		return (NULL);
 	i = -1;
 	while (path[++i])
 	{
@@ -79,7 +77,7 @@ static char	*check_slash(char *cmd, char *str)
 	{
 		cmd = ft_strdup(str);
 		if (cmd == NULL)
-			return (perror("Error"), NULL);
+			return (perror("Error :"), NULL);
 		if (access(cmd, F_OK | X_OK) == -1)
 			return (errors(CMD, str), free(cmd), NULL);
 		return (cmd);

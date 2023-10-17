@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:33:48 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/27 13:33:53 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/10/17 14:21:14 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	errors(t_errors error, char *cmd)
 	if (error == PIPE)
 		ft_printf_fd(ERR, "Error : Problem with pipe function.\n");
 	else if (error == CONDITIONS)
-		ft_printf_fd(ERR, "Error : You don't have enought parameters.\nOr the \
-environnement is NULL\n");
+		ft_printf_fd(ERR, "Error : You don't have the right numbers \
+of parameters.\n");
 	else if (error == FORK)
 		ft_printf_fd(ERR, "Error : Problem with fork function\n");
 	else if (error == DUP)

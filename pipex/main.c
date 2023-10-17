@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:21:42 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/27 13:35:11 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/10/17 13:47:53 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	main(int ac, char **av, char *environ[])
 {
 	int	outin[2];
 
-	if (ac == 5 && environ != NULL)
+	if (ac == 5)
 	{
 		if (pipe(outin) == -1)
 			return (errors(PIPE, NULL), 1);
 		if (child(outin, av, environ) == 1)
-			return (1);
+			return (close_pipe(outin), 1);
 		if (parent(outin, av, environ) == 1)
 			return (1);
 		close_pipe(outin);
