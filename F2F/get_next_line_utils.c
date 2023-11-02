@@ -6,23 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 17:54:16 by dbaule            #+#    #+#             */
-/*   Updated: 2023/04/12 09:55:28 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/28 14:29:09 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-size_t	ft_strlen(const char *string)
-{
-	size_t	x;
-
-	x = 0;
-	while (string[x])
-		x++;
-	return (x);
-}
-
-char	*ft_strchr(char *a)
+char	*ft_strchr_gnl(char *a)
 {
 	size_t	x;
 	size_t	y;
@@ -38,9 +28,9 @@ char	*ft_strchr(char *a)
 		a = NULL;
 		return (NULL);
 	}
-	tmp = ft_calloc((sizeof(char)), (ft_strlen(a) - x + 1));
+	tmp = ft_calloc_gnl((sizeof(char)), (ft_strlen(a) - x + 1));
 	if (!tmp)
-		return (tmp = NULL, NULL);
+		return (perror("Error"), tmp = NULL, NULL);
 	x++;
 	while (a[x])
 		tmp[y++] = a[x++];
@@ -49,15 +39,15 @@ char	*ft_strchr(char *a)
 	return (tmp);
 }
 
-static char	*ft_strdup(const char *src)
+static char	*ft_strdup_gnl(const char *src)
 {
 	char	*tab;
 	size_t	i;
 
 	i = 0;
-	tab = ft_calloc(sizeof(char), ft_strlen(src) + 1);
+	tab = ft_calloc_gnl(sizeof(char), ft_strlen(src) + 1);
 	if (!tab)
-		return (tab = NULL, NULL);
+		return (perror("Error"), tab = NULL, NULL);
 	while (src[i])
 	{
 		tab[i] = src[i];
@@ -67,7 +57,7 @@ static char	*ft_strdup(const char *src)
 	return (tab);
 }
 
-void	*ft_calloc(size_t elementCount, size_t elementSize)
+void	*ft_calloc_gnl(size_t elementCount, size_t elementSize)
 {
 	unsigned char	*tab;
 	size_t			x;
@@ -79,7 +69,7 @@ void	*ft_calloc(size_t elementCount, size_t elementSize)
 	n = elementCount * elementSize;
 	tab = malloc(elementCount * elementSize);
 	if (!tab)
-		return (NULL);
+		return (perror("Error"), NULL);
 	if (n != 0)
 	{
 		while (x < n)
@@ -91,7 +81,7 @@ void	*ft_calloc(size_t elementCount, size_t elementSize)
 	return (tab);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_gnl(char const *s1, char const *s2)
 {
 	char	*tab;
 	size_t	x;
@@ -102,12 +92,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (s1 = NULL, s2 = NULL, NULL);
 	else if (!s1)
-		return (s1 = NULL, ft_strdup(s2));
+		return (s1 = NULL, ft_strdup_gnl(s2));
 	else if (!s2)
-		return (s2 = NULL, ft_strdup(s1));
-	tab = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
+		return (s2 = NULL, ft_strdup_gnl(s1));
+	tab = ft_calloc_gnl(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!tab)
-		return (tab = NULL, NULL);
+		return (perror("Error"), tab = NULL, NULL);
 	while (s1[x])
 	{
 		tab[x] = s1[x];

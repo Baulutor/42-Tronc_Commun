@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:44:06 by dbaule            #+#    #+#             */
-/*   Updated: 2023/06/26 11:05:38 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/28 19:05:39 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ typedef struct data
 
 # include <fcntl.h>
 # include <stdlib.h>
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
 # include <stdio.h>
 # include <math.h>
+# include "libft/libft.h"
 
 # include "mlx/mlx_linux/mlx.h"
 # include "mlx/mlx_linux/mlx_int.h"
@@ -76,13 +76,13 @@ typedef struct pos_x_y
 int		verif(char *str);
 char	**ft_split(char const *s, char c);
 
-char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *string);
-char	*ft_strchr(char *a);
-void	*ft_calloc(size_t elementCount, size_t elementSize);
 
-t_data	*get_width_and_height(char *argv, t_data *data);
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+char	*ft_strchr_gnl(char *a);
+void	*ft_calloc_gnl(size_t elementCount, size_t elementSize);
+
+int		get_width_and_height(char *argv, t_data *data);
 
 
 void	drawing(t_data *data);
@@ -92,5 +92,7 @@ int		check_inbound(float new_x, float new_y);
 void	assign_zoom(t_data *data, t_pos *pos);
 
 void	free_double_array(char **array);
+
+void	ft_free_z_matrix(t_data *data);
 
 #endif

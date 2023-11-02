@@ -6,32 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:29:47 by dbaule            #+#    #+#             */
-/*   Updated: 2023/05/25 13:37:53 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/06/28 18:40:10 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-// rajoute des case avec la valeur 0!
-
-// static int	check_space(const char *s, int x)
-// {
-// 	while (s[x])
-// 	{
-// 		x++;
-		
-// 		if (s[x] == ' ')
-// 		{
-// 			while (s[x] == ' ')
-// 				x++;
-// 			// printf("valeur de x %d et valeur du caractere %cet la string %s\n", x, s[x], s);
-// 			if (s[x] == '\0' || s[x] == '\n')
-// 				return(-1);
-// 		}
-// 	}
-// 	return (0);
-// }
 static size_t	nbrwords(char const *s, char c)
 {
 	size_t	count;
@@ -88,7 +69,7 @@ static char	**ft_splitdub(char **tab, const char *s, char c, size_t x)
 		{
 			tab[count++] = ft_substr(s, index, x - index);
 			if (!tab[count - 1])
-				return (ft_freetab(tab));
+				return (ft_freetab(tab), perror("Error"), NULL);
 			index = x;
 			while (s[x] == c)
 			{
@@ -114,7 +95,7 @@ char	**ft_split(char const *s, char c)
 		return (perror("str"),NULL);
 	tab = malloc(sizeof(char *) * (nbrwords(s, c) + 1));
 	if (!tab)
-		return (perror("malloc"), NULL);
+		return (perror("Error"), NULL);
 	if (s[x] == 0)
 	{
 		tab[0] = 0;

@@ -1,0 +1,11 @@
+
+libft/libft.a
+minishell
+test
+valgrind_out.txt
+tester
+minishell_tester
+minishell-tester
+run.sh
+.nfs*
+*.o
