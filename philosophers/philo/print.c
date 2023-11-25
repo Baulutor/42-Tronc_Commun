@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 10:48:44 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/14 11:24:42 by dbaule           ###   ########.fr       */
+/*   Created: 2023/11/14 10:07:27 by dbaule            #+#    #+#             */
+/*   Updated: 2023/11/14 14:59:38 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	print_events(t_phi *phi, char *status)
 {
-	t_philo	struc;
-	t_phi	*phi;
-
-	if (parsing(argc, argv) == 1)
+	if (pthread_mutex_lock(&phi->data->mut_print) != 0)
 		return (1);
-	if (init(&struc, argv) == 1)
-		return (2);
-	phi = malloc (sizeof(t_phi) * struc.nb_phi);
-	if (!phi)
-		return (3);
-	if (init_phi(phi, &struc) == 1)
-		return (free(phi), 4);
-	if (exec(&struc, phi) == 1)
-		return (free(phi), 5);
-	free(phi);
+	if (phi->data->is_dead == 0)
+	{
+		printf("%lld", get_time() - phi->data->start_pg);
+		printf(" %d %s\n", phi->wh_phi, status);
+	}
+	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
+		return (1);
 	return (0);
 }
