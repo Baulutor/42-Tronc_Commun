@@ -61,10 +61,10 @@ $(NAME): $(OBJ)
 
 # Debug
 debug:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread -g"
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread -pthread -g"
 
 val_deb:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra-g"
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
 
 #
 ### Cleanup rules

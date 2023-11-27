@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:07:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/21 19:43:41 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:50:45 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,25 @@ static int	ck_finish(t_philo *phi, t_phi *ph)
 {
 	int	flag;
 
+	flag = 0;
 	while (1)
 	{
 		if (pthread_mutex_lock(&phi->mut_print) != 0)
-			return (1);
-		flag = 0;
+			return (error(MUT_LOCK), 1);
 		if (phi->is_dead == 1)
 			flag = 1;
+		if (pthread_mutex_unlock(&phi->mut_print) != 0)
+			return (error(MUT_UNLOCK), 1);
 		if (flag == 1)
-			return (pthread_mutex_unlock(&phi->mut_print), 0);
-		if (pthread_mutex_unlock(&phi->mut_print) != 0)
-			return (1);
+			return (0);
 		if (pthread_mutex_lock(&phi->mut_print) != 0)
-			return (1);
+			return (error(MUT_LOCK), 1);
 		if (phi->max_meal != -1 && ck_max_meal(ph) == 1)
-			return (pthread_mutex_unlock(&phi->mut_print), 1);
+			flag = 2;
 		if (pthread_mutex_unlock(&phi->mut_print) != 0)
-			return (1);
+			return (error(MUT_UNLOCK), 1);
+		if (flag == 2)
+			return (0);
 	}
 }
 
@@ -100,8 +102,8 @@ static int	ck_max_meal(t_phi *phi)
 		if (phi[i].nb_meal == phi->data->max_meal)
 			j++;
 		i++;
+		if (j == phi->data->nb_phi)
+			return (1);
 	}
-	if (j == phi->data->nb_phi)
-		return (1);
 	return (0);
 }

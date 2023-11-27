@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:24:17 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/13 11:22:23 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:30:51 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	only_one_phi(t_phi *phi)
 int	take_fork_last(t_phi *phi)
 {
 	if (pthread_mutex_lock(&phi->l_fork) != 0)
-		return (1);
+		return (error(MUT_LOCK), 1);
 	if (print_events(phi, FORK) == 1)
 		return (1);
 	if (pthread_mutex_lock(phi->r_fork) != 0)
-		return (1);
+		return (error(MUT_LOCK), 1);
 	if (print_events(phi, FORK) == 1)
 		return (1);
 	return (0);

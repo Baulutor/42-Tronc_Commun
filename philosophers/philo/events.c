@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:33:23 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/21 19:42:08 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:56:42 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,26 @@ int	eating(t_phi *phi)
 	}
 	else if (take_fork(phi) == 1)
 		return (1);
-	phi->nb_meal += 1;
 	if (print_events(phi, EATING) == 1)
 		return (1);
 	phi->ti_lt_meal = get_time();
 	if (ft_usleep(phi->data->ti_eat) == 1)
 		return (error(U_SLEEP), 1);
 	if (pthread_mutex_unlock(phi->r_fork) != 0)
-		return (1);
+		return (error(MUT_UNLOCK), 1);
 	if (pthread_mutex_unlock(&phi->l_fork) != 0)
-		return (1);
+		return (error(MUT_UNLOCK), 1);
 	return (0);
 }
 
 static int	take_fork(t_phi *phi)
 {
 	if (pthread_mutex_lock(phi->r_fork) != 0)
-		return (1);
+		return (error(MUT_LOCK), 1);
 	if (print_events(phi, FORK) == 1)
 		return (1);
 	if (pthread_mutex_lock(&phi->l_fork) != 0)
-		return (1);
+		return (error(MUT_LOCK), 1);
 	if (print_events(phi, FORK) == 1)
 		return (1);
 	return (0);
@@ -95,7 +94,8 @@ static int	check_dead(t_phi *phi, int flag)
 			printf(" %d %s\n", phi->wh_phi, DEAD);
 			phi->data->is_dead = 1;
 		}
-		pthread_mutex_unlock(&phi->data->mut_print);
+		if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
+			return (error(MUT_UNLOCK), 1);
 		return (1);
 	}
 	return (0);

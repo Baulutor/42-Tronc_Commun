@@ -6,11 +6,13 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:05:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/14 15:59:10 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:47:27 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	error_bis(int ret);
 
 void	error(int ret)
 {
@@ -34,4 +36,15 @@ void	error(int ret)
 		write(2, "Error : pthread_join function didn't work\n", 42);
 	else if (ret == MUT_DES)
 		write(2, "Error : mutex_destroy function didn't work\n", 43);
+	error_bis(ret);
+}
+
+void	error_bis(int ret)
+{
+	if (ret == MUT_LOCK)
+		write(2, "Error : mutex_lock function didn't work\n", 40);
+	else if (ret == MUT_UNLOCK)
+		write(2, "Error : mutex_unlock function didn't work\n", 42);
+	else if (ret == NB_PHI)
+		write(2, "Error : please put only 1 to 200 philosophers\n", 46);
 }

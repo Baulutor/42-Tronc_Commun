@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:01:03 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/21 17:05:09 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:38:49 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef enum v_error
 	U_SLEEP,
 	TH_CREATE,
 	TH_JOIN,
+	MUT_LOCK,
+	MUT_UNLOCK,
 	MUT_DES,
+	NB_PHI,
 }	t_error;
 
 typedef struct v_philo
@@ -80,6 +83,7 @@ int				print_events(t_phi *phi, char *status);
 void			only_one_phi(t_phi *phi);
 unsigned long	ft_atoi(const char *a);
 int				ft_strlen(char *av);
+int				ft_strncmp(const char *a, const char *b, size_t n);
 long long		get_time(void);
 int				ft_usleep(unsigned long i);
 #endif

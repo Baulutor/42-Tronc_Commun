@@ -44,3 +44,23 @@ int	ft_strlen(char *av)
 		i++;
 	return (i);
 }
+
+int	ft_strncmp(const char *a, const char *b, size_t n)
+{
+	unsigned int	x;
+	unsigned char	*cha;
+	unsigned char	*cha2;
+
+	x = 0;
+	cha = (unsigned char *) a;
+	cha2 = (unsigned char *) b;
+	while ((cha2[x] || cha[x]) && x < n)
+	{
+		if (cha2[x] < cha[x])
+			return (1);
+		else if (cha2[x] > cha[x])
+			return (-1);
+		x++;
+	}
+	return (0);
+}
