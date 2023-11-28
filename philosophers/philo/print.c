@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:07:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/27 12:32:33 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/27 20:40:25 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	print_events(t_phi *phi, char *status)
 		printf(" %d %s\n", phi->wh_phi, status);
 	}
 	if (ft_strncmp(status, EATING, ft_strlen(status)) == 0)
+	{
 		phi->nb_meal += 1;
+		phi->ti_lt_meal = get_time();
+	}
 	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
 		return (error(MUT_UNLOCK), 1);
 	return (0);
