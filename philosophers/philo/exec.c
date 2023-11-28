@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:07:27 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/27 20:42:17 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:02:10 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	*routine(void *data);
 static int	ck_finish(t_philo *phi, t_phi *ph);
-static int	ck_max_meal(t_phi *phi, int i);
-static int	check_dead(t_phi *phi, int i);
+static void	ck_max_meal(t_phi *phi, int i, int *z);
+static int	check_dead(t_phi *phi, int i, int *z);
 
 int	exec(t_philo *struc, t_phi *phi)
 {
@@ -78,27 +78,29 @@ static void	*routine(void *data)
 static int	ck_finish(t_philo *phi, t_phi *ph)
 {
 	int	i;
+	int	z;
 
+	z = 1;
 	while (1)
 	{
 		i = 0;
 		while (i < phi->nb_phi)
 		{
-			if (check_dead(ph, i) == 1)
+			if (check_dead(ph, i, &z) == 1)
 				return (1);
 			i++;
+			if (z == phi->nb_phi)
+				return (1);
 		}
 		if (usleep(200) == 1)
 			return (error(U_SLEEP), 1);
 	}
 }
 
-static int	check_dead(t_phi *phi, int i)
+static int	check_dead(t_phi *phi, int i, int *z)
 {
 	if (pthread_mutex_lock(&phi->data->mut_print) != 0)
 		return (error(MUT_LOCK), 1);
-	if (phi->data->max_meal != -1 && ck_max_meal(phi, i) == 1)
-		return (1);
 	if (get_time() - phi[i].ti_lt_meal >= (unsigned long)phi->data->ti_died)
 	{
 		if (phi->data->is_dead != 1)
@@ -111,19 +113,16 @@ static int	check_dead(t_phi *phi, int i)
 			return (error(MUT_UNLOCK), 1);
 		return (1);
 	}
+	if (phi->data->max_meal != -1)
+		ck_max_meal(phi, i, z);
 	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
 		return (error(MUT_UNLOCK), 1);
 	return (0);
 }
 
-static int	ck_max_meal(t_phi *phi, int i)
+static void	ck_max_meal(t_phi *phi, int i, int *z)
 {
-	int	j;
 
-	j = 0;
 	if (phi[i].nb_meal == phi->data->max_meal)
-		j++;
-	if (j == phi->data->nb_phi - 1)
-		return (pthread_mutex_unlock(&phi->data->mut_print), 1);
-	return (0);
+		*z += 1;
 }
