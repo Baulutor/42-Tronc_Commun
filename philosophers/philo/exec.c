@@ -36,7 +36,7 @@ int	exec(t_philo *struc, t_phi *phi)
 			return (error(TH_JOIN), 1);
 		j++;
 	}
-	if (destroying_mutex(struc) == 1)
+	if (destroying_mutex(struc, j, phi) == 1)
 		return (1);
 	return (0);
 }

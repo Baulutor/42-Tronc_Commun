@@ -45,11 +45,18 @@ long long	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	destroying_mutex(t_philo *struc)
+int	destroying_mutex(t_philo *struc, int i, t_phi *phi)
 {
+	int	j;
+
+	j = 0;
 	if (pthread_mutex_destroy(&struc->mut_print) != 0)
 		return (error(MUT_DES), 1);
-	if (pthread_mutex_destroy(&struc->mut_fork) != 0)
-		return (error(MUT_DES), 1);
+	while (j < i)
+	{
+		if (pthread_mutex_destroy(&phi->l_fork) != 0)
+			return (error(MUT_DES), 1);
+		j++;
+	}
 	return (0);
 }

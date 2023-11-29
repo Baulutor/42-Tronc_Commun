@@ -27,8 +27,6 @@ int	init(t_philo *phi, char **argv)
 	phi->start_pg = get_time();
 	if (pthread_mutex_init(&phi->mut_print, NULL) != 0)
 		return (error(IN_MUTEX), 1);
-	if (pthread_mutex_init(&phi->mut_fork, NULL) != 0)
-		return (error(IN_MUTEX), 1);
 	return (0);
 }
 
@@ -42,9 +40,9 @@ int	init_phi(t_phi *ph, t_philo *struc)
 		ph[i].wh_phi = i + 1;
 		ph[i].nb_meal = 0;
 		ph[i].ti_lt_meal = 0;
-//		if (pthread_mutex_init(&ph[i].mut_fork, NULL) != 0)
-//			return (error(IN_MUTEX), 1);
-//		ph[i].r_fork = &ph[(i + 1) % struc->nb_phi].mut_fork;
+		if (pthread_mutex_init(&ph[i].l_fork, NULL) != 0)
+			return (destroying_mutex(struc, i, ph), error(IN_MUTEX), 1);
+		ph[i].r_fork = &ph[(i + 1) % struc->nb_phi].l_fork;
 		ph[i].l_f = 0;
 		ph[i].r_f = &ph[(i + 1) % struc->nb_phi].l_f;
 		ph[i].data = struc;
