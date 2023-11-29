@@ -60,3 +60,19 @@ int	destroying_mutex(t_philo *struc, int i, t_phi *phi)
 	}
 	return (0);
 }
+
+int	ti_eat_greater_ti_death(t_phi *phi)
+{
+	if (phi->data->ti_eat > phi->data->ti_died)
+	{
+		if (ft_usleep(phi->data->ti_died) == 1)
+			return (error(U_SLEEP), 1);
+		return (1);
+	}
+	else
+	{
+		if (ft_usleep(phi->data->ti_eat) == 1)
+			return (error(U_SLEEP), 1);
+	}
+	return (0);
+}

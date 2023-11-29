@@ -23,11 +23,14 @@ int	main(int argc, char **argv)
 		return (2);
 	phi = malloc (sizeof(t_phi) * struc.nb_phi);
 	if (!phi)
-		return (3);
+		return (pthread_mutex_destroy(&struc.mut_print), 3);
 	if (init_phi(phi, &struc) == 1)
 		return (free(phi), 4);
 	if (exec(&struc, phi) == 1)
-		return (free(phi), 5);
+		return (destroying_mutex(&struc, struc.nb_phi, phi), \
+		free(phi), 5);
+	if (destroying_mutex(&struc, struc.nb_phi, phi) == 1)
+		return (6);
 	free(phi);
 	return (0);
 }

@@ -39,6 +39,7 @@ SRC := main.c \
 	   init.c \
 	   exec.c \
 	   events.c \
+	   eating.c \
 	   print.c \
 	   philo_utils_lib.c \
 

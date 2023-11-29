@@ -77,6 +77,7 @@ void			error(int ret);
 
 int				exec(t_philo *struc, t_phi *phi);
 int				eating(t_phi *phi);
+int				ti_eat_greater_ti_death(t_phi *phi);
 int				sleeping(t_phi *phi);
 int				thinking(t_phi *phi);
 

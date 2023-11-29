@@ -14,8 +14,8 @@
 
 static void	*routine(void *data);
 static int	ck_finish(t_philo *phi, t_phi *ph);
-static void	ck_max_meal(t_phi *phi, int i, int *z);
 static int	check_dead(t_phi *phi, int i, int *z);
+static int	send_pair_phi_thinking(t_phi *phi);
 
 int	exec(t_philo *struc, t_phi *phi)
 {
@@ -36,8 +36,6 @@ int	exec(t_philo *struc, t_phi *phi)
 			return (error(TH_JOIN), 1);
 		j++;
 	}
-	if (destroying_mutex(struc, j, phi) == 1)
-		return (1);
 	return (0);
 }
 
@@ -48,21 +46,8 @@ static void	*routine(void *data)
 	phi = (t_phi *)data;
 	if (phi->data->nb_phi == 1)
 		only_one_phi(phi);
-	if ((phi->wh_phi % 2) == 0)
-	{
-		thinking(phi);
-		if (phi->data->ti_eat > phi->data->ti_died)
-		{
-			if (ft_usleep(phi->data->ti_died == 1))
-				return (error(U_SLEEP), NULL);
-			return (NULL);
-		}
-		else
-		{
-			if (ft_usleep(phi->data->ti_eat) == 1)
-				return (error(U_SLEEP), NULL);
-		}
-	}
+	if (send_pair_phi_thinking(phi) == 1)
+		return (NULL);
 	while (1)
 	{
 		if (eating(phi) == 1)
@@ -71,6 +56,22 @@ static void	*routine(void *data)
 			break ;
 		if (thinking(phi) == 1)
 			break ;
+	}
+	return (0);
+}
+
+static int	send_pair_phi_thinking(t_phi *phi)
+{
+	if ((phi->wh_phi % 2) == 0)
+	{
+		thinking(phi);
+		if (phi->data->ti_eat > phi->data->ti_died)
+			return (1);
+		else
+		{
+			if (ft_usleep(phi->data->ti_eat) == 1)
+				return (error(U_SLEEP), 1);
+		}
 	}
 	return (0);
 }
@@ -114,15 +115,11 @@ static int	check_dead(t_phi *phi, int i, int *z)
 		return (1);
 	}
 	if (phi->data->max_meal != -1)
-		ck_max_meal(phi, i, z);
+	{
+		if (phi[i].nb_meal == phi->data->max_meal)
+			*z += 1;
+	}
 	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
 		return (error(MUT_UNLOCK), 1);
 	return (0);
-}
-
-static void	ck_max_meal(t_phi *phi, int i, int *z)
-{
-
-	if (phi[i].nb_meal == phi->data->max_meal)
-		*z += 1;
 }

@@ -16,8 +16,6 @@ int	init(t_philo *phi, char **argv)
 {
 	phi->max_meal = -1;
 	phi->nb_phi = ft_atoi(argv[1]);
-	if (phi->nb_phi < 1 || phi->nb_phi > 200)
-		return (error(NB_PHI), 1);
 	phi->ti_died = ft_atoi(argv[2]);
 	phi->ti_eat = ft_atoi(argv[3]);
 	phi->ti_sleep = ft_atoi(argv[4]);
