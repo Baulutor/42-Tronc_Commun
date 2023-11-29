@@ -38,14 +38,14 @@ static int	check_pos_nb(char **argv)
 			return (error(POS_NB), 1);
 		if (argv[i][z] == '+')
 			z++;
+		if (ft_atoi(argv[i]) == (long unsigned)-1 && ft_strlen(argv[i] + z) > 8)
+			return (error(BIG_NB), 1);
 		while (argv[i][z])
 		{
 			if (argv[i][z] < '0' || argv[i][z] > '9')
 				return (error(POS_NB), 1);
 			z++;
 		}
-		if (ft_atoi(argv[i]) == (long unsigned)-1 && ft_strlen(argv[i]) > 8)
-			return (error(BIG_NB), 1);
 		i++;
 	}
 	return (0);

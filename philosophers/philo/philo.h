@@ -59,13 +59,12 @@ typedef struct v_phi
 {
 	int				wh_phi;
 	long			nb_meal;
-	unsigned long	ti_lt_meal;
+	long			ti_lt_meal;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
 	bool			l_f;
 	bool			*r_f;
 	pthread_t		phi;
-	pthread_t		dead;
 	t_philo			*data;
 }	t_phi;
 
@@ -73,20 +72,21 @@ int				parsing(int argc, char **argv);
 int				init(t_philo *phi, char **argv);
 int				init_phi(t_phi *ph, t_philo *struc);
 
-void			error(int ret);
-
 int				exec(t_philo *struc, t_phi *phi);
+void			only_one_phi(t_phi *phi);
 int				eating(t_phi *phi);
 int				ti_eat_greater_ti_death(t_phi *phi);
 int				sleeping(t_phi *phi);
 int				thinking(t_phi *phi);
-
 int				print_events(t_phi *phi, char *status);
-void			only_one_phi(t_phi *phi);
+
 unsigned long	ft_atoi(const char *a);
 int				ft_strlen(char *av);
 int				destroying_mutex(t_philo *struc, int i, t_phi *phi);
 int				ft_strncmp(const char *a, const char *b, size_t n);
 long long		get_time(void);
 int				ft_usleep(unsigned long i);
+
+void			error(int ret);
+
 #endif

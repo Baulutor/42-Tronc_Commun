@@ -28,12 +28,21 @@ int	ft_usleep(unsigned long i)
 
 void	only_one_phi(t_phi *phi)
 {
-	printf("%lld ", get_time() - phi->data->start_pg);
-	printf("%d has taken a fork\n", phi->wh_phi);
-	ft_usleep(phi->data->ti_died);
-	printf("%lld", get_time() - phi->data->start_pg);
-	printf(" %d %s\n", phi->wh_phi, DEAD);
+	long long	ck_err;
+
 	phi->data->is_dead = 1;
+	ck_err = get_time();
+	if (ck_err == -1)
+		return ;
+	printf("%lld ", ck_err - phi->data->start_pg);
+	printf("%d has taken a fork\n", phi->wh_phi);
+	if (ft_usleep(phi->data->ti_died) == 1)
+		return ;
+	ck_err = get_time();
+	if (ck_err == -1)
+		return ;
+	printf("%lld", ck_err - phi->data->start_pg);
+	printf(" %d %s\n", phi->wh_phi, DEAD);
 }
 
 long long	get_time(void)
@@ -41,7 +50,7 @@ long long	get_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (error(ERR_TIME), 1);
+		return (error(ERR_TIME), -1);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 

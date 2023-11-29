@@ -102,7 +102,7 @@ static int	check_dead(t_phi *phi, int i, int *z)
 {
 	if (pthread_mutex_lock(&phi->data->mut_print) != 0)
 		return (error(MUT_LOCK), 1);
-	if (get_time() - phi[i].ti_lt_meal >= (unsigned long)phi->data->ti_died)
+	if (get_time() - phi[i].ti_lt_meal >= phi->data->ti_died)
 	{
 		if (phi->data->is_dead != 1)
 		{
