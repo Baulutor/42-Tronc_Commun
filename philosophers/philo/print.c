@@ -16,16 +16,13 @@ int	print_events(t_phi *phi, char *status)
 {
 	if (pthread_mutex_lock(&phi->data->mut_print) != 0)
 		return (error(MUT_LOCK), 1);
-	if (phi->data->is_dead == 0)
-	{
-		printf("%lld", get_time() - phi->data->start_pg);
-		printf(" %d %s\n", phi->wh_phi, status);
-	}
-	if (ft_strncmp(EATING, status, ft_strlen(status)) == 0)
-	{
-		phi->nb_meal += 1;
-		phi->ti_lt_meal = get_time();
-	}
+	pthread_mutex_lock(&phi->data->death);
+	if (phi->data->is_dead == 1)
+		return (pthread_mutex_unlock(&phi->data->mut_print), \
+				pthread_mutex_unlock(&phi->data->death), 1);
+	pthread_mutex_unlock(&phi->data->death);
+	printf("%lld", get_time() - phi->data->start_pg);
+	printf(" %d %s\n", phi->wh_phi, status);
 	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
 		return (error(MUT_UNLOCK), 1);
 	return (0);

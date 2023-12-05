@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:52:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/27 20:30:54 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/12/05 13:37:22 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@ int	init(t_philo *phi, char **argv)
 	if (argv[5])
 		phi->max_meal = ft_atoi(argv[5]);
 	phi->is_dead = 0;
-	phi->start_pg = get_time();
-	if (phi->start_pg == -1)
-		return (1);
+	phi->start_pg = -1;
+	phi->table_meal = 1;
 	if (pthread_mutex_init(&phi->mut_print, NULL) != 0)
+		return (error(IN_MUTEX), 1);
+	if (pthread_mutex_init(&phi->mut_start, NULL) != 0)
+		return (error(IN_MUTEX), 1);
+	if (pthread_mutex_init(&phi->mut_ti_lt_meal, NULL) != 0)
+		return (error(IN_MUTEX), 1);
+	if (pthread_mutex_init(&phi->phi_eat, NULL) != 0)
+		return (error(IN_MUTEX), 1);
+	if (pthread_mutex_init(&phi->death, NULL) != 0)
 		return (error(IN_MUTEX), 1);
 	return (0);
 }
@@ -41,7 +48,6 @@ int	init_phi(t_phi *ph, t_philo *struc)
 	{
 		ph[i].wh_phi = i + 1;
 		ph[i].nb_meal = 0;
-		ph[i].ti_lt_meal = 0;
 		if (pthread_mutex_init(&ph[i].l_fork, NULL) != 0)
 			return (destroying_mutex(struc, i, ph), error(IN_MUTEX), 1);
 		ph[i].r_fork = &ph[(i + 1) % struc->nb_phi].l_fork;

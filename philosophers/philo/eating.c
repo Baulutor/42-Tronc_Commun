@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:33:23 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/28 17:37:01 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/12/05 14:42:41 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,22 @@ static int	release_fork(t_phi *phi);
 
 int	eating(t_phi *phi)
 {
-	if (pthread_mutex_lock(&phi->data->mut_print) != 0)
-		return (error(MUT_LOCK), 1);
-	if ((unsigned long)phi->data->max_meal == (unsigned long)phi->nb_meal)
-		return (pthread_mutex_unlock(&phi->data->mut_print), 1);
-	if (phi->data->is_dead == 1)
-		return (pthread_mutex_unlock(&phi->data->mut_print), 1);
-	if (pthread_mutex_unlock(&phi->data->mut_print) != 0)
-		return (error(MUT_UNLOCK), 1);
 	if (ck_fork(phi) == 1)
-		return (1);
+		return (release_fork(phi), 1);
 	if (print_events(phi, EATING) == 1)
-		return (1);
+		return (release_fork(phi), 1);
+	phi->nb_meal++;
+	if (phi->nb_meal == phi->data->max_meal)
+	{
+		pthread_mutex_lock(&phi->data->phi_eat);
+		phi->data->table_meal++;
+		pthread_mutex_unlock(&phi->data->phi_eat);
+	}
+	if (pthread_mutex_lock(&phi->data->mut_ti_lt_meal) != 0)
+		return (release_fork(phi), error(MUT_LOCK), 1);
+	phi->ti_lt_meal = get_time();
+	if (pthread_mutex_unlock(&phi->data->mut_ti_lt_meal) != 0)
+		return (error(MUT_UNLOCK), 1);
 	if (ti_eat_greater_ti_death(phi) == 1)
 		return (release_fork(phi), 1);
 	if (release_fork(phi) == 1)
@@ -70,7 +74,7 @@ static int	ck_fork(t_phi *phi)
 			r_fork = take_r_fork(phi);
 		if (r_fork == 1)
 			return (1);
-		usleep(100);
+		usleep(200);
 	}
 	return (0);
 }

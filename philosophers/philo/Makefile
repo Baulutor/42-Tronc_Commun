@@ -42,6 +42,7 @@ SRC := main.c \
 	   eating.c \
 	   print.c \
 	   philo_utils_lib.c \
+	   loop_thread.c \
 
 OBJ := $(SRC:%.c=.obj/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:24:17 by dbaule            #+#    #+#             */
-/*   Updated: 2023/11/27 20:30:27 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:19:11 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_usleep(unsigned long i)
 
 	split = 1000 * i;
 	i = get_time() * 1000;
-	while (split > ((get_time() * 1000) - i))
+	while (split >= ((get_time() * 1000) - i))
 	{
 		if (usleep(100) == -1)
 			return (1);
@@ -26,23 +26,15 @@ int	ft_usleep(unsigned long i)
 	return (0);
 }
 
-void	only_one_phi(t_phi *phi)
+int	only_one_phi(t_phi *phi)
 {
 	long long	ck_err;
 
-	phi->data->is_dead = 1;
 	ck_err = get_time();
-	if (ck_err == -1)
-		return ;
 	printf("%lld ", ck_err - phi->data->start_pg);
 	printf("%d has taken a fork\n", phi->wh_phi);
-	if (ft_usleep(phi->data->ti_died) == 1)
-		return ;
-	ck_err = get_time();
-	if (ck_err == -1)
-		return ;
-	printf("%lld", ck_err - phi->data->start_pg);
-	printf(" %d %s\n", phi->wh_phi, DEAD);
+	ft_usleep(phi->data->ti_died - 1);
+	return (1);
 }
 
 long long	get_time(void)
@@ -61,6 +53,14 @@ int	destroying_mutex(t_philo *struc, int i, t_phi *phi)
 	j = 0;
 	if (pthread_mutex_destroy(&struc->mut_print) != 0)
 		return (error(MUT_DES), 1);
+	if (pthread_mutex_destroy(&struc->mut_ti_lt_meal) != 0)
+		return (error(MUT_DES), 1);
+	if (pthread_mutex_destroy(&struc->death) != 0)
+		return (error(MUT_DES), 1);
+	if (pthread_mutex_destroy(&struc->phi_eat) != 0)
+		return (error(MUT_DES), 1);
+	if (pthread_mutex_destroy(&struc->mut_start) != 0)
+		return (error(MUT_DES), 1);
 	while (j < i)
 	{
 		if (pthread_mutex_destroy(&phi->l_fork) != 0)
@@ -74,13 +74,13 @@ int	ti_eat_greater_ti_death(t_phi *phi)
 {
 	if (phi->data->ti_eat > phi->data->ti_died)
 	{
-		if (ft_usleep(phi->data->ti_died) == 1)
+		if (ft_usleep(phi->data->ti_died / 2) == 1)
 			return (error(U_SLEEP), 1);
 		return (1);
 	}
 	else
 	{
-		if (ft_usleep(phi->data->ti_eat) == 1)
+		if (ft_usleep(phi->data->ti_eat - 1) == 1)
 			return (error(U_SLEEP), 1);
 	}
 	return (0);

@@ -52,7 +52,12 @@ typedef struct v_philo
 	long			max_meal;
 	long long		start_pg;
 	pthread_mutex_t	mut_print;
+	pthread_mutex_t	mut_start;
+	pthread_mutex_t	mut_ti_lt_meal;
+	pthread_mutex_t	phi_eat;
+	pthread_mutex_t	death;
 	bool			is_dead;
+	int				table_meal;
 }	t_philo;
 
 typedef struct v_phi
@@ -73,12 +78,13 @@ int				init(t_philo *phi, char **argv);
 int				init_phi(t_phi *ph, t_philo *struc);
 
 int				exec(t_philo *struc, t_phi *phi);
-void			only_one_phi(t_phi *phi);
+int				only_one_phi(t_phi *phi);
 int				eating(t_phi *phi);
 int				ti_eat_greater_ti_death(t_phi *phi);
 int				sleeping(t_phi *phi);
 int				thinking(t_phi *phi);
 int				print_events(t_phi *phi, char *status);
+void			*routine(void *data);
 
 unsigned long	ft_atoi(const char *a);
 int				ft_strlen(char *av);
