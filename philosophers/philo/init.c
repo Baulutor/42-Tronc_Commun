@@ -6,7 +6,7 @@
 /*   By: dbaule <dbaule@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:52:07 by dbaule            #+#    #+#             */
-/*   Updated: 2023/12/05 13:37:22 by dbaule           ###   ########.fr       */
+/*   Updated: 2023/12/05 17:45:00 by dbaule           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int	init(t_philo *phi, char **argv)
 	phi->ti_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		phi->max_meal = ft_atoi(argv[5]);
+	if (phi->max_meal == 0)
+		return (printf("Error : at least 1 max meal\n"), 1);
 	phi->is_dead = 0;
 	phi->start_pg = -1;
-	phi->table_meal = 1;
+	phi->table_meal = 0;
 	if (pthread_mutex_init(&phi->mut_print, NULL) != 0)
 		return (error(IN_MUTEX), 1);
 	if (pthread_mutex_init(&phi->mut_start, NULL) != 0)
