@@ -6,7 +6,6 @@ int main ()
 	string	str;
 	int i = 0;
 
-//	cout << test << endl;
 	cout << "Welcome to your PhoneBook" << endl;
 	cout << "MENU:" << endl;
 	cout << "You can add a contact by using ADD" << endl;
@@ -14,7 +13,7 @@ int main ()
 	cout << "You can also quit it by using EXIT" << endl;
 	std::getline(std::cin, str);
 	inst.setAllIndex();
-	while (str.compare("EXIT") != 0)
+	while (str.compare("EXIT") != 0 && !std::cin.eof())
 	{
 		if (str.compare("ADD") == 0)
 		{
@@ -25,12 +24,15 @@ int main ()
 		}
 		if (str.compare("SEARCH") == 0)
 			inst.search();
-		cout << "MENU:" << endl;
-		cout << "You can add a contact by using ADD" << endl;
-		cout << "You can search for a contact by using SEARCH" << endl;
-		cout << "You can also quit it by using EXIT" << endl;
+		if (str.length() != 0 && !cin.eof())
+		{
+			cout << "MENU:" << endl;
+			cout << "You can add a contact by using ADD" << endl;
+			cout << "You can search for a contact by using SEARCH" << endl;
+			cout << "You can also quit it by using EXIT" << endl;
+		}
 		std::getline(std::cin, str);
 	}
-	cout << "Exit PhoneBook" << endl;
+	cout << endl << "Exit PhoneBook" << endl;
 	return (0);
 }

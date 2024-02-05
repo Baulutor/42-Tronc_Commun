@@ -63,6 +63,16 @@ string	Contact::getNickName()
 	return this->_nickName;
 }
 
+string	Contact::getPhoneNumber()
+{
+	return this->_phoneNumber;
+}
+
+string	Contact::getDarkestSecret()
+{
+	return this->_darkestSecret;
+}
+
 int		Contact::getIndex()
 {
 	return this->_index + 1;

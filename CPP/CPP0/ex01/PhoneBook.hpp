@@ -18,6 +18,7 @@
 using std::cout;
 using std::endl;
 using std::string;
+using std::cin;
 
 class PhoneBook
 {
@@ -34,6 +35,9 @@ class PhoneBook
 	// METHODS
 		void		add(int i);
 		void		search();
+		string		troncFunction(string str);
+		void		specificContact();
+		int 		isOnlyDigits(string str);
 };
 
 

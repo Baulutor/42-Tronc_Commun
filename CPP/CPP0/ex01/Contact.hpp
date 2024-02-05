@@ -38,6 +38,8 @@ class Contact
 		string	getFirstName();
 		string	getLastName();
 		string	getNickName();
+		string	getPhoneNumber();
+		string	getDarkestSecret();
 		int 	getIndex();
 
 
