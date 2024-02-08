@@ -16,19 +16,19 @@
 #
 
 # Compilation flags
-FLAGS := -Wall -Werror -Wextra  -std=c++98
+FLAGS := -Wall -Werror -Wextra -std=c++98
 CC := c++
 
 # Definition of project variables
-NAME := Zombie
+NAME := Attack
 
 # Definition of files variables
 SRC := 	main.cpp \
-		Zombie.cpp \
-		newZombie.cpp \
-		randomChump.cpp
+		HumanA.cpp \
+		Weapon.cpp \
+		HumanB.cpp
 
-HEADER := Zombie.hpp
+HEADER := HumanA.hpp Weapon.hpp HumanB.hpp
 
 OBJ := $(SRC:%.cpp=.obj/%.o)
 
