@@ -20,13 +20,13 @@ FLAGS := -Wall -Werror -Wextra -std=c++98
 CC := c++
 
 # Definition of project variables
-NAME := NewSed
+NAME := Harl
 
 # Definition of files variables
 SRC := 	main.cpp \
-		NewSed.cpp
+		Harl.cpp
 
-Header := NewSed.hpp
+Header := Harl.hpp
 
 OBJ := $(SRC:%.cpp=.obj/%.o)
 

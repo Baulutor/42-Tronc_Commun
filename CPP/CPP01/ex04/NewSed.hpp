@@ -5,8 +5,8 @@
 #ifndef CPP_NEWSED_HPP
 #define CPP_NEWSED_HPP
 
-#include <iostream>
-#include <fstream>
+# include <iostream>
+# include <fstream>
 
 using std::cin;
 using std::cout;
@@ -15,13 +15,16 @@ using std::getline;
 using std::string;
 
 
-class	newSed{
+class	NewSed{
 private :
-
+	string	_infile;
+	string	_outfile;
 public :
 	//CONSTRUCTOR AND DESTRUCTOR
-	newSed();
-	~newSed();
+	NewSed(string filename);
+	~NewSed();
+
+	int replace(string findStr, string replaceStr);
 };
 
 #endif //CPP_NEWSED_HPP
