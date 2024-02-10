@@ -26,7 +26,7 @@ NAME := Harl
 SRC := 	main.cpp \
 		Harl.cpp
 
-Header := Harl.hpp
+HEADER := Harl.hpp
 
 OBJ := $(SRC:%.cpp=.obj/%.o)
 

@@ -1,6 +1,6 @@
 
-#ifndef CPP_WEAPON_HPP
-#define CPP_WEAPON_HPP
+#ifndef WEAPON_HPP
+#define WEAPON_HPP
 
 # include <cctype>
 # include <string>

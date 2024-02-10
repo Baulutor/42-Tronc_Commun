@@ -2,8 +2,8 @@
 // Created by dbaule on 2/8/24.
 //
 
-#ifndef CPP_NEWSED_HPP
-#define CPP_NEWSED_HPP
+#ifndef NEWSED_HPP
+#define NEWSED_HPP
 
 # include <iostream>
 # include <fstream>
@@ -27,4 +27,4 @@ public :
 	int replace(string findStr, string replaceStr);
 };
 
-#endif //CPP_NEWSED_HPP
+#endif

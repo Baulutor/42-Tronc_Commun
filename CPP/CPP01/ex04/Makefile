@@ -26,7 +26,7 @@ NAME := NewSed
 SRC := 	main.cpp \
 		NewSed.cpp
 
-Header := NewSed.hpp
+HEADER := NewSed.hpp
 
 OBJ := $(SRC:%.cpp=.obj/%.o)
 
