@@ -38,6 +38,8 @@ class PhoneBook
 		string		troncFunction(string str);
 		void		specificContact();
 		int 		isOnlyDigits(string str);
+		int 		stringToInt(const std::string& str);
+		int 		checkSpace(string str);
 };
 
 

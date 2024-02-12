@@ -14,6 +14,19 @@ PhoneBook::~PhoneBook(){
 	return ;
 }
 
+int		PhoneBook::checkSpace(string str)
+{
+	size_t	j = 0;
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			j++;
+	}
+	if (j == str.length())
+		return (1);
+	return (0);
+}
+
 void	PhoneBook::add(int i)
 {
 	string str;
@@ -21,37 +34,51 @@ void	PhoneBook::add(int i)
 	do {
 		cout << "Enter your First Name : ";
 		std::getline(std::cin, str);
-	} while (!cin.eof() && str.length() == 0);
+	} while ((!cin.eof() && str.length() == 0) || (checkSpace(str) && !cin.eof()));
+
 	if (cin.eof())
 		return ;
+
 	this->_contacts[i].setFirstName(str);
+
 	do {
 		cout << "Enter your Last Name : ";
 		std::getline(std::cin, str);
-	} while (!cin.eof() && str.length() == 0);
+	} while ((!cin.eof() && str.length() == 0) || (checkSpace(str) && !cin.eof()));
+
 	if (cin.eof())
 		return ;
+
 	this->_contacts[i].setLastName(str);
+
 	do {
 		cout << "Enter your Nickname : ";
 		std::getline(std::cin, str);
-	} while (!cin.eof() && str.length() == 0);
+	} while ((!cin.eof() && str.length() == 0) || (checkSpace(str) && !cin.eof()));
+
 	if (cin.eof())
 		return ;
+
 	this->_contacts[i].setNickName(str);
+
 	do {
 		cout << "Enter your Phone Number : ";
 		std::getline(std::cin, str);
-	}while (!cin.eof() && str.length() == 0);
+	} while ((!cin.eof() && str.length() == 0) || !(str.find_first_not_of("0123456789") && cin.eof()));
+
 	if (cin.eof())
 		return ;
+
 	this->_contacts[i].setPhoneNumber(str);
+
 	do {
 		cout << "Enter your Darkest Secret : ";
 		std::getline(std::cin, str);
-	}while ((!cin.eof() && str.length() == 0));
+	} while ((!cin.eof() && str.length() == 0) || (checkSpace(str) && !cin.eof()));
+
 	if (cin.eof())
 		return ;
+
 	this->_contacts[i].setDarkestSecret(str);
 }
 
@@ -66,10 +93,19 @@ int PhoneBook::isOnlyDigits(string str)
 {
 	for (int i = 0; str[i] != '\0'; i++)
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (!isdigit(str[i]))
 			return (0);
 	}
 	return (1);
+}
+
+
+int PhoneBook::stringToInt(const std::string& str)
+{
+	int result = 0;
+	for (size_t i = 0; i < str.length(); i++)
+		result = result * 10 + (str[i] - '0');
+	return result;
 }
 
 void	PhoneBook::specificContact()
@@ -82,20 +118,25 @@ void	PhoneBook::specificContact()
 		cout << "Search for a specific contact? insert his index : ";
 		std::getline(std::cin, str);
 	}while ((!cin.eof() && str.length() == 0));
+
 	if (cin.eof())
 		return ;
+
 	if (isOnlyDigits(str))
-		std::istringstream(str) >> ind;
+		ind = stringToInt(str);
+
 	else
 	{
 		cout << "Exit SEARCH, wrong index" << endl;
 		return ;
 	}
+
 	if (ind < 1 ||ind > NBR_CONT)
 	{
 		cout << "Exit SEARCH, wrong index" << endl;
 		return ;
 	}
+
 	if (this->_contacts[ind - 1].getFirstName() == "")
 		cout << "There is no user in this index, exit SEARCH" << endl;
 	else
