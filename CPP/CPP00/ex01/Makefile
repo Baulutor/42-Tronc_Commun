@@ -11,59 +11,41 @@
 # **************************************************************************** #
 
 
-#
-### Definitions of variables
-#
 
-# Compilation flags
-FLAGS := -Wall -Werror -Wextra -std=c++98
-CC := c++
+NAME            	=  	PhoneBook
 
-# Definition of project variables
-NAME := PhoneBook
+HEADERS_FILES    	=  	Contact.hpp \
+						PhoneBook.hpp
 
-# Definition of files variables
-SRC := PhoneBook.cpp main.cpp Contact.cpp
+HEADERS            	=   $(HEADERS_FILES)
 
-OBJ := $(SRC:%.cpp=.obj/%.o)
-HEADER := PhoneBook.hpp Contact.hpp
-#
-### Compilation rules
-#
+SRC_FILES        	=  	main.cpp\
+ 						Contact.cpp\
+ 						PhoneBook.cpp
 
-# Compilation
-all: $(NAME) $(HEADER)
+SRCS            	=  	$(SRC_FILES)
 
-$(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $@ -L. 
+BUILD_DIR        	=   .obj
+OBJS            	=   $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
-.obj/%.o: %.cpp $(HEADER)
-	$(CC) $(FLAGS) $(INC) -c $< -o $@
+CC                	=   c++
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
 
-# Debug
-debug:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread -pthread -g"
+all: $(NAME)
 
-val_deb:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
+$(NAME): $(OBJS)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $@
 
-#
-### Cleanup rules
-#
+$(BUILD_DIR)/%.o:  %.cpp $(HEADERS)
+	@mkdir -p $(@D)
+	$(CC) $(CC_FLAGS) -c $< -o $@
 
 clean:
-	rm -rfv $(OBJ)
+	@rm -rf $(BUILD_DIR)
 
-fclean:
-	rm -rfv $(OBJ) $(NAME)
+fclean: clean
+	@rm -rf $(NAME)
 
 re: fclean all
 
-re_deb: fclean debug
-
-re_val: fclean val_deb
-
-FORCE:
-
-.PHONY: all clean fclean re FORCE debug re_deb val_deb re_val bonus re_bonus 
-.PHONY: re_bonus_deb
+.PHONY: all clean fclean re

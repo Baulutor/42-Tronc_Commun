@@ -8,6 +8,7 @@
 #include "Contact.hpp"
 
 #include <cctype>
+#include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <iomanip>

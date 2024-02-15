@@ -64,7 +64,7 @@ void	PhoneBook::add(int i)
 	do {
 		cout << "Enter your Phone Number : ";
 		std::getline(std::cin, str);
-	} while ((!cin.eof() && str.length() == 0) || !(str.find_first_not_of("0123456789") && cin.eof()));
+	} while ((!cin.eof() && str.length() == 0) || (!str.find_first_not_of("0123456789") && !cin.eof()));
 
 	if (cin.eof())
 		return ;
@@ -89,30 +89,13 @@ string	PhoneBook::troncFunction(string str)
 	return (str.substr(0, 9) + ".");
 }
 
-int PhoneBook::isOnlyDigits(string str)
-{
-	for (int i = 0; str[i] != '\0'; i++)
-	{
-		if (!isdigit(str[i]))
-			return (0);
-	}
-	return (1);
-}
-
-
-int PhoneBook::stringToInt(const std::string& str)
-{
-	int result = 0;
-	for (size_t i = 0; i < str.length(); i++)
-		result = result * 10 + (str[i] - '0');
-	return result;
-}
-
 void	PhoneBook::specificContact()
 {
 	string	str;
 	string	buf;
-	int 	ind = 0;
+	long int 	ind = 0;
+	char 	**end = NULL;
+	char const	*buff;
 
 	do {
 		cout << "Search for a specific contact? insert his index : ";
@@ -122,10 +105,9 @@ void	PhoneBook::specificContact()
 	if (cin.eof())
 		return ;
 
-	if (isOnlyDigits(str))
-		ind = stringToInt(str);
-
-	else
+	buff = str.c_str();
+	ind = strtol(buff, end, 10);
+	if (ind == 0)
 	{
 		cout << "Exit SEARCH, wrong index" << endl;
 		return ;

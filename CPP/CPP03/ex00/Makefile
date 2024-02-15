@@ -10,29 +10,63 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME            =    megaphone
-SRC_FILES       =    megaphone.cpp
-SRCS            =    $(SRC_FILES)
-BUILD_DIR       =    .obj
-OBJS            =    $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
-CC              =    c++
-CC_FLAGS        =    -Wextra -Werror -Wall -std=c++98
 
+#
+### Definitions of variables
+#
+
+# Compilation flags
+FLAGS := -Wall -Werror -Wextra -std=c++98
+CC := c++
+
+# Definition of project variables
+NAME := Fixed
+
+# Definition of files variables
+SRC := 	main.cpp \
+		Fixed.cpp
+
+HEADER := Fixed.hpp
+
+OBJ := $(SRC:%.cpp=.obj/%.o)
+
+#
+### Compilation rules
+#
+
+# Compilation
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CC_FLAGS) $(OBJS) -o $@
+$(NAME): $(OBJ)
+	$(CC) $(FLAGS) $(OBJ) -o $@ -L. 
 
-$(BUILD_DIR)/%.o: %.cpp
-	@mkdir -p $(@D)
-	$(CC) $(CC_FLAGS) -c $< -o $@
+.obj/%.o: %.cpp $(HEADER)
+	$(CC) $(FLAGS) $(INC) -c $< -o $@
+
+# Debug
+debug:
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread"
+
+val_deb:
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
+
+#
+### Cleanup rules
+#
 
 clean:
-	@rm -rf $(BUILD_DIR)
+	rm -rfv $(OBJ)
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean:
+	rm -rfv $(OBJ) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+re_deb: fclean debug
+
+re_val: fclean val_deb
+
+FORCE:
+
+.PHONY: all clean fclean re FORCE debug re_deb val_deb re_val bonus re_bonus 
+.PHONY: re_bonus_deb
