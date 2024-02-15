@@ -11,63 +11,39 @@
 # **************************************************************************** #
 
 
-#
-### Definitions of variables
-#
+NAME            	=  	Zombie
 
-# Compilation flags
-FLAGS := -Wall -Werror -Wextra -std=c++98
-CC := c++
+HEADERS_FILES    	=  	Zombie.hpp
 
-# Definition of project variables
-NAME := Zombie
+HEADERS            	=   $(HEADERS_FILES)
 
-# Definition of files variables
-SRC := 	main.cpp \
-		Zombie.cpp \
-		zombieHorde.cpp
+SRC_FILES        	=  	main.cpp\
+ 						Zombie.cpp\
+ 						zombieHorde.cpp
 
-HEADER := Zombie.hpp
+SRCS            	=  	$(SRC_FILES)
 
-OBJ := $(SRC:%.cpp=.obj/%.o)
+BUILD_DIR        	=   .obj
+OBJS            	=   $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
-#
-### Compilation rules
-#
+CC                	=   c++
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
 
-# Compilation
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $@ -L. 
+$(NAME): $(OBJS)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $@
 
-.obj/%.o: %.cpp $(HEADER)
-	$(CC) $(FLAGS) $(INC) -c $< -o $@
-
-# Debug
-debug:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread"
-
-val_deb:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
-
-#
-### Cleanup rules
-#
+$(BUILD_DIR)/%.o:  %.cpp $(HEADERS)
+	@mkdir -p $(@D)
+	$(CC) $(CC_FLAGS) -c $< -o $@
 
 clean:
-	rm -rfv $(OBJ)
+	@rm -rf $(BUILD_DIR)
 
-fclean:
-	rm -rfv $(OBJ) $(NAME)
+fclean: clean
+	@rm -rf $(NAME)
 
 re: fclean all
 
-re_deb: fclean debug
-
-re_val: fclean val_deb
-
-FORCE:
-
-.PHONY: all clean fclean re FORCE debug re_deb val_deb re_val bonus re_bonus 
-.PHONY: re_bonus_deb
+.PHONY: all clean fclean re

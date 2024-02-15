@@ -20,13 +20,13 @@ FLAGS := -Wall -Werror -Wextra -std=c++98
 CC := c++
 
 # Definition of project variables
-NAME := Fixed
+NAME := ClapTrap
 
 # Definition of files variables
 SRC := 	main.cpp \
-		Fixed.cpp
+		ClapTrap.cpp
 
-HEADER := Fixed.hpp
+HEADER := ClapTrap.hpp
 
 OBJ := $(SRC:%.cpp=.obj/%.o)
 
