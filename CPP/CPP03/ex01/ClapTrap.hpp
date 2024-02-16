@@ -9,6 +9,7 @@
 # define RESET "\033[0m"
 # define GREEN "\033[32m"
 # define BLUE "\033[34m"
+# define MAGENTA "\033[35m"
 
 using std::cin;
 using std::cout;
@@ -18,7 +19,7 @@ using std::string;
 
 class	ClapTrap
 {
-private:
+protected:
 	string	_name;
 	int 	_hitPoint;
 	int 	_energyPoint;
@@ -26,8 +27,10 @@ private:
 
 public:
 
-	// CONSTRUCTOR AND DESTRUCTOR
+	// CONSTRUCTOR AND DESTRUCTOR;
+	ClapTrap();
 	ClapTrap(string name);
+	ClapTrap(string name, int hitpoint, int energypoint, unsigned int attdmg);
 	ClapTrap(ClapTrap & src);
 	ClapTrap & operator=(ClapTrap & rhs);
 	~ClapTrap();

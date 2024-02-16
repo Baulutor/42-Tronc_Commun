@@ -3,10 +3,19 @@
 
 /* --------------------CONSTRUCTOR AND DESTRUCTOR-------------------- */
 
+ClapTrap::ClapTrap()
+{
+
+}
 
 ClapTrap::ClapTrap(string name) : _name(name), _hitPoint(10), _energyPoint(10), _attackDamage(0)
 {
-	cout << "Default constructor of " << BLUE << this->_name << RESET << " called" << endl;
+	cout << "Default constructor of ClapTrap " << BLUE << this->_name << RESET << " called" << endl;
+}
+
+ClapTrap::ClapTrap(string name, int hitpoint, int energypoint, unsigned int attdmg) : _name(name), _hitPoint(hitpoint), _energyPoint(energypoint), _attackDamage(attdmg)
+{
+	cout << "Default constructor of Claptrap " << BLUE << this->_name << RESET << " called" << endl;
 }
 
 ClapTrap::ClapTrap(ClapTrap & src)
@@ -33,7 +42,7 @@ ClapTrap & ClapTrap::operator=(ClapTrap & rhs)
 
 ClapTrap::~ClapTrap()
 {
-	cout << "Destructor of " << BLUE << this->_name << RESET << " called" << endl;
+	cout << "Destructor of ClapTrap " << BLUE << this->_name << RESET << " called" << endl;
 }
 
 
@@ -99,15 +108,16 @@ void	ClapTrap::attack(const std::string& target)
 void	ClapTrap::takeDamage(unsigned int amount) {
 	if (this->_hitPoint <= 0)
 	{
-		cout << BLUE << this->_name << RESET << " Stop it, he is already dead..." << endl;
+		cout  << "Stop it, " << BLUE << this->_name << RESET << " is already dead..." << endl;
 		return ;
 	}
+	cout << BLUE << this->_name << RESET << " had " << this->_hitPoint << " hit point";
 
 	this->_hitPoint -= amount;
-
+	cout << " by taking " << amount << " damage, he has now " << this->_hitPoint << " hitpoint left" << endl;
 	if (this->_hitPoint <= 0)
 	{
-		cout << BLUE << this->_name  << RESET << " is dead" << endl;
+		cout << BLUE << this->_name  << MAGENTA << " is dead" << RESET << endl;
 		return ;
 	}
 }

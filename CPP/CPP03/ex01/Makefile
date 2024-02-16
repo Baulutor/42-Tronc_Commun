@@ -11,14 +11,16 @@
 # **************************************************************************** #
 
 
-NAME            	=  	ClapTrap
+NAME            	=  	ScavTrap
 
-HEADERS_FILES    	=  	ClapTrap.hpp
+HEADERS_FILES    	=  	ClapTrap.hpp \
+						ScavTrap.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
 SRC_FILES        	=  	main.cpp \
- 						ClapTrap.cpp
+ 						ClapTrap.cpp \
+ 						ScavTrap.cpp
 
 SRCS            	=  	$(SRC_FILES)
 
@@ -26,7 +28,7 @@ BUILD_DIR        	=   .obj
 OBJS            	=   $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
 CC                	=   c++
-CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98 -g3
 
 all: $(NAME)
 
