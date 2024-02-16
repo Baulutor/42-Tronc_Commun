@@ -11,62 +11,39 @@
 # **************************************************************************** #
 
 
-#
-### Definitions of variables
-#
 
-# Compilation flags
-FLAGS := -Wall -Werror -Wextra -std=c++98
-CC := c++
+NAME            	=  	Fixed
 
-# Definition of project variables
-NAME := Fixed
+HEADERS_FILES    	=  	Fixed.hpp
 
-# Definition of files variables
-SRC := 	main.cpp \
-		Fixed.cpp
+HEADERS            	=   $(HEADERS_FILES)
 
-HEADER := Fixed.hpp
+SRC_FILES        	=  	main.cpp \
+ 						Fixed.cpp
 
-OBJ := $(SRC:%.cpp=.obj/%.o)
+SRCS            	=  	$(SRC_FILES)
 
-#
-### Compilation rules
-#
+BUILD_DIR        	=   .obj
+OBJS            	=   $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
 
-# Compilation
+CC                	=   c++
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $@ -L. 
+$(NAME): $(OBJS)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $@
 
-.obj/%.o: %.cpp $(HEADER)
-	$(CC) $(FLAGS) $(INC) -c $< -o $@
-
-# Debug
-debug:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -fsanitize=thread"
-
-val_deb:
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g"
-
-#
-### Cleanup rules
-#
+$(BUILD_DIR)/%.o:  %.cpp $(HEADERS)
+	@mkdir -p $(@D)
+	$(CC) $(CC_FLAGS) -c $< -o $@
 
 clean:
-	rm -rfv $(OBJ)
+	@rm -rf $(BUILD_DIR)
 
-fclean:
-	rm -rfv $(OBJ) $(NAME)
+fclean: clean
+	@rm -rf $(NAME)
 
 re: fclean all
 
-re_deb: fclean debug
-
-re_val: fclean val_deb
-
-FORCE:
-
-.PHONY: all clean fclean re FORCE debug re_deb val_deb re_val bonus re_bonus 
-.PHONY: re_bonus_deb
+.PHONY: all clean fclean re
