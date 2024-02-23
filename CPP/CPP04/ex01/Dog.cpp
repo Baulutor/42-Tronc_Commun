@@ -1,5 +1,6 @@
 
 #include "Dog.hpp"
+#include "Brain.hpp"
 
 
 Dog::Dog() : Animal("Dog")

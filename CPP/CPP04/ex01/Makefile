@@ -12,7 +12,7 @@
 
 
 
-NAME            	=  	Animal
+NAME            	=  	Brain
 
 HEADERS_FILES    	=  	Animal.hpp \
 						Cat.hpp \
