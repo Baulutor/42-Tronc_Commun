@@ -8,23 +8,16 @@
 # include <iostream>
 # include <fstream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
-
 class	NewSed{
 private :
-	string	_infile;
-	string	_outfile;
+	std::string	_infile;
+	std::string	_outfile;
 public :
 	//CONSTRUCTOR AND DESTRUCTOR
-	NewSed(string filename);
+	NewSed(std::string filename);
 	~NewSed();
 
-	int replace(string findStr, string replaceStr);
+	int replace(std::string findStr, std::string replaceStr);
 };
 
 #endif

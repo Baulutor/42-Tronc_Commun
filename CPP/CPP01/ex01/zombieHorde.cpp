@@ -1,7 +1,7 @@
 
 #include "Zombie.hpp"
 
-Zombie	*zombieHorde(int n, string name)
+Zombie	*zombieHorde(int n, std::string name)
 {
 	Zombie	*horde = new Zombie[n];
 
@@ -12,7 +12,7 @@ Zombie	*zombieHorde(int n, string name)
 	return (horde);
 }
 
-void	Zombie::setName(string str)
+void	Zombie::setName(std::string str)
 {
 	this->_name = str;
 }

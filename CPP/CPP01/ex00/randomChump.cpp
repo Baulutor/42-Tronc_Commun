@@ -2,7 +2,7 @@
 
 #include "Zombie.hpp"
 
-void	randomChump(string name)
+void	randomChump(std::string name)
 {
 	Zombie zomb(name);
 	zomb.announce();

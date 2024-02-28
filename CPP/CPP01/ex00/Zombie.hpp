@@ -5,24 +5,19 @@
 #include <string>
 #include <iostream>
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::cin;
-
 class Zombie
 {
 	private :
-		string _name;
+		std::string _name;
 	public :
 	// CONSTRUCTOR DESTRUCTOR
-		Zombie(string name);
+		Zombie(std::string name);
 		~Zombie(void);
 
 	//METHOD
 		void	announce()const;
 };
 
-		Zombie	*newZombie(string name);
-		void	randomChump(string name);
+		Zombie	*newZombie(std::string name);
+		void	randomChump(std::string name);
 #endif

@@ -8,13 +8,6 @@
 # include <iostream>
 # include <fstream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
-
 class	Harl{
 private :
 	void	debug(void);
@@ -26,7 +19,7 @@ public :
 	Harl();
 	~Harl();
 
-	void	complain(string level);
+	void	complain(std::string level);
 };
 
 typedef void (Harl::*t_func)(void);

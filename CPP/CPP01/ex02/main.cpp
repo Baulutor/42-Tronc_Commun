@@ -1,24 +1,19 @@
 
 #include <iostream>
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::cin;
-
 int main ()
 {
-	string 	str = "HI THIS IS BRAIN";
-	string	*stringPTR = &str;
-	string	&stringREF = str;
+	std::string	str = "HI THIS IS BRAIN";
+	std::string	*stringPTR = &str;
+	std::string	&stringREF = str;
 
 
-	cout << "This is the address of the string : " << &str << endl;
-	cout << "This is the address of stringPTR : " << stringPTR << endl;
-	cout << "This is the address of stringREF : " << &stringREF << endl;
-	cout << "----------------------------------" << endl;
-	cout << "string value : " << str << endl;
-	cout << "stringPTR pointed value : " << *stringPTR << endl;
-	cout << "stringREF pointed value : " << stringREF << endl;
+	std::cout << "This is the address of the string : " << &str << std::endl;
+	std::cout << "This is the address of stringPTR : " << stringPTR << std::endl;
+	std::cout << "This is the address of stringREF : " << &stringREF << std::endl;
+	std::cout << "----------------------------------" << std::endl;
+	std::cout << "string value : " << str << std::endl;
+	std::cout << "stringPTR pointed value : " << *stringPTR << std::endl;
+	std::cout << "stringREF pointed value : " << stringREF << std::endl;
 
 }

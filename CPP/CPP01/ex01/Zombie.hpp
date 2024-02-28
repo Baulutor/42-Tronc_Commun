@@ -7,24 +7,19 @@
 
 # define NBR_HORDE 5
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::cin;
-
 class Zombie
 {
 	private :
-		string _name;
+		std::string _name;
 	public :
 	// CONSTRUCTOR DESTRUCTOR
 		Zombie(void);
 		~Zombie(void);
 	// SETTER AND GETTER
-		void	setName(string str);
+		void	setName(std::string str);
 	//METHOD
 		void	announce()const;
 };
-	Zombie *zombieHorde(int n, string name);
+	Zombie *zombieHorde(int n, std::string name);
 
 #endif

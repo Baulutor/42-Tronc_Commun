@@ -3,13 +3,13 @@
 //
 #include "HumanB.hpp"
 
-HumanB::HumanB(string name) : _name(name), _weapon(NULL)
+HumanB::HumanB(std::string name) : _name(name), _weapon(NULL)
 {
 }
 
 HumanB::~HumanB()
 {
-	cout << this->_name << " destructor called" << endl;
+	std::cout << this->_name << " destructor called" << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &newWeapon)
@@ -21,7 +21,7 @@ void	HumanB::setWeapon(Weapon &newWeapon)
 void	HumanB::attack()
 {
 	if (this->_weapon == NULL)
-		cout << this->_name << " is empty handed" << endl;
+		std::cout << this->_name << " is empty handed" << std::endl;
 	else
-		cout << this->_name << " attacks with their " << this->_weapon->getType() << endl;
+		std::cout << this->_name << " attacks with their " << this->_weapon->getType() << std::endl;
 }

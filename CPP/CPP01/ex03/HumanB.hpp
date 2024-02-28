@@ -9,19 +9,14 @@
 # include <iostream>
 # include "Weapon.hpp"
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::cin;
-
 class HumanB
 {
 private :
-	string	_name;
+	std::string	_name;
 	Weapon	*_weapon;
 public :
 	// CONSTRUCTOR DESTRUCTOR
-	HumanB(string name);
+	HumanB(std::string name);
 	~HumanB(void);
 
 	//SETTER

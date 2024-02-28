@@ -3,14 +3,14 @@
 
 int main ()
 {
-	string buf;
+	std::string buf;
 
 	do
 	{
-		getline(cin, buf);
+		std::getline(std::cin, buf);
 		Harl comp;
 		comp.complain(buf);
-	} while (!cin.eof() && buf.compare("EXIT"));
-	if (cin.eof())
+	} while (!std::cin.eof() && buf.compare("EXIT"));
+	if (std::cin.eof())
 		return (0);
 }

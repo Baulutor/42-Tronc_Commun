@@ -6,19 +6,14 @@
 # include <iostream>
 # include "Weapon.hpp"
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::cin;
-
 class HumanA
 {
 	private :
-		string	_name;
+		std::string	_name;
 		Weapon	&_weapon;
 	public :
 	// CONSTRUCTOR DESTRUCTOR
-		HumanA(string name, Weapon &weapon);
+		HumanA(std::string name, Weapon &weapon);
 		~HumanA(void);
 	//METHOD
 		void	attack();
