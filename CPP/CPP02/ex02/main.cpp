@@ -7,51 +7,51 @@ int main( void ) {
 	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
 
 	std::cout << "value of a : " << a << std::endl;
-	cout << "value of c : " << c << endl;
-	cout << "value of b : " << b << endl;
+	std::cout << "value of c : " << c << std::endl;
+	std::cout << "value of b : " << b << std::endl;
 
 	if (a == c)
-		cout << "a == c" << endl;
+		std::cout << "a == c" << std::endl;
 	if (a != b)
-		cout << "a != b" << endl;
+		std::cout << "a != b" << std::endl;
 	if (a > b)
-		cout << "a is higher than b" << endl;
+		std::cout << "a is higher than b" << std::endl;
 	if (a < b)
-		cout << "b is higher than a" << endl;
+		std::cout << "b is higher than a" << std::endl;
 	if (a <= c)
-		cout << "c is higher or equal to a" << endl;
+		std::cout << "c is higher or equal to a" << std::endl;
 	if (a >= c)
-		cout << "a is higher or equal to c" << endl;
+		std::cout << "a is higher or equal to c" << std::endl;
 
-	cout << "value of a : " << a << endl;
+	std::cout << "value of a : " << a << std::endl;
 	std::cout << ++a << std::endl;
 
 	std::cout << a++ << std::endl;
-	cout << "value of 'a' after double incrementation : " << a << endl;
+	std::cout << "value of 'a' after double incrementation : " << a << std::endl;
 	std::cout << a << std::endl;
-	cout << "------ADDITION------" << endl;
-	cout << a + b << endl;
-	cout << "------SUBTRACTION------" << endl;
-	cout << a - b << endl;
-	cout << "------DIVISION------" << endl;
-	cout << a / b << endl;
-	cout << "------MULTIPLICATION------" << endl;
-	cout << a * b << endl;
-	cout << "------COMPARISON------" << endl;
+	std::cout << "------ADDITION------" << std::endl;
+	std::cout << a + b << std::endl;
+	std::cout << "------SUBTRACTION------" << std::endl;
+	std::cout << a - b << std::endl;
+	std::cout << "------DIVISION------" << std::endl;
+	std::cout << a / b << std::endl;
+	std::cout << "------MULTIPLICATION------" << std::endl;
+	std::cout << a * b << std::endl;
+	std::cout << "------COMPARISON------" << std::endl;
 
-	cout << "value of a : " << a << endl;
+	std::cout << "value of a : " << a << std::endl;
 	std::cout << a << std::endl;
-	cout << "pre-decrement : ";
+	std::cout << "pre-decrement : ";
 	std::cout << --a << std::endl;
-	cout << "post-decrement : ";
+	std::cout << "post-decrement : ";
 	std::cout << a-- << std::endl;
-	cout << endl;
+	std::cout << std::endl;
 	std::cout << "value of a : " << a << std::endl;
 	std::cout << "value of b : " << b << std::endl;
 
-	cout << "the biggest value between those two : ";
+	std::cout << "the biggest value between those two : ";
 	std::cout << Fixed::max( a, b ) << std::endl;
-	cout << "the smallest value between those two : ";
-	cout << Fixed::min(a, b) << endl;
+	std::cout << "the smallest value between those two : ";
+	std::cout << Fixed::min(a, b) << std::endl;
 	return 0;
 }

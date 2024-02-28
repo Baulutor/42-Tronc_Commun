@@ -4,12 +4,6 @@
 # include <iostream>
 # include <fstream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class Fixed
 {
 private :
@@ -18,6 +12,7 @@ private :
 public :
 	//CONSTRUCTOR AND DESTRUCTOR
 	Fixed();
+	Fixed(int value);
 	Fixed(Fixed const & src);
 	Fixed & operator=(Fixed & rhs);
 	~Fixed();

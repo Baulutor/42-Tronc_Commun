@@ -6,12 +6,6 @@
 # include <ostream>
 # include <cmath>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class Fixed
 {
 private :

@@ -9,11 +9,6 @@ Fixed::Fixed() : _value(0)
 
 }
 
-Fixed::Fixed(const Fixed &src)
-{
-	this->setRawBits(src.getRawBits());
-}
-
 Fixed::Fixed(int const value) : _value(value << _bit)
 {
 
@@ -24,8 +19,15 @@ Fixed::Fixed(float const value) : _value(roundf(value * (1 << _bit)))
 
 }
 
+Fixed::Fixed(const Fixed &src)
+{
+	this->setRawBits(src.getRawBits());
+}
+
+
 Fixed::~Fixed()
 {
+
 }
 
 
