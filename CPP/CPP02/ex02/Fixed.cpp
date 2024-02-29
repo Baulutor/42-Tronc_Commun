@@ -6,28 +6,28 @@
 
 Fixed::Fixed() : _value(0)
 {
-
+	std::cout << GREEN << "Default constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(int const value) : _value(value << _bit)
 {
-
+	std::cout << GREEN << "Int constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(float const value) : _value(roundf(value * (1 << _bit)))
 {
-
+	std::cout << GREEN << "Float constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(const Fixed &src)
 {
+	std::cout << GREEN << "Copy constructor called" << RESET << std::endl;
 	this->setRawBits(src.getRawBits());
 }
 
-
 Fixed::~Fixed()
 {
-
+	std::cout << RED << "Destructor called" << RESET <<  std::endl;
 }
 
 
@@ -59,7 +59,7 @@ int Fixed::toInt( void ) const
 
 /* -------------------OVERLOAD ------------------- */
 
-std::ostream & operator<<( std::ostream & o, Fixed const & i ) {
+std::ostream& operator<<( std::ostream & o, Fixed const & i ) {
 
 	o << i.toFloat();
 	return o;
@@ -94,14 +94,14 @@ bool	Fixed::operator<=(Fixed const & rhs)
 	return (this->_value <= rhs._value);
 }
 
-bool	Fixed::operator==(Fixed const & rhs)
-{
-	return (this->_value == rhs._value);
-}
-
 bool	Fixed::operator!=(Fixed const & rhs)
 {
 	return (this->_value != rhs._value);
+}
+
+bool	Fixed::operator==(Fixed const & rhs)
+{
+	return (this->_value == rhs._value);
 }
 
 
@@ -148,15 +148,16 @@ Fixed	Fixed::operator+(const Fixed & rhs)
 	return (Fixed(this->toFloat() + rhs.toFloat()));
 }
 
+Fixed	Fixed::operator/(const Fixed & rhs)
+{
+	return (Fixed(this->toFloat() / rhs.toFloat()));
+}
+
 Fixed	Fixed::operator-(const Fixed & rhs)
 {
 	return (Fixed(this->toFloat() - rhs.toFloat()));
 }
 
-Fixed	Fixed::operator/(const Fixed & rhs)
-{
-	return (Fixed(this->toFloat() / rhs.toFloat()));
-}
 
 /*	-------------------MIN AND MAX------------------- */
 
