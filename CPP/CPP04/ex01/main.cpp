@@ -10,19 +10,34 @@ int main ()
 	const Animal* 		j = new Dog();
 	const Animal* 		i = new Cat();
 
-
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
 	meta->makeSound();
-	cout << endl << "Normal animal working fine !" << endl << endl;
-	cout << "Time to see the wrong cat !" << endl << endl;
+	std::cout << std::endl << "Normal animal working fine !" << std::endl << std::endl;
+	std::cout << "Time to see the wrong cat !" << std::endl << std::endl;
 	const WrongAnimal* 	k = new WrongCat();
-	cout << k->getType() << " " << endl;
+	std::cout << k->getType() << " " << std::endl;
 	k->makeSound();
-	cout << endl << "Without the virtual word, the execution don't try to find"<< endl;
-	cout << "the real object of what he hold so he keep the WrongAnimal class" << endl<< endl;
+	std::cout << std::endl << "Without the virtual word, the execution don't try to find"<< std::endl;
+	std::cout << "the real object of what he hold so he keep the WrongAnimal class" << std::endl<< std::endl;
+	std::cout << std::endl << std::endl;
+	Animal	l[NUMBER_ANIMAL];
+
+	for (int i = 0; i < NUMBER_ANIMAL; i++)
+	{
+		if (i % 2)
+		{
+			l[i].getCat();
+			l[i].makeSound();
+		}
+		else
+		{
+			l[i].getDog();
+			l[i].makeSound();
+		}
+	}
 	delete(meta);
 	delete(i);
 	delete(j);

@@ -57,7 +57,7 @@ int Fixed::toInt( void ) const
 }
 
 
-/* -------------------OVERLOAD ------------------- */
+/* -------------------OVERLOAD------------------- */
 
 std::ostream& operator<<( std::ostream & o, Fixed const & i ) {
 

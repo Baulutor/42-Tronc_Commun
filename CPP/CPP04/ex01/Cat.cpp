@@ -7,29 +7,29 @@
 
 Cat::Cat() : Animal("Cat")
 {
-	cout << "Default Cat constructor called" << endl;
+	std::cout << GREEN << "Default Cat constructor called" << RESET << std::endl;
+	this->_catBrain = new Brain();
+}
+
+Cat::Cat(std::string name) : Animal(name)
+{
+	std::cout << GREEN << "Cat constructor called" << RESET << std::endl;
+	this->_catBrain = new Brain();
 }
 
 Cat::Cat(Cat & rhs)
 {
+	std::cout << GREEN << "Copy Cat constructor called" << RESET << std::endl;
 	this->_type = rhs._type;
-}
-
-Cat & Cat::operator=(Cat &rhs)
-{
-	if (&rhs != this)
-	{
-		this->_type = rhs._type;
-	}
-	return (*this);
 }
 
 Cat::~Cat()
 {
-	cout << "Cat destructor" << endl;
+	std::cout << RED << "Cat destructor called" << RESET << std::endl;
+	delete(this->_catBrain);
 }
 
 void Cat::makeSound() const
 {
-	cout << "Meowww" << endl;
+	std::cout << "Meowww" << std::endl;
 }

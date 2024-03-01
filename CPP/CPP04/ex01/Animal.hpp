@@ -6,29 +6,31 @@
 # include <fstream>
 # include <ostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
+# define RED "\033[31m"
+# define RESET "\033[0m"
+# define GREEN "\033[32m"
+# define BLUE "\033[34m"
 
+# define NUMBER_ANIMAL 20
 
 class Animal {
 
 protected:
-	string	_type;
+	std::string	_type;
 
 public:
 	// CONSTRUCTOR AND DESTRUCTOR
 	Animal();
-	Animal(string type);
+	Animal(std::string type);
 	Animal(Animal & src);
 	Animal & operator=(Animal & rhs);
 	virtual ~Animal();
 
 	//GETTER AND SETTER
-	string	getType() const;
+	std::string	getType() const;
 	virtual void	makeSound() const;
+	void	getCat();
+	void	getDog();
 };
 
 

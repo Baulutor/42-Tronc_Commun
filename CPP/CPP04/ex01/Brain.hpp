@@ -1,29 +1,26 @@
 //
-// Created by dbaule on 2/23/24.
+// Created by dbaule on 3/1/24.
 //
 
 #ifndef BRAIN_HPP
-# define BRAIN_HPP
-
+#define BRAIN_HPP
 
 # include <iostream>
 # include <fstream>
 # include <ostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
+# define RED "\033[31m"
+# define RESET "\033[0m"
+# define GREEN "\033[32m"
 
-class Brain
-{
-protected:
-	string _ideas[100];
+class Brain {
+private:
+	std::string _ideas[100];
 public:
+	//CONSTRUCTOR AND DESTRUCTOR
 	Brain();
-	Brain & operator=(Brain &rhs);
-	Brain(Brain &src);
+	Brain(std::string oneIdea);
+	Brain(Brain & rhs);
 	~Brain();
 };
 

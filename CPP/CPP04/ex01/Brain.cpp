@@ -1,29 +1,36 @@
+//
+// Created by dbaule on 3/1/24.
+//
 
 #include "Brain.hpp"
 
-
-
-Brain::Brain() :
+Brain::Brain()
 {
-	cout << "Default Brain constructor Called" << endl;
+	std::cout << GREEN << "Default Brain constructor called" << RESET << std::endl;
+	for (int i = 0; i < 100; i++)
+	{
+		this->_ideas[i] = "idea";
+	}
 }
 
-Brain &Brain::operator=(Brain &rhs)
+Brain::Brain(std::string oneIdea)
 {
-	if (this != &rhs)
+	std::cout << GREEN << "Brain constructor called" << RESET << std::endl;
+	for (int i = 0; i < 100; i++)
 	{
-		this->_ideas = rhs._ideas;
+		this->_ideas[i] = oneIdea;
 	}
-	return (*this);
 }
 
 Brain::Brain(Brain &src)
 {
-	this->_ideas = src._ideas;
+	(void)src;
+	std::cout << GREEN << "Copy Brain constructor called" << RESET << std::endl;
+//	this._ideas = src._ideas;
 }
 
 
 Brain::~Brain()
 {
-	cout << "Brain Destructor called" << endl;
+	std::cout << RED << "Brain destructor called" << RESET << std::endl;
 }

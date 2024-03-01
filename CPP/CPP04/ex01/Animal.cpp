@@ -3,43 +3,47 @@
 //
 
 #include "Animal.hpp"
+#include "Cat.hpp"
+#include "Dog.hpp"
 
 
 Animal::Animal() : _type("Animal")
 {
-	cout << "Default Animal constructor called" << endl;
+	std::cout << BLUE << "Default Animal constructor called" << RESET << std::endl;
 }
 
-Animal::Animal(string type) : _type(type)
+Animal::Animal(std::string type) : _type(type)
 {
-	cout << "Default Animal constructor called" << endl;
+	std::cout << BLUE << "Animal constructor called" << RESET << std::endl;
 }
 
 Animal::Animal(Animal &src)
 {
+	std::cout << BLUE << "Copy Animal constructor called" << RESET << std::endl;
 	this->_type = src._type;
-}
-
-Animal & Animal::operator=(Animal & rhs)
-{
-	if (&rhs != this)
-	{
-		this->_type = rhs._type;
-	}
-	return (*this);
 }
 
 Animal::~Animal()
 {
-	cout << "Animal Destructor called" << endl;
+	std::cout << RED << "Animal Destructor called" << RESET << std::endl;
 }
 
 void	Animal::makeSound() const
 {
-	cout << this->_type<< " sound" << endl;
+	std::cout << this->_type<< " sound" << std::endl;
 }
 
-string	Animal::getType() const
+std::string	Animal::getType() const
 {
 	return (this->_type);
+}
+
+void	Animal::getCat()
+{
+	this = new Cat();
+}
+
+void	Animal::getDog()
+{
+	this = new Dog();
 }
