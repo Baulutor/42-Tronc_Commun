@@ -17,8 +17,6 @@ NAME            	=  	Brain
 HEADERS_FILES    	=  	Animal.hpp \
 						Cat.hpp \
 						Dog.hpp \
-						WrongAnimal.hpp \
-						WrongCat.hpp \
 						Brain.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
@@ -27,8 +25,6 @@ SRC_FILES        	=  	main.cpp \
  						Animal.cpp \
  						Cat.cpp \
  						Dog.cpp \
- 						WrongAnimal.cpp \
- 						WrongCat.cpp \
  						Brain.cpp
 
 SRCS            	=  	$(SRC_FILES)

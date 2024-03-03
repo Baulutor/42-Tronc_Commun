@@ -11,7 +11,7 @@
 # define GREEN "\033[32m"
 # define BLUE "\033[34m"
 
-# define NUMBER_ANIMAL 20
+# define NUMBER_ANIMAL 3
 
 class Animal {
 
@@ -23,14 +23,14 @@ public:
 	Animal();
 	Animal(std::string type);
 	Animal(Animal & src);
-	Animal & operator=(Animal & rhs);
+	Animal & operator=(Animal const & rhs);
 	virtual ~Animal();
 
 	//GETTER AND SETTER
-	std::string	getType() const;
+	std::string		getType() const;
 	virtual void	makeSound() const;
-	void	getCat();
-	void	getDog();
+	virtual std::string getIdea() const;
+	virtual void setIdea(std::string);
 };
 
 

@@ -4,8 +4,6 @@
 
 #include "Animal.hpp"
 #include "Cat.hpp"
-#include "Dog.hpp"
-
 
 Animal::Animal() : _type("Animal")
 {
@@ -23,6 +21,16 @@ Animal::Animal(Animal &src)
 	this->_type = src._type;
 }
 
+Animal & Animal::operator=(Animal const &rhs)
+{
+	if (this != &rhs)
+	{
+		this->_type = rhs._type;
+	}
+	return (*this);
+}
+
+
 Animal::~Animal()
 {
 	std::cout << RED << "Animal Destructor called" << RESET << std::endl;
@@ -38,12 +46,14 @@ std::string	Animal::getType() const
 	return (this->_type);
 }
 
-void	Animal::getCat()
+std::string Animal::getIdea() const
 {
-	this = new Cat();
+	return ("Please use this as a virtual function for Cat !");
 }
 
-void	Animal::getDog()
+void Animal::setIdea(std::string newIdea)
 {
-	this = new Dog();
+	(void)newIdea;
+	std::cout << "Please use this as a virtual function for Cat !" << std::endl;
+
 }

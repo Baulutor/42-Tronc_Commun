@@ -24,13 +24,25 @@ Brain::Brain(std::string oneIdea)
 
 Brain::Brain(Brain &src)
 {
-	(void)src;
 	std::cout << GREEN << "Copy Brain constructor called" << RESET << std::endl;
-//	this._ideas = src._ideas;
+	for (int i = 0; i < 100; i++)
+	{
+		this->_ideas[i] = src._ideas[i];
+	}
 }
 
 
 Brain::~Brain()
 {
 	std::cout << RED << "Brain destructor called" << RESET << std::endl;
+}
+
+std::string Brain::getFirstIdea() const
+{
+	return (this->_ideas[0]);
+};
+
+void Brain::setFirstIdea(std::string newIdea)
+{
+	this->_ideas[0] = newIdea;
 }

@@ -22,6 +22,9 @@ public:
 	Brain(std::string oneIdea);
 	Brain(Brain & rhs);
 	~Brain();
+
+	std::string getFirstIdea() const ;
+	void setFirstIdea(std::string newIdea);
 };
 
 

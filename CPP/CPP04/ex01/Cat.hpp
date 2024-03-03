@@ -16,11 +16,14 @@ public:
 	// CONSTRUCTOR AND DESTRUCTOR
 	Cat();
 	Cat(std::string name);
+	Cat & operator=(Cat &rhs);
 	Cat(Cat & src);
 	~Cat();
 
 	// METHOD
-	void makeSound() const;
+	void 		makeSound() const;
+	std::string getIdea() const;
+	void		setIdea(std::string newIdea);
 };
 
 

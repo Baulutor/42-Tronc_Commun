@@ -17,6 +17,16 @@ Cat::Cat(std::string name) : Animal(name)
 	this->_catBrain = new Brain();
 }
 
+Cat & Cat::operator=(Cat &rhs)
+{
+	std::cout << GREEN << "Operator assignation called" << RESET << std::endl;
+	if (this != &rhs)
+	{
+		this->_catBrain = rhs._catBrain;
+	}
+	return (*this);
+}
+
 Cat::Cat(Cat & rhs)
 {
 	std::cout << GREEN << "Copy Cat constructor called" << RESET << std::endl;
@@ -32,4 +42,17 @@ Cat::~Cat()
 void Cat::makeSound() const
 {
 	std::cout << "Meowww" << std::endl;
+}
+
+std::string Cat::getIdea() const
+{
+	std::string test;
+
+	test = this->_catBrain->getFirstIdea();
+	return (test);
+}
+
+void	Cat::setIdea(std::string newIdea)
+{
+	this->_catBrain->setFirstIdea(newIdea);
 }
