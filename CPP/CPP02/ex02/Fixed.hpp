@@ -21,6 +21,7 @@ public :
 	Fixed(int const value);
 	Fixed(float const value);
 	Fixed(Fixed const & src);
+	Fixed & operator=(Fixed const & rhs);
 	~Fixed();
 	// GETTER SETTER
 	int		getRawBits() const;
@@ -44,7 +45,6 @@ public :
 	bool	operator==(Fixed const & rhs);
 	bool	operator!=(Fixed const & rhs);
 
-	Fixed & operator=(Fixed const & rhs);
 	// METHOD
 
 

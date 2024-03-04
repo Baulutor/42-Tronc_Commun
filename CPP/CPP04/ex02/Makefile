@@ -11,14 +11,21 @@
 # **************************************************************************** #
 
 
-NAME            	=  	Fixed
 
-HEADERS_FILES    	=  	Fixed.hpp
+NAME            	=  	Brain
+
+HEADERS_FILES    	=  	Animal.hpp \
+						Cat.hpp \
+						Dog.hpp \
+						Brain.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
 SRC_FILES        	=  	main.cpp \
- 						Fixed.cpp
+ 						Animal.cpp \
+ 						Cat.cpp \
+ 						Dog.cpp \
+ 						Brain.cpp
 
 SRCS            	=  	$(SRC_FILES)
 
@@ -26,7 +33,7 @@ DIRECTORY        	=   .obj
 OBJS            	=   $(SRC_FILES:%.cpp=$(DIRECTORY)/%.o)
 
 CC                	=   c++
-CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98 -g3
 
 all: $(NAME)
 

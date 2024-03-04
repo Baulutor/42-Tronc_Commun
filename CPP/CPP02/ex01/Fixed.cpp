@@ -4,20 +4,20 @@
 
 Fixed::Fixed() : _value(0)
 {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << GREEN << "Default constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(int const value) : _value(value << _bit)
 {
-	std::cout << "Int constructor called" << std::endl;
+	std::cout << GREEN  << "Int constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(float const value) : _value(roundf(value * (1 << _bit)))
 {
-	std::cout << "Float constructor called" << std::endl;
+	std::cout << GREEN << "Float constructor called" << RESET << std::endl;
 }
 
-std::ostream & operator<<( std::ostream & o, Fixed const & i ) {
+std::ostream & operator<<(std::ostream &o, Fixed const &i) {
 
 	o << i.toFloat();
 	return o;
@@ -25,13 +25,13 @@ std::ostream & operator<<( std::ostream & o, Fixed const & i ) {
 
 Fixed::Fixed(const Fixed &src)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << GREEN << "Copy constructor called" << RESET << std::endl;
 	this->setRawBits(src.getRawBits());
 }
 
 Fixed & Fixed::operator=(Fixed const &rhs)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << GREEN << "Copy assignment operator called" << RESET << std::endl;
 	if (this != &rhs)
 		this->_value = rhs.getRawBits();
 	return (*this);
@@ -39,7 +39,7 @@ Fixed & Fixed::operator=(Fixed const &rhs)
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << RED << "Destructor called" << RESET << std::endl;
 }
 
 float Fixed::toFloat( void ) const

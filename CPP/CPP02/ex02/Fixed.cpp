@@ -25,6 +25,14 @@ Fixed::Fixed(const Fixed &src)
 	this->setRawBits(src.getRawBits());
 }
 
+Fixed & Fixed::operator=(Fixed const &rhs)
+{
+	std::cout << GREEN << "Copy assignment operator called" << RESET << std::endl;
+	if (this != &rhs)
+		this->_value = rhs.getRawBits();
+	return (*this);
+}
+
 Fixed::~Fixed()
 {
 	std::cout << RED << "Destructor called" << RESET <<  std::endl;
@@ -65,12 +73,6 @@ std::ostream& operator<<( std::ostream & o, Fixed const & i ) {
 	return o;
 }
 
-Fixed & Fixed::operator=(Fixed const &rhs)
-{
-	if (this != &rhs)
-		this->_value = rhs.getRawBits();
-	return (*this);
-}
 
 /* COMPARISON */
 

@@ -6,6 +6,10 @@
 # include <ostream>
 # include <cmath>
 
+# define RED "\033[31m"
+# define RESET "\033[0m"
+# define GREEN "\033[32m"
+
 class Fixed
 {
 private :

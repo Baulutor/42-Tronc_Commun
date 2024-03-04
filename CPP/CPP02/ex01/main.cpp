@@ -16,6 +16,5 @@ int main( void ) {
 	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 	std::cout << "d is " << d.toFloat() << " as integer" << std::endl;
-
 	return 0;
 }
