@@ -7,7 +7,7 @@ FragTrap::FragTrap()
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name, 100, 50, 20)
 {
-
+	std::cout << "Constructor of FragTrap called" << std::endl;
 }
 
 FragTrap::FragTrap(FragTrap & src) : ClapTrap()

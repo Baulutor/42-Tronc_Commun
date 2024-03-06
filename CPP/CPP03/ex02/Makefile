@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-NAME            	=  	ScavTrap
+NAME            	=  	FragTrap
 
 HEADERS_FILES    	=  	ClapTrap.hpp \
 						ScavTrap.hpp \
@@ -26,23 +26,23 @@ SRC_FILES        	=  	main.cpp \
 
 SRCS            	=  	$(SRC_FILES)
 
-BUILD_DIR        	=   .obj
-OBJS            	=   $(SRC_FILES:%.cpp=$(BUILD_DIR)/%.o)
+DIRECTORY        	=   .obj
+OBJS            	=   $(SRC_FILES:%.cpp=$(DIRECTORY)/%.o)
 
 CC                	=   c++
-CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98 -g3
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CC_FLAGS) $(OBJS) -o $@
 
-$(BUILD_DIR)/%.o:  %.cpp $(HEADERS)
+$(DIRECTORY)/%.o:  %.cpp $(HEADERS)
 	@mkdir -p $(@D)
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(BUILD_DIR)
+	@rm -rf $(DIRECTORY)
 
 fclean: clean
 	@rm -rf $(NAME)
