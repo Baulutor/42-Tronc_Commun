@@ -11,32 +11,26 @@
 # define BLUE "\033[34m"
 # define MAGENTA "\033[35m"
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class	ClapTrap
 {
 protected:
-	string	_name;
-	int 	_hitPoint;
-	int 	_energyPoint;
+	std::string			_name;
+	int 			_hitPoint;
+	int 			_energyPoint;
 	unsigned int 	_attackDamage;
 
 public:
 
 	// CONSTRUCTOR AND DESTRUCTOR;
 	ClapTrap();
-	ClapTrap(string name);
-	ClapTrap(string name, int hitpoint, int energypoint, unsigned int attdmg);
+	ClapTrap(std::string name);
+	ClapTrap(std::string name, int hitpoint, int energypoint, unsigned int attdmg);
 	ClapTrap(ClapTrap & src);
 	ClapTrap & operator=(ClapTrap & rhs);
 	~ClapTrap();
 
 	// GETTER AND SETTER
-	string 	getName();
+	std::string 	getName();
 	int 	getHitPoint();
 	int 	getEnergyPoint();
 	int 	getAttackDamage();

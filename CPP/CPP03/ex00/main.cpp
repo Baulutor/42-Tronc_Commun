@@ -22,5 +22,5 @@ int main ()
 		if (third.getEnergyPoint() >= 0)
 			second.takeDamage(third.getAttackDamage());
 	}
-	cout << BLUE << second.getName() << RESET << " still have " << second.getHitPoint() << " hitpoints" << endl;
+	std::cout << BLUE << second.getName() << RESET << " still have " << second.getHitPoint() << " hitpoints" << std::endl;
 }

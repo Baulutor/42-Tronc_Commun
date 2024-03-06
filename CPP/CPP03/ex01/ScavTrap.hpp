@@ -12,18 +12,12 @@
 # define BLUE "\033[34m"
 # define YELLOW "\033[33m"
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class	ScavTrap :  public ClapTrap
 {
 public:
 	ScavTrap();
-	ScavTrap(string name);
-	ScavTrap(ScavTrap & src);
+	ScavTrap(std::string name);
+	ScavTrap(ScavTrap &src);
 	ScavTrap & operator=(ScavTrap & rhs);
 	~ScavTrap();
 

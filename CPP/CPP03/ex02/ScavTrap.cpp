@@ -5,20 +5,19 @@ ScavTrap::ScavTrap() : ClapTrap() {
 
 }
 
-ScavTrap::ScavTrap(string name) : ClapTrap(name, 100, 50, 20)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20)
 {
-//	(void)name;
-	cout << "ScavTrap " << BLUE << this->_name << RESET << " Default constructor called"  << endl;
+	std::cout << "ScavTrap " << BLUE << this->_name << RESET << " Default constructor called"  << std::endl;
 }
 
 
-ScavTrap::ScavTrap(ScavTrap & src)
+ScavTrap::ScavTrap(ScavTrap & src) : ClapTrap()
 {
 	this->_name = src.getName();
 	this->_hitPoint = src.getHitPoint();
 	this->_attackDamage = src.getAttackDamage();
 	this->_energyPoint = src.getEnergyPoint();
-	cout << "Copy constructor of " << BLUE << this->_name << RESET << " called" << endl;
+	std::cout << "Copy constructor of " << BLUE << this->_name << RESET << " called" << std::endl;
 }
 
 ScavTrap & ScavTrap::operator=(ScavTrap & rhs)
@@ -30,34 +29,33 @@ ScavTrap & ScavTrap::operator=(ScavTrap & rhs)
 		this->_attackDamage = rhs.getAttackDamage();
 		this->_energyPoint = rhs.getEnergyPoint();
 	}
-	cout << "Copy assignment operator " << BLUE << this->_name << RESET << " called" << endl;
+	std::cout << "Copy assignment operator " << BLUE << this->_name << RESET << " called" << std::endl;
 	return (*this);
 }
 
 ScavTrap::~ScavTrap()
 {
-	cout << "Destructor of ScavTrap " << BLUE << this->_name << RESET << " called" << endl;
+	std::cout << "Destructor of ScavTrap " << BLUE << this->_name << RESET << " called" << std::endl;
 }
 
-
 void	ScavTrap::guardGate() {
-	cout << BLUE << this->_name << YELLOW << " is now on guard gate mod" << RESET << endl;
+	std::cout << BLUE << this->_name << YELLOW << " is now on guard gate mod" << RESET << std::endl;
 }
 
 void	ScavTrap::attack(const std::string& target)
 {
 	if (this->_hitPoint <= 0)
 	{
-		cout << BLUE << this->_name << RESET << " is already dead, he can't attack" << endl;
+		std::cout << BLUE << this->_name << RESET << " is already dead, he can't attack" << std::endl;
 		return ;
 	}
 	if (this->_energyPoint <= 0)
 	{
 		this->_energyPoint -= 1;
-		cout << BLUE << this->_name << RESET << " has no energy left, he can't attack" << endl;
+		std::cout << BLUE << this->_name << RESET << " has no energy left, he can't attack" << std::endl;
 		return ;
 	}
 	this->_energyPoint -= 1;
 
-	cout << RED << "ScavTrap " << BLUE << this->_name << RED << " attacks " << target << " , causing "<< this->_attackDamage << " points of damage!" << RESET << endl;
+	std::cout << RED << "ScavTrap " << BLUE << this->_name << RED << " attacks " << BLUE << target << RED << ", causing "<< this->_attackDamage << " points of damage!" << RESET << std::endl;
 }

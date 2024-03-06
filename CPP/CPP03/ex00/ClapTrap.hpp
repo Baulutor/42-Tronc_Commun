@@ -10,16 +10,10 @@
 # define GREEN "\033[32m"
 # define BLUE "\033[34m"
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class	ClapTrap
 {
 private:
-	string	_name;
+	std::string	_name;
 	int 	_hitPoint;
 	int 	_energyPoint;
 	unsigned int 	_attackDamage;
@@ -27,13 +21,14 @@ private:
 public:
 
 	// CONSTRUCTOR AND DESTRUCTOR
-	ClapTrap(string name);
+	ClapTrap();
+	ClapTrap(std::string name);
 	ClapTrap(ClapTrap & src);
 	ClapTrap & operator=(ClapTrap & rhs);
 	~ClapTrap();
 
 	// GETTER AND SETTER
-	string 	getName();
+	std::string 	getName();
 	int 	getHitPoint();
 	int 	getEnergyPoint();
 	int 	getAttackDamage();

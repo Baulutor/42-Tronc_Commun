@@ -13,17 +13,11 @@
 # define YELLOW "\033[33m"
 # define CYAN "\033[36m"
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class	FragTrap :  public ClapTrap
 {
 public:
 	FragTrap();
-	FragTrap(string name);
+	FragTrap(std::string name);
 	FragTrap(FragTrap & src);
 	FragTrap & operator=(FragTrap & rhs);
 	~FragTrap();
