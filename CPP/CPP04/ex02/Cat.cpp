@@ -5,13 +5,13 @@
 #include "Cat.hpp"
 
 
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : AAnimal("Cat")
 {
 	std::cout << GREEN << "Default Cat constructor called" << RESET << std::endl;
 	this->_catBrain = new Brain();
 }
 
-Cat::Cat(std::string name) : Animal(name)
+Cat::Cat(std::string name) : AAnimal(name)
 {
 	std::cout << GREEN << "Cat constructor called" << RESET << std::endl;
 	this->_catBrain = new Brain();
@@ -27,7 +27,7 @@ Cat & Cat::operator=(Cat &rhs)
 	return (*this);
 }
 
-Cat::Cat(Cat & rhs)
+Cat::Cat(Cat & rhs) : AAnimal()
 {
 	std::cout << GREEN << "Copy Cat constructor called" << RESET << std::endl;
 	this->_type = rhs._type;

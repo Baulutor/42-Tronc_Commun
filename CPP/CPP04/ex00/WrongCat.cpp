@@ -7,16 +7,18 @@
 
 WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
-	cout << "Default WrongCat constructor called" << endl;
+	std::cout << "Default WrongCat constructor called" << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat & rhs)
+WrongCat::WrongCat(WrongCat & rhs) : WrongAnimal("WrongCat")
 {
+	std::cout << "Copy constructor WrongCat called" << std::endl;
 	this->_type = rhs._type;
 }
 
 WrongCat & WrongCat::operator=(WrongCat &rhs)
 {
+	std::cout << "Copy assignment operator WrongCat called" << std::endl;
 	if (&rhs != this)
 	{
 		this->_type = rhs._type;
@@ -26,10 +28,10 @@ WrongCat & WrongCat::operator=(WrongCat &rhs)
 
 WrongCat::~WrongCat()
 {
-	cout << "WrongCat destructor" << endl;
+	std::cout << "WrongCat destructor called" << std::endl;
 }
 
 void WrongCat::makeSound() const
 {
-	cout << "Meowww" << endl;
+	std::cout << "Meowww" << std::endl;
 }

@@ -14,7 +14,7 @@ Dog::Dog(std::string name) : Animal(name)
 	this->_dogBrain = new Brain();
 }
 
-Dog::Dog(Dog &src)
+Dog::Dog(Dog &src) : Animal("Dog")
 {
 	std::cout << GREEN << "Copy Dog constructor called" << RESET << std::endl;
 	this->_type = src._type;

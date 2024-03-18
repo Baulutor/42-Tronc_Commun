@@ -27,7 +27,7 @@ Cat & Cat::operator=(Cat &rhs)
 	return (*this);
 }
 
-Cat::Cat(Cat & rhs)
+Cat::Cat(Cat & rhs) : Animal("Cat")
 {
 	std::cout << GREEN << "Copy Cat constructor called" << RESET << std::endl;
 	this->_type = rhs._type;

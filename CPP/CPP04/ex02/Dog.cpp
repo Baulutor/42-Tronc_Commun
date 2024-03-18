@@ -2,19 +2,19 @@
 #include "Dog.hpp"
 
 
-Dog::Dog() : Animal("Dog")
+Dog::Dog() : AAnimal("Dog")
 {
 	std::cout << GREEN << "Default Dog constructor Called" << RESET << std::endl;
 	this->_dogBrain = new Brain();
 }
 
-Dog::Dog(std::string name) : Animal(name)
+Dog::Dog(std::string name) : AAnimal(name)
 {
 	std::cout << GREEN << "Dog constructor called" << RESET << std::endl;
 	this->_dogBrain = new Brain();
 }
 
-Dog::Dog(Dog &src)
+Dog::Dog(Dog &src) : AAnimal()
 {
 	std::cout << GREEN << "Copy Dog constructor called" << RESET << std::endl;
 	this->_type = src._type;

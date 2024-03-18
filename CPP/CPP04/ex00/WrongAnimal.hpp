@@ -9,25 +9,19 @@
 # include <fstream>
 # include <ostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class WrongAnimal {
 protected :
-	string	_type;
+	std::string	_type;
 public :
 	// CONSTRUCTOR AND DESTRUCTOR
 	WrongAnimal();
-	WrongAnimal(string type);
+	WrongAnimal(std::string type);
 	WrongAnimal(WrongAnimal & src);
 	WrongAnimal & operator=(WrongAnimal & rhs);
 	~WrongAnimal();
 
 	//GETTER AND SETTER
-	string	getType() const;
+	std::string	getType() const;
 	void	makeSound() const;
 };
 

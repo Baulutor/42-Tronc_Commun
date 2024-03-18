@@ -2,7 +2,7 @@
 // Created by dbaule on 2/21/24.
 //
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 
 AAnimal::AAnimal() : _type("Animal")
@@ -34,11 +34,6 @@ AAnimal & AAnimal::operator=(AAnimal const &rhs)
 AAnimal::~AAnimal()
 {
 	std::cout << RED << "Animal Destructor called" << RESET << std::endl;
-}
-
-void	AAnimal::makeSound() const
-{
-	std::cout << this->_type<< " sound" << std::endl;
 }
 
 std::string	AAnimal::getType() const
