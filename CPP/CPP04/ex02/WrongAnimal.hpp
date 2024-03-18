@@ -9,12 +9,6 @@
 # include <fstream>
 # include <ostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::getline;
-using std::string;
-
 class WrongAnimal {
 protected :
 	string	_type;
