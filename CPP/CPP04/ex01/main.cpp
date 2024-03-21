@@ -22,10 +22,10 @@ int main ()
 			l[i]->makeSound();
 		}
 	}
-		Cat basic;
-		{
-			Cat tmp = basic;
-		}
+//		Cat basic;
+//		{
+//			Cat tmp = basic;
+//		}
 //		Dog basic;
 //		{
 //			Dog tmp = basic;
