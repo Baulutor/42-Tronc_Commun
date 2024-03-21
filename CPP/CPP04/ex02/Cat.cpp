@@ -22,7 +22,7 @@ Cat & Cat::operator=(Cat &rhs)
 	std::cout << GREEN << "Operator assignation called" << RESET << std::endl;
 	if (this != &rhs)
 	{
-		this->_catBrain = rhs._catBrain;
+		this->_catBrain = new Brain();
 	}
 	return (*this);
 }
@@ -31,6 +31,7 @@ Cat::Cat(Cat & rhs) : AAnimal()
 {
 	std::cout << GREEN << "Copy Cat constructor called" << RESET << std::endl;
 	this->_type = rhs._type;
+	this->_catBrain = new Brain();
 }
 
 Cat::~Cat()

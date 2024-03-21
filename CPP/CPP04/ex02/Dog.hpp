@@ -17,6 +17,7 @@ public:
 	// CONSTRUCTOR AND DESTRUCTOR
 	Dog();
 	Dog(std::string name);
+	Dog & operator=(Dog &rhs);
 	Dog(Dog & src);
 	~Dog();
 

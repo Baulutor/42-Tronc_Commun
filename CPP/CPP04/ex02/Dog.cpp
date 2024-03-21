@@ -18,8 +18,18 @@ Dog::Dog(Dog &src) : AAnimal()
 {
 	std::cout << GREEN << "Copy Dog constructor called" << RESET << std::endl;
 	this->_type = src._type;
+	this->_dogBrain = new Brain();
 }
 
+Dog & Dog::operator=(Dog &rhs)
+{
+	std::cout << GREEN << "Operator assignation called" << RESET << std::endl;
+	if (this != &rhs)
+	{
+		this->_dogBrain = new Brain();
+	}
+	return (*this);
+}
 
 Dog::~Dog()
 {
