@@ -8,12 +8,12 @@
 
 Bureaucrat::Bureaucrat() : _name("bur"), _grade(150)
 {
-	std::cout << "Default constructor Bureaucrat called" << std::endl;
+	std::cout << B_YELLOW << "Default constructor Bureaucrat called" << RESET << std::endl;
 }
 
 Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name)
 {
-	std::cout << "Default constructor Bureaucrat called" << std::endl;
+	std::cout << B_YELLOW << "Default constructor Bureaucrat called" << RESET << std::endl;
 	if (grade > 150)
 		throw GradeTooLowException();
 	else if (grade < 1)
@@ -23,14 +23,14 @@ Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name)
 
 Bureaucrat::Bureaucrat(Bureaucrat &src) : _name("Pierre")
 {
-	std::cout << "Copy constructor Bureaucrat called" << std::endl;
+	std::cout << B_YELLOW << "Copy constructor Bureaucrat called" << RESET << std::endl;
 	*this = src;
 }
 
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat &rhs)
 {
-	std::cout << "Copy assignment operator Bureaucrat called" << std::endl;
+	std::cout << B_YELLOW << "Copy assignment operator Bureaucrat called" << RESET << std::endl;
 	if (this != &rhs)
 	{
 		this->_grade = rhs.getGrade();
@@ -40,7 +40,7 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat &rhs)
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Destructor Bureaucrat called" << std::endl;
+	std::cout << B_RED << "Destructor Bureaucrat called" << RESET << std::endl;
 }
 
 
@@ -79,7 +79,19 @@ void	Bureaucrat::decrementGrade()
 
 void Bureaucrat::signForm(Form &toSign) // lol : comment gerer si ca a ete catch et inversement ??
 {
-	toSign.beSigned(this);
+	try
+	{
+		toSign.beSigned(this);
+		std::cout << GREEN << this->_name << " signed " << toSign.getName() << RESET << std::endl;
+	}
+	catch (AlreadySigned &e)
+	{
+//		std::cout << "already sign" << e.what();
+	}
+	catch (GradeTooLowException &e)
+	{
+		std::cout << "grade too low" << e.what();
+	}
 
 }
 

@@ -5,14 +5,14 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form() : _name("satisfaction"), _requiredToSign(50), _requiredToExecute(150)
+Form::Form() : _name("satisfaction"), _requiredToSign(50), _requiredToExecute(150), _isSigned(0)
 {
-	std::cout << "Default Form constructor called" << std::endl;
+	std::cout << B_CYAN << "Default Form constructor called" << RESET << std::endl;
 }
 
-Form::Form(std::string name, int gradeSign, int gradeExec) : _name(name), _requiredToSign(gradeSign), _requiredToExecute(gradeExec)
+Form::Form(std::string name, int gradeSign, int gradeExec) : _name(name), _requiredToSign(gradeSign), _requiredToExecute(gradeExec), _isSigned(0)
 {
-	std::cout << "Form constructor called" << std::endl;
+	std::cout << B_CYAN << "Form constructor called" << RESET << std::endl;
 	if (gradeSign > 150)
 		throw GradeTooLowException();
 	if (gradeSign < 1)
@@ -23,16 +23,16 @@ Form::Form(std::string name, int gradeSign, int gradeExec) : _name(name), _requi
 		throw GradeTooHighException();
 }
 
-Form::Form(Form &src) :  _name("satisfaction"), _requiredToSign(50), _requiredToExecute(150)
+Form::Form(Form &src) :  _name("satisfaction"), _requiredToSign(50), _requiredToExecute(150), _isSigned(0)
 {
-	std::cout << "Form copy constructor called" << std::endl;
+	std::cout << B_CYAN << "Form copy constructor called" << RESET << std::endl;
 	*this = src;
 
 }
 
 Form &Form::operator=(Form &rhs)
 {
-	std::cout << "Form copy assignment operator called" << std::endl;
+	std::cout << B_CYAN << "Form copy assignment operator called" << RESET << std::endl;
 	if (this != &rhs)
 	{
 		this->_isSigned = 0;
@@ -43,7 +43,7 @@ Form &Form::operator=(Form &rhs)
 
 Form::~Form()
 {
-	std::cout << "Form destructor called" << std::endl;
+	std::cout << B_RED << "Form destructor called" << RESET << std::endl;
 }
 
 // GETTER
@@ -70,17 +70,19 @@ bool	Form::getIsSigned()
 
 void Form::beSigned(Bureaucrat *bur)
 {
+	if (this->_isSigned == 1)
+		throw AlreadySigned();
 	if (bur->getGrade() <= this->getRequiredToSign())
 		this->_isSigned = 1;
 	else
 		throw GradeTooLowException();
 }
 
-std::ostream & operator<<(Form &src, std::ostream &o)
+std::ostream & operator<<(std::ostream &o, Form &src)
 {
 	if (src.getIsSigned() == 0)
-		o << src.getName() << " is a Form, still not signed, he need a Bureaucrat that is at least " << src.getRequiredToSign() << " grade, and need to be" << src.getRequiredToExecute() << " to execute";
+		o << MAGENTA << src.getName() << " is a Form, still not signed, he need a Bureaucrat that is at least " << src.getRequiredToSign() << " grade, and need to be " << src.getRequiredToExecute() << " to execute" << RESET;
 	else
-		o << src.getName() << " is a Form, is signed, he need a Bureaucrat that is at least " << src.getRequiredToSign() << " grade, and need to be" << src.getRequiredToExecute() << " to execute";
+		o << CYAN << src.getName() << " is a Form, is already signed, he need a Bureaucrat that is at least " << src.getRequiredToSign() << " grade, and need to be" << src.getRequiredToExecute() << " to execute" << RESET;
 	return (o);
 }

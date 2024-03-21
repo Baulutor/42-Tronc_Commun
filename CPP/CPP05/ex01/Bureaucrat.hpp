@@ -12,10 +12,16 @@
 # include <iostream>
 # include <stdexcept>
 
-# define RED "\033[31m"
-# define RESET "\033[0m"
-# define GREEN "\033[32m"
-# define BLUE "\033[34m"
+# define RED		"\033[31m"
+# define RESET		"\033[0m"
+# define GREEN		"\033[32m"
+# define BLUE		"\033[34m"
+# define MAGENTA	"\033[35m"
+# define CYAN		"\033[36m"
+# define YELLOW		"\033[33m"
+# define B_YELLOW	"\033[43m"
+# define B_RED      "\033[41m"
+# define B_CYAN     "\033[46m"
 
 class Form;
 
@@ -55,6 +61,14 @@ public:
 		virtual const char* what() const throw()
 		{
 			return ("Grade is too low, 150 is the minimum");
+		}
+	};
+	class AlreadySigned : public std::exception
+	{
+	public :
+		virtual const char* what() const throw()
+		{
+			return ("The form is already signed");
 		}
 	};
 };

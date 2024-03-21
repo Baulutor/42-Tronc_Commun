@@ -55,8 +55,16 @@ public :
 			return ("Grade is too low, 150 is the minimum");
 		}
 	};
+	class AlreadySigned : public std::exception
+	{
+	public :
+		virtual const char* what() const throw()
+		{
+			return ("The form is already signed");
+		}
+	};
 };
 
-std::ostream & operator<<(Form &bur, std::ostream &o);
+std::ostream & operator<<(std::ostream &o, Form &src);
 
 #endif

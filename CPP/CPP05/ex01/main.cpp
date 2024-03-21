@@ -11,8 +11,12 @@ int main ()
 	{
 		Bureaucrat bur;
 
+		Form test("test", 20, 50);
+
 		std::cout << bur << std::endl;
-		bur.decrementGrade();
+		std::cout << test << std::endl;
+		bur.signForm(test);
+//		bur.decrementGrade();
 	}
 	catch (std::exception &e)
 	{
@@ -26,7 +30,8 @@ int main ()
 		std::cout << BLUE << ceo << RESET <<std::endl;
 		ceo.signForm(test);
 
-		ceo.incrementGrade();
+		ceo.signForm(test);
+//		ceo.incrementGrade();
 	}
 	catch (std::exception &e)
 	{
