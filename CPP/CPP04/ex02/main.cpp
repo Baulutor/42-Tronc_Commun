@@ -26,4 +26,7 @@ int main ()
 	std::cout << "only a pointer of AAnimal : ";
 	p->makeSound();
 	std::cout << std::endl << "This is working cause here my AAnimal is like a storage that I can put a object in (exactly like an array of pointer), here the Cat !" << std::endl;
+	delete p;
+	delete l[0];
+	delete l[1];
 }

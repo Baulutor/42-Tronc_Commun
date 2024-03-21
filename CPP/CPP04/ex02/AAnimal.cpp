@@ -7,17 +7,17 @@
 
 AAnimal::AAnimal() : _type("Animal")
 {
-	std::cout << BLUE << "Default Animal constructor called" << RESET << std::endl;
+	std::cout << BLUE << "Default AAnimal constructor called" << RESET << std::endl;
 }
 
 AAnimal::AAnimal(std::string type) : _type(type)
 {
-	std::cout << BLUE << "Animal constructor called" << RESET << std::endl;
+	std::cout << BLUE << "AAnimal constructor called" << RESET << std::endl;
 }
 
 AAnimal::AAnimal(AAnimal &src)
 {
-	std::cout << BLUE << "Copy Animal constructor called" << RESET << std::endl;
+	std::cout << BLUE << "Copy AAnimal constructor called" << RESET << std::endl;
 	this->_type = src._type;
 }
 
@@ -33,7 +33,7 @@ AAnimal & AAnimal::operator=(AAnimal const &rhs)
 
 AAnimal::~AAnimal()
 {
-	std::cout << RED << "Animal Destructor called" << RESET << std::endl;
+	std::cout << RED << "AAnimal Destructor called" << RESET << std::endl;
 }
 
 std::string	AAnimal::getType() const
