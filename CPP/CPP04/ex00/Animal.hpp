@@ -6,7 +6,6 @@
 # include <fstream>
 # include <ostream>
 
-
 class Animal {
 
 protected:

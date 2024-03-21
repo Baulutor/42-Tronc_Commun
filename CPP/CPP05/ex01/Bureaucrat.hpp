@@ -3,18 +3,21 @@
 //
 
 #ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+# define BUREAUCRAT_HPP
 
+# include "Form.hpp"
 
-#include <cctype>
-#include <string>
-#include <iostream>
-#include <stdexcept>
+# include <cctype>
+# include <string>
+# include <iostream>
+# include <stdexcept>
 
 # define RED "\033[31m"
 # define RESET "\033[0m"
 # define GREEN "\033[32m"
 # define BLUE "\033[34m"
+
+class Form;
 
 class Bureaucrat {
 private:
@@ -29,12 +32,13 @@ public:
 	~Bureaucrat();
 
 	// GETTER SETTER
-	int			getGrade();
-	std::string	const getName();
+	int					getGrade();
+	std::string	const	getName();
 	// METHOD
 	void	incrementGrade();
 	void	decrementGrade();
 
+	void	signForm(Form &toSign);
 
 	// EXCEPTION
 	class	GradeTooHighException : public std::exception

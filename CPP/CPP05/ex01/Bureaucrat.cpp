@@ -3,6 +3,7 @@
 //
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 
 Bureaucrat::Bureaucrat() : _name("bur"), _grade(150)
@@ -43,6 +44,8 @@ Bureaucrat::~Bureaucrat()
 }
 
 
+// GETTER
+
 std::string const	Bureaucrat::getName()
 {
 	return (this->_name);
@@ -52,6 +55,8 @@ int			Bureaucrat::getGrade()
 {
 	return (this->_grade);
 }
+
+// INCREMENT/DECREMENT GRADE
 
 void	Bureaucrat::incrementGrade()
 {
@@ -68,6 +73,17 @@ void	Bureaucrat::decrementGrade()
 	else
 		throw GradeTooLowException();
 }
+
+// METHOD
+
+
+void Bureaucrat::signForm(Form &toSign) // lol : comment gerer si ca a ete catch et inversement ??
+{
+	toSign.beSigned(this);
+
+}
+
+// OVERLOAD
 
 std::ostream & operator<<(std::ostream &o, Bureaucrat &bur)
 {
