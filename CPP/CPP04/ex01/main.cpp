@@ -22,14 +22,14 @@ int main ()
 			l[i]->makeSound();
 		}
 	}
-//		Cat basic;
-//		{
-//			Cat tmp = basic;
-//		}
-//		Dog basic
+		Cat basic;
+		{
+			Cat tmp = basic;
+		}
+//		Dog basic;
 //		{
 //			Dog tmp = basic;
-//		};
+//		}
 	// Showing that I create deep copy  for Cat!
 	std::cout << BLUE << l[0]->getType() << std::endl;
 	std::cout << l[0]->getIdea() << std::endl;
