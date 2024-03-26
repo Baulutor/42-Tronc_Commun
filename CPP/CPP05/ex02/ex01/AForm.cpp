@@ -2,7 +2,7 @@
 // Created by dbaule on 3/20/24.
 //
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
 Form::Form() : _name("satisfaction"), _requiredToSign(50), _requiredToExecute(150), _isSigned(0)
