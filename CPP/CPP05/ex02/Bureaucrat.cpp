@@ -51,7 +51,7 @@ std::string const	Bureaucrat::getName()
 	return (this->_name);
 }
 
-int			Bureaucrat::getGrade()
+int			        Bureaucrat::getGrade() const
 {
 	return (this->_grade);
 }
@@ -77,11 +77,17 @@ void	Bureaucrat::decrementGrade()
 // METHOD
 
 
-void Bureaucrat::signForm(Form &toSign)
+void        Bureaucrat::signForm(AForm &toSign)
 {
-
+    bool    checksigned = toSign.getIsSigned();
     toSign.beSigned(this);
-    std::cout << GREEN << this->_name << " signed " << toSign.getName() << RESET << std::endl;
+    if (toSign.getIsSigned() == 1 && checksigned == 0)
+        std::cout << GREEN << this->_name << " signed " << toSign.getName() << RESET << std::endl;
+}
+
+void    Bureaucrat::executeForm(AForm const & form) const
+{
+    form.execute(*this);
 }
 
 // OVERLOAD

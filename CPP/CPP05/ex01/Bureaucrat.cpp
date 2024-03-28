@@ -79,9 +79,10 @@ void	Bureaucrat::decrementGrade()
 
 void Bureaucrat::signForm(Form &toSign)
 {
-
+    bool    checksigned = toSign.getIsSigned();
     toSign.beSigned(this);
-    std::cout << GREEN << this->_name << " signed " << toSign.getName() << RESET << std::endl;
+    if (toSign.getIsSigned() == 1 && checksigned == 0)
+        std::cout << GREEN << this->_name << " signed " << toSign.getName() << RESET << std::endl;
 }
 
 // OVERLOAD

@@ -12,16 +12,22 @@
 
 
 
-NAME            	=  	Form
+NAME            	=  	AForm
 
 HEADERS_FILES    	=  	Bureaucrat.hpp \
-						Form.hpp
+						AForm.hpp \
+						ShrubberyCreationForm.hpp \
+						RobotomyRequestForm.hpp \
+						PresidentialPardonForm.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
 SRC_FILES        	=  	main.cpp \
 						Bureaucrat.cpp \
-						Form.cpp
+						AForm.cpp \
+						ShrubberyCreationForm.cpp \
+						RobotomyRequestForm.cpp \
+						PresidentialPardonForm.cpp
 
 SRCS            	=  	$(SRC_FILES)
 

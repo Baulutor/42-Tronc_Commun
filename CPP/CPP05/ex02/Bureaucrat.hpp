@@ -23,7 +23,7 @@
 # define B_RED      "\033[41m"
 # define B_CYAN     "\033[46m"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 private:
@@ -38,15 +38,16 @@ public:
 	~Bureaucrat();
 
 	// GETTER SETTER
-	int					getGrade();
+	int					getGrade() const;
 	std::string	const	getName();
 	// METHOD
 	void	incrementGrade();
 	void	decrementGrade();
 
-	void	signForm(Form &toSign);
+	void	signForm(AForm &toSign);
+    void    executeForm(AForm const & form) const;
 
-	// EXCEPTION
+    // EXCEPTION
 	class	GradeTooHighException : public std::exception
 	{
 	public :
@@ -71,6 +72,22 @@ public:
 			return ("The form is already signed");
 		}
 	};
+    class GradeTooLowToExecute : public std::exception
+    {
+    public :
+        virtual const char* what() const throw()
+        {
+            return ("This bureaucrat can't execute this form");
+        }
+    };
+    class IsNotSigned : public std::exception
+    {
+    public :
+        virtual const char* what() const throw()
+        {
+            return ("Cannot be executed : the form is not signed");
+        }
+    };
 };
 	// OVERLOAD
 	std::ostream & operator<<(std::ostream &o, Bureaucrat &bur);

@@ -74,7 +74,7 @@ void Form::beSigned(Bureaucrat *bur)
 	if (bur->getGrade() <= this->getRequiredToSign())
 		this->_isSigned = 1;
 	else
-		throw GradeTooLowException();
+		std::cout << bur->getName() << " couldn't signed " << this->getName() << "because the grade is too low" << std::endl;
 }
 
 std::ostream & operator<<(std::ostream &o, Form &src)
