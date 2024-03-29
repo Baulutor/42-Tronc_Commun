@@ -17,7 +17,7 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("Pres
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &src) : AForm(src.getName(), 25, 5), _target(src._target)
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &src) : AForm(src.getName(), 25, 5)
 {
     *this = src;
 }
@@ -26,6 +26,7 @@ PresidentialPardonForm & PresidentialPardonForm::operator=(PresidentialPardonFor
 {
     if (this != &rhs)
     {
+        this->_target = rhs._target;
     }
     return (*this);
 }

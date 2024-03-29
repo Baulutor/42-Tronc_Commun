@@ -39,9 +39,15 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
     if (this->getIsSigned() == 0)
+    {
+        delete (this);
         throw IsNotSigned();
+    }
     if (this->getRequiredToExecute() <= executor.getGrade())
+    {
+        delete (this);
         throw GradeTooLowToExecute();
+    }
     std::string buf;
 
     buf = this->_target + "_shrubbery";
@@ -61,7 +67,10 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
                    "      // \\\\" << std::endl;
     }
     else
+    {
+        delete (this);
         throw CantOpen();
+    }
 }
 
 

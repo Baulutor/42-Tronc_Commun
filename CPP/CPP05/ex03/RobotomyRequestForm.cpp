@@ -39,9 +39,15 @@ RobotomyRequestForm::~RobotomyRequestForm()
 void RobotomyRequestForm::execute(const Bureaucrat &executor) const
 {
     if (this->getIsSigned() == 0)
+    {
+        delete (this);
         throw IsNotSigned();
+    }
     if (this->getRequiredToExecute() <= executor.getGrade())
+    {
+        delete (this);
         throw GradeTooLowToExecute();
+    }
     std::cout << "Bzzzz Bzzzz" << std::endl;
 
     /* we have to change the pool of the random function,

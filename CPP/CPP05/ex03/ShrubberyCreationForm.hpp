@@ -33,7 +33,7 @@ public :
     public :
         virtual const char* what() const throw()
         {
-            return ("This bureaucrat can't execute this form");
+            return ("This bureaucrat can't execute Shrubbery form");
         }
     };
     class IsNotSigned : public std::exception
@@ -41,7 +41,7 @@ public :
     public :
         virtual const char* what() const throw()
         {
-            return ("Cannot be executed : the form is not signed");
+            return ("Cannot be executed : Shrubbery form is not signed");
         }
     };
     class CantOpen : public std::exception

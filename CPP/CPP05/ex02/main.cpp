@@ -51,18 +51,16 @@ int main ()
 	}
 	try
 	{
-		Bureaucrat executive("Pat", 75);
+		Bureaucrat executive("Pat", 25);
         RobotomyRequestForm exe("Robot");
 
         executive.signForm(exe);
         executive.executeForm(exe);
-
 		std::cout << GREEN << executive << RESET <<std::endl;
 	}
 	catch (std::exception &e)
 	{
 		std::cout << RED << e.what() << RESET << std::endl;
 	}
-
 }
 

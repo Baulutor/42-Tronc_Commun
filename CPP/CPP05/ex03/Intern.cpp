@@ -35,16 +35,17 @@ AForm *Intern::makeForm(std::string name, std::string target)
 {
     std::string compareString[] = {"Shrubbery", "Robotomy", "Presidential"};
     AForm *Form[] = {new ShrubberyCreationForm(target), new RobotomyRequestForm(target), new PresidentialPardonForm(target)};
-    for (i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
         if (name == compareString[i])
         {
-            // il faut delete les autres
-            return (Form[i])
+            for (int j =  i + 1; j < 3; j++)
+                delete(Form[j]);
+            return (Form[i]);
         }
         else
             delete (Form[i]);
     }
-    // throw Il n'y a pas le blaze !!
+    throw NoNameForm();
 
 }

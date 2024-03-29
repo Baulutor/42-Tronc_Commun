@@ -10,12 +10,22 @@
 
 class Intern {
 public:
+    // CONSTRUCTOR AND DESTRUCTOR
     Intern();
     Intern(Intern &src);
     Intern &operator=(Intern &rhs);
     ~Intern();
     //METHOD
     AForm *makeForm(std::string name, std::string target);
+
+    class NoNameForm : public std::exception
+    {
+    public :
+        virtual const char* what() const throw()
+        {
+            return ("Intern didn't find the name of the Form");
+        }
+    };
 };
 
 
