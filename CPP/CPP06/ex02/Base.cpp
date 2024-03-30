@@ -32,31 +32,23 @@ Base *generate()
 
 void    identify(Base *p)
 {
-    if (dynamic_cast<A*>(p) != NULL)
+    if (dynamic_cast<A*>(p))
         std::cout << "A" << std::endl;
-    else if (dynamic_cast<B*>(p) != NULL)
+    else if (dynamic_cast<B*>(p))
         std::cout << "B" << std::endl;
-    else if (dynamic_cast<C*>(p) != NULL)
+    else if (dynamic_cast<C*>(p))
         std::cout << "C" << std::endl;
 }
+
 
 void    identify(Base &p)
 {
     Base check;
 
-    if (A* ptrA = dynamic_cast<A*>(&p))
-    {
+    if (dynamic_cast<A*>(&p))
         std::cout << "A" << std::endl;
-        (void)ptrA;
-    }
-    else if (B* ptrB = dynamic_cast<B*>(&p))
-    {
+    else if (dynamic_cast<B*>(&p))
         std::cout << "B" << std::endl;
-        (void)ptrB;
-    }
-    else if (C* ptrC = dynamic_cast<C*>(&p))
-    {
+    else if (dynamic_cast<C*>(&p))
         std::cout << "C" << std::endl;
-        (void)ptrC;
-    }
 }
