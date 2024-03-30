@@ -12,16 +12,14 @@
 
 
 
-NAME            	=  	Convert
+NAME            	=	Serialize
 
-HEADERS_FILES    	=	ScalarConverter.hpp \
-						ForConvert.h
+HEADERS_FILES    	=	Serializer.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
 SRC_FILES        	=  	main.cpp \
-						ScalarConverter.cpp \
-						ForConvert.cpp
+						Serializer.cpp
 
 SRCS            	=  	$(SRC_FILES)
 
