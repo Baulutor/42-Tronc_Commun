@@ -12,13 +12,14 @@
 
 
 
-NAME            	=  	easyfind
+NAME            	=  	Span
 
-HEADERS_FILES    	=	easyfind.hpp
+HEADERS_FILES    	=	Span.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
-SRC_FILES        	=  	main.cpp
+SRC_FILES        	=  	main.cpp \
+						Span.cpp
 
 SRCS            	=  	$(SRC_FILES)
 
