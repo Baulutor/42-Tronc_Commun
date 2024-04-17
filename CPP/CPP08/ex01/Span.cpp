@@ -46,25 +46,18 @@ int    Span::shortestSpan()
 {
     if (this->_vec.size() < 2)
         throw std::length_error("There is less than two numbers, we can't figure out the shortest Span");
-    int buf = 0;
-    long int temp = 1000000000000000;
-    for (std::vector<int>::const_iterator test = this->_vec.begin(); test < this->_vec.end(); test++)
+
+    std::vector<int> copyVector = this->_vec;
+    std::sort(copyVector.begin(), copyVector.end());
+
+    int shortSpan = copyVector[1] - copyVector[0];
+    for (size_t i = 1; i < copyVector.size(); i++)
     {
-        buf = *test;
-        for (std::vector<int>::const_iterator it = this->_vec.begin(); it < this->_vec.end(); it++)
-        {
-
-            if (buf != *it && *it - buf < temp && *it - buf > 0)
-            {
-                std::cout << "test : "<< *it - buf << std::endl;
-                temp = buf - *it;
-            }
-
-        }
+        int span = copyVector[i] - copyVector[i - 1];
+        if (span < shortSpan)
+                shortSpan = span;
     }
-    if (temp < 0)
-        temp *= -1;
-    return (temp);
+    return (shortSpan);
 }
 
 unsigned int    Span::longestSpan()
@@ -86,6 +79,12 @@ unsigned int    Span::longestSpan()
             temp = *it;
     }
     return (temp - buf);
+}
 
-    return (0);
+void    Span::fillVector()
+{
+    for (unsigned int i = 0; i < this->_n; i++)
+    {
+        addNumber(i);
+    }
 }
