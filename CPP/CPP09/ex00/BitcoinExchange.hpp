@@ -33,9 +33,10 @@ public :
     // Method
 
     void    gettingBitcoin();
-    void    checkDate();
+	bool	parsDate(std::string lineInput);
 	bool	parsString(std::string lineInput, bool flag);
 	bool	checkValue(std::string lineInput, int *comptPoint, int i);
+
     // Exception
     class cantOpenDatabase : public std::exception
     {

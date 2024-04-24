@@ -67,53 +67,118 @@ void    BitcoinExchange::gettingBitcoin()
 			size_t	separate = lineInput.find('|');
 			std::string dateInput = lineInput.substr(0, separate - 1);
 			std::string	valueInput = lineInput.substr(separate + 2);
-			std::cout << dateInput << " okok " << valueInput << std::endl;
+			std::cout << valueInput << std::endl;
+			if (this->parsDate(dateInput))
+			{
+				// il faudra mettre le parsing cote value
+			}
 		}
 		else if (flag == 0)
 			std::cout << "Error: bad input => " << lineInput << std::endl;
     }
 }
 
+bool	BitcoinExchange::parsDate(std::string dateInput)
+{
+	std::string yearInput = dateInput.substr(0, 4);
+	std::string monthInput = dateInput.substr(5, 2);
+	std::string dayInput = dateInput.substr(8, 2);
+
+	int year = atoi(yearInput.c_str());
+	int month = atoi(monthInput.c_str());
+	int day = atoi(dayInput.c_str());
+
+	if (month == 0 || day == 0)
+	{
+		std::cout << "Error: Date cannot have 0 value, you need at least 1" << std::endl;
+		return (0);
+	}
+	if (year < 2009 || (year == 2009 && day == 1 && month == 1))
+	{
+		std::cout << "Error: Bitcoin has been created the 2009-01-02, this is the minimum date accepted" << std::endl;
+		return (0);
+	}
+	switch (month)
+	{
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+		{
+			if (day > 31)
+			{
+				std::cout << "Error: The max number of day in a month is 31" << std::endl;
+				return (0);
+			}
+			break;
+		}
+		case 4: case 6: case 9: case 11:
+		{
+			if (day > 30)
+			{
+				std::cout << "Error: in the month you selected, the max number is 30" << std::endl;
+				return (0);
+			}
+			break;
+		}
+		case 2:
+		{
+			if (year % 4 == 0 && (year % 100 != 0 || (year % 400 == 0 && year % 100 == 0)))
+			{
+				if (day > 29)
+				{
+					std::cout << "Error: this is a leap year but you can't go beyond 29 for february" << std::endl;
+					return (0);
+				}
+			}
+			else if (day > 28)
+			{
+				std::cout << "Error: except for a leap year, you can't put beyond 28 in february" << std::endl;
+				return (0);
+			}
+			break;
+		}
+		default:
+		{
+			std::cout << "Error: the month you put is out of bounds, put between 1 and 12" << std::endl;
+			return (0);
+		}
+	}
+	return (1);
+}
+
 bool	BitcoinExchange::parsString(std::string lineInput, bool flag)
 {
 	int		comptMinus = 0;
 	int		comptBetweenMinus = 0;
-	int		*comptPoint = 0;
+	int		comptPoint = 0;
+
 	for (size_t i = 0; lineInput[i]; i++)
 	{
 		if (lineInput[i] != '|' && lineInput[i] != ' ' && lineInput[i] != '-' && lineInput[i] != '.' && !isdigit(lineInput[i]))
-		{
-			flag = 0;
-			break;
-		}
+			return (0);
 		if (flag == 1)
 		{
-			if (this->checkValue(lineInput, comptPoint, i) == 0)
-				break;
+			if (this->checkValue(lineInput, &comptPoint, i) == 0)
+				return (0);
 		}
 		if (lineInput[i] == '|' && flag == 0)
 		{
 			if (comptBetweenMinus != 3)
-				break;
+				return (0);
 			flag = 1;
 		}
 		if (flag == 0 && !isdigit(lineInput[i]) && lineInput[i] != '-')
 		{
 			if (lineInput[i] == ' ' && lineInput[i + 1] != '|')
-				break;
+				return (0);
 		}
 		if (flag == 0 && (lineInput[i] == '-'))
 		{
 			comptMinus++;
 			if (comptMinus > 2 || (comptMinus == 1 && comptBetweenMinus != 4) || (comptMinus != 1 && comptBetweenMinus != 2) || !isdigit(lineInput[i - 1]) || !isdigit(lineInput[i + 1]))
-				break;
+				return (0);
 			comptBetweenMinus = -1;
 		}
 		if (flag == 1 && lineInput[i] == '|' && (i == 0 || lineInput[i - 1] != ' ' || (i < lineInput.length() && lineInput[i + 1] != ' ')))
-		{
-			flag = 0;
-			break;
-		}
+			return (0);
 		comptBetweenMinus++;
 	}
 	if (comptMinus < 2)
@@ -125,18 +190,13 @@ bool	BitcoinExchange::checkValue(std::string lineInput, int *comptPoint, int i)
 {
 	if ((lineInput[i] == ' ' && lineInput[i - 1] != '|'))
 		return (0);
-	if (!isdigit(lineInput[i]) && lineInput[i] != '.')
+	if (!isdigit(lineInput[i]) && lineInput[i] != '.' && lineInput[i] != ' ')
 		return (0);
 	if (lineInput[i] == '.')
 		*comptPoint += 1;
 	if (*comptPoint > 1)
 		return (0);
 	return (1);
-}
-
-void    BitcoinExchange::checkDate()
-{
-
 }
 
 // Exception
