@@ -34,6 +34,7 @@ public :
 
     void    gettingBitcoin();
 	bool	parsDate(std::string lineInput);
+	bool	parsValue(std::string valueInput);
 	bool	parsString(std::string lineInput, bool flag);
 	bool	checkValue(std::string lineInput, int *comptPoint, int i);
 

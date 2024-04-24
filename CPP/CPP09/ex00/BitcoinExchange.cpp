@@ -70,12 +70,24 @@ void    BitcoinExchange::gettingBitcoin()
 			std::cout << valueInput << std::endl;
 			if (this->parsDate(dateInput))
 			{
+				flag = this->parsValue(valueInput);
 				// il faudra mettre le parsing cote value
 			}
 		}
 		else if (flag == 0)
 			std::cout << "Error: bad input => " << lineInput << std::endl;
     }
+}
+
+bool	BitcoinExchange::parsValue(std::string valueInput) // lol : penser au tab
+{
+	float	value = atof(valueInput.c_str());
+
+	if (value < 0) // lol : comment differencier si atof a foire ou si j'ai mis 0 ? je peux mettre 0 ?
+		std::cout << "Error: the value can't be negative" << std::endl;
+	if (value > 1000)
+		std::cout << "Error: the value can't be beyond 1000" << std::endl;
+	return (1);
 }
 
 bool	BitcoinExchange::parsDate(std::string dateInput)
