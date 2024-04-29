@@ -49,14 +49,19 @@ BitcoinExchange::~BitcoinExchange()
         this->_fileInput.close();
 }
 
-// Getter and Setter
-
-
 // Method
 
 void    BitcoinExchange::gettingBitcoin()
 {
     std::string lineInput;
+
+	while (getline(this->_fileDatabase, lineInput))
+	{
+		size_t		separate = lineInput.find(',');
+		std::string date = lineInput.substr(0, separate);
+		if (isdigit(lineInput[0]))
+			this->_map.insert(std::pair<std::string, float>(date, atof(&lineInput[11])));
+	}
     while (getline(this->_fileInput, lineInput))
     {
         bool	flag = 0;
@@ -67,16 +72,28 @@ void    BitcoinExchange::gettingBitcoin()
 			size_t	separate = lineInput.find('|');
 			std::string dateInput = lineInput.substr(0, separate - 1);
 			std::string	valueInput = lineInput.substr(separate + 2);
-			std::cout << valueInput << std::endl;
 			if (this->parsDate(dateInput))
-			{
 				flag = this->parsValue(valueInput);
-				// il faudra mettre le parsing cote value
+			if (flag == 1)
+			{
+				std::map<std::string, float>::iterator it = this->_map.find(dateInput);
+
+				if (it != this->_map.end())
+					std::cout << dateInput << " => " << valueInput << " = " << it->second * atof(valueInput.c_str()) << std::endl;
+				else
+				{
+					it = _map.begin();
+					while (it != _map.end() && strcmp(it->first.c_str(), dateInput.c_str()) < 0)
+						it++;
+					it--;
+					std::cout << dateInput << " => " << valueInput << " = " << it->second * atof(valueInput.c_str()) << std::endl;
+				}
 			}
 		}
-		else if (flag == 0)
+		else if (flag == 0) // else ??
 			std::cout << "Error: bad input => " << lineInput << std::endl;
     }
+
 }
 
 bool	BitcoinExchange::parsValue(std::string valueInput) // lol : penser au tab
@@ -84,9 +101,15 @@ bool	BitcoinExchange::parsValue(std::string valueInput) // lol : penser au tab
 	float	value = atof(valueInput.c_str());
 
 	if (value < 0) // lol : comment differencier si atof a foire ou si j'ai mis 0 ? je peux mettre 0 ?
+	{
 		std::cout << "Error: the value can't be negative" << std::endl;
+		return (0);
+	}
 	if (value > 1000)
+	{
 		std::cout << "Error: the value can't be beyond 1000" << std::endl;
+		return (0);
+	}
 	return (1);
 }
 

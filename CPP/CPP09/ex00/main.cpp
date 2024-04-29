@@ -11,7 +11,6 @@ int main (int argc, char **argv)
         BitcoinExchange test(argv[1]);
 
         test.gettingBitcoin();
-
     }
     catch (std::exception &e)
     {

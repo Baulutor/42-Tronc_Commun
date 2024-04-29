@@ -10,16 +10,16 @@
 # include <string>
 # include <exception>
 # include <vector>
-# include <set>
 # include <cstdlib>
+# include <map>
+# include <cstring>
 
 
 class BitcoinExchange {
 private :
-    std::ifstream				_fileDatabase;
-    std::ifstream				_fileInput;
-    std::vector<std::string>	_dataDatabase;
-    std::vector<float>			_valueDatabase;
+    std::ifstream					_fileDatabase;
+    std::ifstream					_fileInput;
+	std::map<std::string, float>	_map;
     BitcoinExchange();
 public :
     // Constructor Destructor
@@ -27,8 +27,6 @@ public :
     BitcoinExchange(BitcoinExchange &src);
     BitcoinExchange &operator=(BitcoinExchange &rhs);
     ~BitcoinExchange();
-
-    // Getter and Setter
 
     // Method
 
