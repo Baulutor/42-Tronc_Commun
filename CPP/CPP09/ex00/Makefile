@@ -27,7 +27,7 @@ DIRECTORY        	=   .obj
 OBJS            	=   $(SRC_FILES:%.cpp=$(DIRECTORY)/%.o)
 
 CC                	=   c++
-CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98 -g3
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
 
 all: $(NAME)
 

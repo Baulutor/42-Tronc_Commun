@@ -5,9 +5,16 @@
 #ifndef RPN_HPP
 #define RPN_HPP
 
+# include <iostream>
+# include <exception>
 
 class RPN {
-
+private :
+public :
+	RPN();
+	RPN(RPN &src);
+	RPN &operator=(RPN &rhs);
+	~RPN();
 };
 
 

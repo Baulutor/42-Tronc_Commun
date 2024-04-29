@@ -12,14 +12,14 @@
 
 
 
-NAME            	=  	rpn
+NAME            	=  	RPN
 
-HEADERS_FILES    	=	BitcoinExchange.hpp
+HEADERS_FILES    	=	RPN.hpp
 
 HEADERS            	=   $(HEADERS_FILES)
 
 SRC_FILES        	=  	main.cpp \
-						BitcoinExchange.cpp
+						RPN.cpp
 
 SRCS            	=  	$(SRC_FILES)
 
@@ -27,7 +27,7 @@ DIRECTORY        	=   .obj
 OBJS            	=   $(SRC_FILES:%.cpp=$(DIRECTORY)/%.o)
 
 CC                	=   c++
-CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98 -g3
+CC_FLAGS        	=   -Wextra -Werror -Wall -std=c++98
 
 all: $(NAME)
 
