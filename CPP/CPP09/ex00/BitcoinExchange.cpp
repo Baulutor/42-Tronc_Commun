@@ -90,7 +90,7 @@ void    BitcoinExchange::gettingBitcoin()
 				}
 			}
 		}
-		else if (flag == 0) // else ??
+		else if (flag == 0)
 			std::cout << "Error: bad input => " << lineInput << std::endl;
     }
 
