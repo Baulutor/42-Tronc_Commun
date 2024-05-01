@@ -4,6 +4,7 @@
 
 #include "RPN.hpp"
 
+
 int main (int argc, char **argv)
 {
 	if (argc != 2)
@@ -13,30 +14,32 @@ int main (int argc, char **argv)
 	}
 	size_t i = 0;
 	std::string	test = argv[1];
+	std::stack<int> myStack;
 	try
 	{
+		if (test.find_first_not_of("0142356789+-*/ ") != test.npos)
+			throw std::invalid_argument("Error: Wrong argument");
 		while (test[i])
 		{
-			if (isdigit(test[i]) || test[i] == '+' || test[i] == '-' || test[i] == '*' || test[i] == '/' || test[i] == ' ')
+			if (test[i] != ' ')
 			{
-				if (test[i] != ' ')
-				{
-//					size_t l = test.find_first_not_of(' ', i);
-					if (i == 0)
-					{
-						if (test[i + 1] && test[i + 1] != ' ')
-							throw std::invalid_argument("Error: Wrong argument");
-					}
-//					if (test[i + 1] && test[l])
-//					{
-//						throw std::invalid_argument("Error: Wrong argument 26566");
-//					}
-				}
+				if (test.size() >= i + 1 && test[i + 1] != ' ' && i > 0 && test[i - 1] != ' ')
+					throw std::invalid_argument("Error: Wrong argument");
 			}
-			else
-				throw std::invalid_argument("Error: Wrong argument");
+			if (isdigit(test[i]))
+			{
+				int buf = test[i] - 48;
+				myStack.push(buf);
+			}
+			if (test[i] == '-' || test[i] == '+' || test[i] == '/' || test[i] == '*')
+			{
+				operation(&myStack, test[i]);
+			}
 			i++;
 		}
+		if (myStack.size() > 1)
+			throw std::invalid_argument("Error: Wrong number of operation");
+		std::cout << myStack.top() << std::endl;
 	}
 	catch (std::exception &e)
 	{
