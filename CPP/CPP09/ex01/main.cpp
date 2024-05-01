@@ -7,43 +7,34 @@
 
 int main (int argc, char **argv)
 {
-	if (argc != 2)
-	{
-		std::cout << "Error: Please put one and only one parameter to the RPN" << std::endl;
-		return (1);
-	}
-	size_t i = 0;
-	std::string	test = argv[1];
-	std::stack<int> myStack;
+	RPN myStack;
 	try
 	{
-		if (test.find_first_not_of("0142356789+-*/ ") != test.npos)
-			throw std::invalid_argument("Error: Wrong argument");
-		while (test[i])
+		size_t i = 0;
+		std::string	str = myStack.pars(argc, argv);
+		while (str[i])
 		{
-			if (test[i] != ' ')
+			if (str[i] != ' ')
 			{
-				if (test.size() >= i + 1 && test[i + 1] != ' ' && i > 0 && test[i - 1] != ' ')
-					throw std::invalid_argument("Error: Wrong argument");
+				if (str.size() != i + 1 && str[i + 1] != ' ')
+					throw std::invalid_argument("Error: Wrong argument, please put one space between your numbers and operator");
 			}
-			if (isdigit(test[i]))
+			if (isdigit(str[i]))
 			{
-				int buf = test[i] - 48;
-				myStack.push(buf);
+				int buf = str[i] - 48;
+				myStack.pushInStack(buf);
 			}
-			if (test[i] == '-' || test[i] == '+' || test[i] == '/' || test[i] == '*')
-			{
-				operation(&myStack, test[i]);
-			}
+			if (str[i] == '-' || str[i] == '+' || str[i] == '/' || str[i] == '*')
+				myStack.operation(str[i]);
 			i++;
 		}
-		if (myStack.size() > 1)
-			throw std::invalid_argument("Error: Wrong number of operation");
-		std::cout << myStack.top() << std::endl;
+		if (myStack.sizeOfStack() > 1)
+			throw std::invalid_argument("Error: Operators are missing, there should be more operator");
+		std::cout << GREEN << myStack.topOfStack() << RESET << std::endl;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << RED << e.what() << RESET << std::endl;
 	}
 	return (0);
 }
