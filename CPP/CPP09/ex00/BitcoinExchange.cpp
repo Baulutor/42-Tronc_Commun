@@ -100,7 +100,7 @@ bool	BitcoinExchange::parsValue(std::string valueInput) // lol : penser au tab
 {
 	float	value = atof(valueInput.c_str());
 
-	if (value < 0) // lol : comment differencier si atof a foire ou si j'ai mis 0 ? je peux mettre 0 ?
+	if (value < 0)
 	{
 		std::cout << "Error: the value can't be negative" << std::endl;
 		return (0);
