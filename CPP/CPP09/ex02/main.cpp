@@ -7,9 +7,15 @@
 
 int main (int argc, char **argv)
 {
-	PmergeMe PmergeVec;
-	if (PmergeVec.parsing(argc, argv) == 1)
+	PmergeMe PmergeVecLst;
+	if (PmergeVecLst.parsing(argc, argv) == 1)
 		return (1);
-	PmergeVec.sortBigPair();
+	timeval startVec;
+	gettimeofday(&startVec, NULL);
+	timeval endVec;
+	PmergeVecLst.sortBigPairVec();
+	gettimeofday(&endVec, NULL);
+	std::cout << "Time to process of " << PmergeVecLst.getSize() << " elements with std::vector : " << endVec.tv_usec - startVec.tv_usec << " us"<< std::endl;
+	PmergeVecLst.sortBigPairLst();
 	return (0);
 }
