@@ -22,7 +22,7 @@ private:
 
 	// Vector data
 	std::vector<int>					_vecTab;
-	std::vector<int>					_vecTabBiggestPerPair;
+	std::vector<int>					_vecTabSort;
 	std::vector<std::pair<int, int> > 	_vecTabPair;
 
 	// List data
@@ -46,12 +46,14 @@ public:
 
 	// Method for container vector
 	void				sortBigPairVec();
-	void				mergeSort(std::vector<int>& _vecTabBiggestPerPair, size_t left, size_t right);
-	void				merge(std::vector<int>& _vecTabBiggestPerPair, size_t left, size_t middle, size_t right);
+	void				mergeSort(std::vector<std::pair<int, int> >& _vecTabBiggestPerPair, size_t left, size_t right);
+	void				merge(std::vector<std::pair<int, int> > & _vecTabBiggestPerPair, size_t left, size_t middle, size_t right);
 	void				sortJacob();
 	std::vector<int>	jacobsthal(int n);
-	void				insert(std::vector<int>::iterator it, std::vector<int> jacob, int left, int right);
+	void				insert(std::vector<int>::iterator it, int left, int right);
 	void				insertJohnson(std::vector<int> jacob);
+//	int 				insert(int it, int left, int right);
+
 
 	// Method for container list
 	void				sortBigPairLst();

@@ -108,112 +108,207 @@ void	PmergeMe::sortBigPairVec()
 	for (std::vector<int>::iterator it = _vecTab.begin(); it < _vecTab.end(); it++)
 	{
 		_vecTabPair.push_back(std::make_pair(*it, *(it + 1)));
-		_vecTabBiggestPerPair.push_back(*(it + 1));
 		_vecTab.erase(it + 1);
 	}
-	this->mergeSort(_vecTabBiggestPerPair, 0, _vecTabBiggestPerPair.size() - 1);
-
-	for (std::vector<std::pair<int, int> >::iterator it = _vecTabPair.begin(); it != _vecTabPair.end(); it++)
+	this->mergeSort(_vecTabPair, 0, _vecTabPair.size() - 1);
+	_vecTabSort.push_back(_vecTabPair[0].first);
+	bool flag = 0;
+	for (std::vector<std::pair<int,int> >::iterator it = _vecTabPair.begin(); it < _vecTabPair.end(); it++)
 	{
-		if (it->second == _vecTabBiggestPerPair[0])
+		_vecTabSort.push_back(it->second);
+		if (flag == 0)
 		{
-			if (it->second != it->first)
-			{
-				_vecTabBiggestPerPair.insert(_vecTabBiggestPerPair.begin(), it->first);
-				for (std::vector<int>::iterator itVecTab = _vecTab.begin(); itVecTab != _vecTab.end(); itVecTab++)
-				{
-					if (*itVecTab == it->first)
-					{
-						_vecTab.erase(itVecTab);
-						break;
-					}
-				}
-			}
+			_vecTabPair.erase(it);
+			it--;
+			flag = 1;
 		}
 	}
 	sortJacob();
+
 	// Maintenant je dois inserer ce qu'il reste !
 
 
+//	std::cout << "After: ";
+//	for (std::vector<std::pair<int, int> >::iterator it = _vecTabPair.begin(); it != _vecTabPair.end(); it++)
+//	{
+//		std::cout << it->first << " " << it->second << " ";
+//	}
+//	std::cout << std::endl;
 	std::cout << "After: ";
-	for (std::vector<int>::iterator it = _vecTabBiggestPerPair.begin(); it != _vecTabBiggestPerPair.end(); it++)
+	for (std::vector<int>::iterator it = _vecTabSort.begin(); it != _vecTabSort.end(); it++)
 	{
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
+	std::cout << _vecTabSort.size() << " oklm " <<std::endl;
 
 }
 
 void	PmergeMe::sortJacob()
 {
-	std::vector<int> jacob = this->jacobsthal(_size);
-//	std::vector<int>::iterator itTab = _vecTab.begin();
-//	std::vector<int>::iterator left = _vecTabBiggestPerPair.begin();
-//	std::vector<int>::iterator right = _vecTabBiggestPerPair.end();
+	std::vector<int> jacob = this->jacobsthal(_vecTab.size() - 1);
 	insertJohnson(jacob);
 }
 std::vector<int> PmergeMe::jacobsthal(int n)
 {
-	std::vector<int> jacob;
-	jacob.push_back(0);
-	jacob.push_back(1);
-	for (int i = 2; i <= n; i++)
-		jacob.push_back(jacob[i - 1] + 2 * jacob[i - 2]);
-	return jacob;
+	std::vector<int> jacobsthalSeq;
+	jacobsthalSeq.push_back(0);
+	if (n > 0) {
+		jacobsthalSeq.push_back(1);
+		for (int i = 2; i < n ; ++i) {
+			int currentTerm = jacobsthalSeq[i - 1] + 2 * jacobsthalSeq[i - 2];
+			jacobsthalSeq.push_back(currentTerm);
+			if (currentTerm >= static_cast<int>(_vecTab.size()))
+				break;
+		}
+	}
+	return jacobsthalSeq;
 }
 
+//void	PmergeMe::insertJohnson(std::vector<int> jacob)
+//{
+//	(void)jacob;
+//	_vecTab.clear();
+//	for(std::vector<std::pair<int, int> >::iterator it = _vecTabPair.begin(); it < _vecTabPair.end(); it++)
+//		_vecTab.push_back(it->first);
+//	for (std::vector<int>::iterator it = _vecTab.begin(); it < _vecTab.end(); it++)
+//	{
+//		int left = 0;
+//		int right = _vecTabSort.size() - 1;
+//		this->insert(it, left, right);
+//	}
+//}
 
 void	PmergeMe::insertJohnson(std::vector<int> jacob)
 {
-	for (std::vector<int>::iterator it = _vecTab.begin(); it < _vecTab.end(); it++)
+	_vecTab.clear();
+	for(std::vector<std::pair<int, int> >::iterator it = _vecTabPair.begin(); it < _vecTabPair.end(); it++)
+		_vecTab.push_back(it->first);
+	for (size_t i = 0; i < jacob.size(); i++)
 	{
 		int left = 0;
-		int right = _vecTabBiggestPerPair.size() - 1;
-//		std::cout << right << std::endl;
-//		std::cout << _vecTabBiggestPerPair[right] << " Test" << std::endl;
-		this->insert(it, jacob, left, right);
-	}
-}
-
-void	PmergeMe::insert(std::vector<int>::iterator it, std::vector<int> jacob, int left, int right)
-{
-	int mid = (right + left) / 2;
-	(void)jacob;
-	if ((*it > _vecTabBiggestPerPair[mid] && *it < _vecTabBiggestPerPair[mid + 1]) ||  mid == 0)
-	{
-		std::vector<int>::iterator pos = _vecTabBiggestPerPair.begin() + mid;
-		if (mid == 0)
+//		std::cout << jacob.size() << " la taille de jacob ! ce qui equivaut a: " << jacob[jacob.size() - 1] << " et la taille de mon bail: "<< _vecTab.size() << std::endl;
+		if (static_cast<int>(_vecTab.size()) > jacob[i] || i == 0)
 		{
-			if (*it > _vecTabBiggestPerPair[mid])
-				_vecTabBiggestPerPair.insert(pos + 1, *it);
-			else
-				_vecTabBiggestPerPair.insert(pos, *it);
+			int right = _vecTabSort.size();
+//			std::cout << jacob[i] << " " << _vecTab.size()<< " INFAME  ";
+			std::vector<int>::iterator itJac = _vecTab.begin();
+			std::advance(itJac, jacob[i]);
+			this->insert(itJac, left, right);
+//			std::cout << "OKOKOK: " << *itJac << std::endl;
+
+			if (i != 0)
+			{
+				std::vector<int>::iterator iter = _vecTab.begin();
+				std::advance(iter, jacob[i - 1]);
+//				std::cout << "Valeur de iter " << *iter << std::endl;
+				for (std::vector<int>::iterator it = iter; *it != *itJac; it++)
+				{
+					int right = _vecTabSort.size();
+					this->insert(it, left, right);
+//					std::cout << *it << " tgtgtg " << *itJac << std::endl;
+				}
+			}
 		}
-		else
-			_vecTabBiggestPerPair.insert(pos + 1, *it);
-	}
-	else if (*it < _vecTabBiggestPerPair[mid])
-	{
-		right = mid;
-		this->insert(it, jacob, left, right);
-	}
-	else if (*it > _vecTabBiggestPerPair[mid])
-	{
-		left = mid;
-		this->insert(it, jacob, left, right);
+		else if (static_cast<int>(_vecTab.size()) <= jacob[i])
+		{
+
+//			std::cout << "OKOKKOK   " << "jacob[ i - 1] " << jacob[i - 1]  << " jacob[i]: " << jacob[i] << " vecTab.size() " << _vecTab.size() << std::endl;
+			for (size_t ite = jacob[i - 1]; ite < _vecTab.size(); ite++)
+			{
+				int right = _vecTabSort.size();
+				std::vector<int>::iterator it = _vecTab.begin();
+				std::advance(it, ite);
+//				std::cout << "?????????: " << *it << std::endl;
+				this->insert(it, left, right);
+			}
+		}
 	}
 }
 
-void PmergeMe::mergeSort(std::vector<int>& _vecTabBiggestPerPair, size_t left, size_t right) {
+//void	PmergeMe::insert(std::vector<int>::iterator it, int left, int right)
+//{
+//	int mid = (right + left) / 2;
+//	if ((*it > _vecTabSort[mid] && *it < _vecTabSort[mid + 1]) ||  mid == 0)
+//	{
+//		std::vector<int>::iterator pos = _vecTabSort.begin() + mid;
+//		if (mid == 0)
+//		{
+//			if (*it > _vecTabSort[mid])
+//			{
+//				_vecTabSort.insert(pos + 1, *it);
+//				return ;
+//			}
+//			else
+//			{
+//				_vecTabSort.insert(pos, *it);
+//				return ;
+//			}
+//		}
+//		else
+//		{
+//			_vecTabSort.insert(pos + 1, *it);
+//			return ;
+//		}
+//	}
+//	else if (*it < _vecTabSort[mid])
+//	{
+//		right = mid;
+//		this->insert(it, left, right);
+//		return ;
+//	}
+//	else if (*it > _vecTabSort[mid])
+//	{
+//		left = mid;
+//		this->insert(it, left, right);
+//		return ;
+//	}
+//}
+
+
+void PmergeMe::insert(std::vector<int>::iterator it, int left, int right)
+{
+	while (left < right)
+	{
+		int mid = (right + left) / 2; // Utilisation de cette formule pour éviter un débordement en cas de grands nombres
+		if (*it < _vecTabSort[mid])
+		{
+			if (mid == 0 || *it > _vecTabSort[mid - 1])
+			{
+				_vecTabSort.insert(_vecTabSort.begin() + mid, *it);
+				return;
+			}
+			right = mid;
+		}
+		else if (*it > _vecTabSort[mid])
+		{
+//			std::cout << "!!!!!!" << *it << " valeur de _vecTabSort[mid + 1] " << _vecTabSort[mid + 1] << " valeur de left" << left << " et right " << right << std::endl;
+			if (*it < _vecTabSort[mid + 1])
+			{
+				_vecTabSort.insert(_vecTabSort.begin() + mid + 1, *it);
+				return;
+			}
+			left = mid;
+		}
+		else // Si l'élément est égal au milieu
+		{
+			return; // Élément déjà présent, ne rien faire
+		}
+	}
+}
+
+void PmergeMe::mergeSort(std::vector<std::pair<int, int> >& _vecTabPair, size_t left, size_t right)
+{
 	if (left < right) {
 		size_t middle = left + (right - left) / 2;
-		mergeSort(_vecTabBiggestPerPair, left, middle);
-		mergeSort(_vecTabBiggestPerPair, middle + 1, right);
-		merge(_vecTabBiggestPerPair, left, middle, right);
+		mergeSort(_vecTabPair, left, middle);
+		mergeSort(_vecTabPair, middle + 1, right);
+		merge(_vecTabPair, left, middle, right);
 	}
 }
 
-void PmergeMe::merge(std::vector<int>& _vecTabBiggestPerPair, size_t left, size_t middle, size_t right)
+
+void PmergeMe::merge(std::vector<std::pair<int, int> >& _vecTabPair, size_t left, size_t middle, size_t right)
 {
 	size_t i, j, k;
 	size_t n1 = middle - left + 1;
@@ -222,32 +317,31 @@ void PmergeMe::merge(std::vector<int>& _vecTabBiggestPerPair, size_t left, size_
 	std::vector<int> L(n1), R(n2);
 
 	for (i = 0; i < n1; i++)
-		L[i] = _vecTabBiggestPerPair[left + i];
+		L[i] = _vecTabPair[left + i].second;
 	for (j = 0; j < n2; j++)
-		R[j] = _vecTabBiggestPerPair[middle + 1 + j];
-
+		R[j] = _vecTabPair[middle + 1 + j].second;
 	i = 0;
 	j = 0;
 	k = left;
 	while (i < n1 && j < n2) {
 		if (L[i] <= R[j]) {
-			_vecTabBiggestPerPair[k] = L[i];
+			_vecTabPair[k].second = L[i];
 			i++;
 		} else {
-			_vecTabBiggestPerPair[k] = R[j];
+			_vecTabPair[k].second = R[j];
 			j++;
 		}
 		k++;
 	}
 
 	while (i < n1) {
-		_vecTabBiggestPerPair[k] = L[i];
+		_vecTabPair[k].second = L[i];
 		i++;
 		k++;
 	}
 
 	while (j < n2) {
-		_vecTabBiggestPerPair[k] = R[j];
+		_vecTabPair[k].second = R[j];
 		j++;
 		k++;
 	}
