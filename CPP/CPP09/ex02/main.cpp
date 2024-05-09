@@ -17,7 +17,6 @@ int main (int argc, char **argv)
 	gettimeofday(&endVec, NULL);
 	std::cout << "Time to process of " << PmergeVecLst.getSize() << " elements with std::vector : " << endVec.tv_usec - startVec.tv_usec << " us"<< std::endl;
 	gettimeofday(&startVec, NULL);
-//	std::cout << startVec.tv_usec << " TEST";
 	PmergeVecLst.sortBigPairLst();
 	gettimeofday(&endVec, NULL);
 	PmergeVecLst.printList();

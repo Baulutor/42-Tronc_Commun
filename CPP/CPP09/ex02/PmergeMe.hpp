@@ -47,27 +47,32 @@ public:
 
 	// Method for container vector
 	void				sortBigPairVec();
-	void				mergeSort(std::vector<std::pair<int, int> >& _vecTabBiggestPerPair, size_t left, size_t right);
-	void				merge(std::vector<std::pair<int, int> > & _vecTabBiggestPerPair, size_t left, size_t middle, size_t right);
-	void				sortJacob();
-	std::vector<int>	jacobsthal(int n);
-	void				insert(std::vector<int>::iterator it, int left, int right);
-	void				insertJohnson(std::vector<int> jacob);
 	void				swapPairVec();
+
+		// Method Fusion-Sort
+		void				mergeSort(std::vector<std::pair<int, int> >& _vecTabBiggestPerPair, size_t left, size_t right);
+		void				merge(std::vector<std::pair<int, int> > & _vecTabBiggestPerPair, size_t left, size_t middle, size_t right);
+
+		// Method Jacobsthal
+		void				sortJacob();
+		std::vector<int>	jacobsthal(int n);
+		void				insert(std::vector<int>::iterator it, int left, int right);
+		void				insertJohnson(std::vector<int> jacob);
 
 
 	// Method for container list
 	void				printList();
-	void				sortBigPairLst();
-	void				mergeSortLst(std::list<int> &_bigNumbers, size_t left, size_t right);
-	void 				mergeLst(std::list<int> &lst, size_t left, size_t mid, size_t right);
 	void				swapPairLst();
+	void				sortBigPairLst();
+		// Method Fusion-Sort
+		void				mergeSortLst(std::list<int> &_bigNumbers, size_t left, size_t right);
+		void 				mergeLst(std::list<int> &lst, size_t left, size_t mid, size_t right);
 
-
-	std::list<int> 		jacobsthalLst(int n);
-	void				insertJohnsonLst(std::list<int> jacob);
-	void				sortJacobLst();
-	void 				insertLst(std::list<int>::iterator it, int left, int right);
+		// Method Jacobsthal
+		std::list<int> 		jacobsthalLst(int n);
+		void				insertJohnsonLst(std::list<int> jacob);
+		void				sortJacobLst();
+		void 				insertLst(std::list<int>::iterator it, int left, int right);
 
 };
 
