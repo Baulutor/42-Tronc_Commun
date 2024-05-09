@@ -11,11 +11,18 @@ int main (int argc, char **argv)
 	if (PmergeVecLst.parsing(argc, argv) == 1)
 		return (1);
 	timeval startVec;
-	gettimeofday(&startVec, NULL);
 	timeval endVec;
+	gettimeofday(&startVec, NULL);
 	PmergeVecLst.sortBigPairVec();
 	gettimeofday(&endVec, NULL);
 	std::cout << "Time to process of " << PmergeVecLst.getSize() << " elements with std::vector : " << endVec.tv_usec - startVec.tv_usec << " us"<< std::endl;
-//	PmergeVecLst.sortBigPairLst();
+	gettimeofday(&startVec, NULL);
+//	std::cout << startVec.tv_usec << " TEST";
+	PmergeVecLst.sortBigPairLst();
+	gettimeofday(&endVec, NULL);
+	PmergeVecLst.printList();
+	std::cout << "Time to process of " << PmergeVecLst.getSize() << " elements with std::list : " << endVec.tv_usec - startVec.tv_usec << " us"<< std::endl;
+
 	return (0);
 }
+

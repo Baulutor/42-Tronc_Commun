@@ -27,7 +27,7 @@ private:
 
 	// List data
 	std::list<int>						_lstInt;
-	std::list<int>						_lstIntBiggestPerPair;
+	std::list<int>						_lstIntSort;
 	std::list<std::pair<int, int> > 	_lstIntPair;
 
 public:
@@ -39,6 +39,7 @@ public:
 
 	// Getter
 	size_t				getSize();
+	std::list<int>		&getSortedLst();
 
 	// Method
 	bool				parsing(int argc, char **argv);
@@ -52,13 +53,21 @@ public:
 	std::vector<int>	jacobsthal(int n);
 	void				insert(std::vector<int>::iterator it, int left, int right);
 	void				insertJohnson(std::vector<int> jacob);
-//	int 				insert(int it, int left, int right);
+	void				swapPairVec();
 
 
 	// Method for container list
+	void				printList();
 	void				sortBigPairLst();
-	void				mergeSortLst(std::list<int>& _lstIntBiggestPerPair, size_t left, size_t right);
-	void				mergeLst(std::list<int>& _lstIntBiggestPerPair, size_t left, size_t middle, size_t right);
+	void				mergeSortLst(std::list<int> &_bigNumbers, size_t left, size_t right);
+	void 				mergeLst(std::list<int> &lst, size_t left, size_t mid, size_t right);
+	void				swapPairLst();
+
+
+	std::list<int> 		jacobsthalLst(int n);
+	void				insertJohnsonLst(std::list<int> jacob);
+	void				sortJacobLst();
+	void 				insertLst(std::list<int>::iterator it, int left, int right);
 
 };
 
