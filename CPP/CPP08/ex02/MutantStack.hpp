@@ -23,9 +23,11 @@ public :
             this->c = rhs.c;
         return (*this);
     }
-    ~MutantStack(){this->c.clear();}
+    ~MutantStack(){}
     typedef typename std::stack<T>::container_type::iterator iterator;
 	typedef typename std::stack<T>::container_type ::const_iterator const_iterator;
+
+	void clearC(){(this->c.clear());}
 
     iterator begin(){return  this->c.begin();}
     iterator end(){return  this->c.end();}
