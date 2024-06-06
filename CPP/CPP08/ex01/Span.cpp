@@ -35,7 +35,6 @@ Span::~Span()
 
 void Span::addNumber(int nbr)
 {
-
     if (this->_vec.size() < this->_n)
         this->_vec.push_back(nbr);
     else
@@ -72,8 +71,10 @@ unsigned int    Span::longestSpan()
         if (buf > *it)
             buf = *it;
     }
+
     int temp = buf;
-    for (it  = this->_vec.begin(); it != this->_vec.end(); it++)
+
+    for (it  = this->_vec.begin(); it != this->_vec.end(); ++it)
     {
         if (temp < *it)
             temp = *it;
@@ -84,7 +85,5 @@ unsigned int    Span::longestSpan()
 void    Span::fillVector()
 {
     for (unsigned int i = 0; i < this->_n; i++)
-    {
         addNumber(i);
-    }
 }

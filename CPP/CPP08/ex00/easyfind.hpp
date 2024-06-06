@@ -6,6 +6,7 @@
 # define EASYFIND_HPP
 
 # include <vector>
+# include <list>
 # include <iostream>
 
 # define RED		"\033[31m"
