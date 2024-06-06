@@ -7,7 +7,6 @@
 
 # include <stack>
 # include <iostream>
-# include <list>
 # include <vector>
 
 
