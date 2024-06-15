@@ -15,6 +15,10 @@
 # include <iterator>
 # include <sys/time.h>
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+
 class PmergeMe
 {
 private:
@@ -46,8 +50,9 @@ public:
 	bool				pushVecList(std::string buf);
 
 	// Method for container vector
-	void				sortBigPairVec();
-	void				swapPairVec();
+		void				vecIsSorted();
+		void				sortBigPairVec();
+		void				swapPairVec();
 
 		// Method Fusion-Sort
 		void				mergeSort(std::vector<std::pair<int, int> >& _vecTabBiggestPerPair, size_t left, size_t right);
@@ -61,9 +66,10 @@ public:
 
 
 	// Method for container list
-	void				printList();
-	void				swapPairLst();
-	void				sortBigPairLst();
+		void				printList();
+		void				lstIsSorted();
+		void				swapPairLst();
+		void				sortBigPairLst();
 		// Method Fusion-Sort
 		void				mergeSortLst(std::list<int> &_bigNumbers, size_t left, size_t right);
 		void 				mergeLst(std::list<int> &lst, size_t left, size_t mid, size_t right);

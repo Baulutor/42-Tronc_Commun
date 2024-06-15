@@ -98,28 +98,31 @@ bool	PmergeMe::pushVecList(std::string buf)
 
 // Method Vector
 
+void	PmergeMe::vecIsSorted()
+{
+	for (size_t i = 1; i < _vecTabSort.size(); ++i)
+	{
+		if (_vecTabSort[i - 1] > _vecTabSort[i])
+		{
+			std::cout << RED << "_vecTabSort[i - 1]: " << _vecTabSort[i - 1] << ", _vecTabSort[i]: " << _vecTabSort[i] << std::endl;
+			std::cout << RED << "VECTOR NOT SORTED" << RESET << std::endl;
+			return ;
+		}
+	}
+	std::cout << GREEN << "VECTOR IS SORTED" << RESET << std::endl;
+}
+
 void	PmergeMe::sortBigPairVec()
 {
 	swapPairVec();
 	mergeSort(_vecTabPair, 0, _vecTabPair.size() - 1);
-	_vecTabSort.push_back(_vecTabPair[0].first);
-	bool flag = 0;
 	for (std::vector<std::pair<int,int> >::iterator it = _vecTabPair.begin(); it < _vecTabPair.end(); it++)
-	{
 		_vecTabSort.push_back(it->second);
-		if (flag == 0)
-		{
-			_vecTabPair.erase(it);
-			it--;
-			flag = 1;
-		}
-	}
 	sortJacob();
 	std::cout << "After: ";
 	for (std::vector<int>::iterator it = _vecTabSort.begin(); it != _vecTabSort.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
-	std::cout << _vecTabSort.size() << " oklm " <<std::endl;
 }
 
 void	PmergeMe::swapPairVec()
@@ -136,8 +139,13 @@ void	PmergeMe::swapPairVec()
 	}
 	for (std::vector<int>::iterator it = _vecTab.begin(); it < _vecTab.end(); it++)
 	{
-		_vecTabPair.push_back(std::make_pair(*it, *(it + 1)));
-		_vecTab.erase(it + 1);
+		if ((it + 1) != _vecTab.end())
+		{
+			_vecTabPair.push_back(std::make_pair(*it, *(it + 1)));
+			_vecTab.erase(it + 1);
+		}
+		else
+			_vecTabPair.push_back(std::make_pair(*it, *it));
 	}
 }
 
@@ -171,7 +179,7 @@ void	PmergeMe::insertJohnson(std::vector<int> jacob)
 {
 	_vecTab.clear();
 	for(std::vector<std::pair<int, int> >::iterator it = _vecTabPair.begin(); it < _vecTabPair.end(); it++)
-		_vecTab.push_back(it->first);
+			_vecTab.push_back(it->first);
 	for (size_t i = 0; i < jacob.size(); i++)
 	{
 		int left = 0;
@@ -310,6 +318,25 @@ void PmergeMe::merge(std::vector<std::pair<int, int> >& _vecTabPair, size_t left
 
 // Method list
 
+void	PmergeMe::lstIsSorted()
+{
+	std::list<int>::const_iterator it = _lstIntSort.begin();
+	std::list<int>::const_iterator nextIt = ++it;
+	--it;
+
+	while (nextIt != _lstIntSort.end())
+	{
+		if (*it > *nextIt)
+		{
+			std::cout << RED << "LIST NOT SORTED " << RESET << std::endl;
+			return ;
+		}
+		++it;
+		++nextIt;
+	}
+	std::cout << GREEN << "LIST IS SORTED" << RESET << std::endl;
+}
+
 void	PmergeMe::printList()
 {
 	std::cout << "List sorted : ";
@@ -342,19 +369,13 @@ void	PmergeMe::sortBigPairLst()
 		i++;
 	}
 	int flag = 0;
-	for (std::list<std::pair<int, int> >::iterator it = _lstIntPair.begin(); flag == 1 || it != _lstIntPair.end(); it++)
+	for (std::list<std::pair<int, int> >::iterator it = _lstIntPair.begin();it != _lstIntPair.end(); it++)
 	{
-		if (flag == 1)
-		{
-			flag = 2;
-			it--;
-		}
 		_lstIntSort.push_back(it->second);
 		if (flag == 0)
 		{
-			_lstIntSort.push_front(it->first);
-			_lstIntPair.erase(it);
-			it = _lstIntPair.begin();
+			if (it->first != it->second)
+				_lstIntSort.push_front(it->first);
 			flag = 1;
 		}
 	}

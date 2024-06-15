@@ -54,6 +54,7 @@ BitcoinExchange::~BitcoinExchange()
 void    BitcoinExchange::gettingBitcoin()
 {
     std::string lineInput;
+	int 		flagDateValue = 0;
 
 	while (getline(this->_fileDatabase, lineInput))
 	{
@@ -66,9 +67,10 @@ void    BitcoinExchange::gettingBitcoin()
     {
         bool	flag = 0;
 		if (lineInput.find_first_not_of("|") != lineInput.npos)
-			flag = this->parsString(lineInput, flag);
-        if (flag == 1)
+			flag = this->parsString(lineInput, flag, &flagDateValue);
+        if (flag == 1 && flagDateValue != 2)
 		{
+			flag = 0;
 			size_t	separate = lineInput.find('|');
 			std::string dateInput = lineInput.substr(0, separate - 1);
 			std::string	valueInput = lineInput.substr(separate + 2);
@@ -92,11 +94,13 @@ void    BitcoinExchange::gettingBitcoin()
 		}
 		else if (flag == 0)
 			std::cout << "Error: bad input => " << lineInput << std::endl;
+		else if (flagDateValue == 2)
+			flagDateValue = 3;
     }
 
 }
 
-bool	BitcoinExchange::parsValue(std::string valueInput) // lol : penser au tab
+bool	BitcoinExchange::parsValue(std::string valueInput)
 {
 	float	value = atof(valueInput.c_str());
 
@@ -179,7 +183,7 @@ bool	BitcoinExchange::parsDate(std::string dateInput)
 	return (1);
 }
 
-bool	BitcoinExchange::parsString(std::string lineInput, bool flag)
+bool	BitcoinExchange::parsString(std::string lineInput, bool flag, int *flagDateValue)
 {
 	int		comptMinus = 0;
 	int		comptBetweenMinus = 0;
@@ -187,6 +191,15 @@ bool	BitcoinExchange::parsString(std::string lineInput, bool flag)
 
 	for (size_t i = 0; lineInput[i]; i++)
 	{
+		if (*flagDateValue == 0)
+		{
+			if (lineInput == "date | value")
+			{
+				*flagDateValue = 2;
+				return (1);
+			}
+		}
+
 		if (lineInput[i] != '|' && lineInput[i] != ' ' && lineInput[i] != '-' && lineInput[i] != '.' && !isdigit(lineInput[i]))
 			return (0);
 		if (flag == 1)

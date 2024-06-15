@@ -19,9 +19,11 @@ int main (int argc, char **argv)
 	gettimeofday(&startVec, NULL);
 	PmergeVecLst.sortBigPairLst();
 	gettimeofday(&endVec, NULL);
-	PmergeVecLst.printList();
 	std::cout << "Time to process of " << PmergeVecLst.getSize() << " elements with std::list : " << endVec.tv_usec - startVec.tv_usec << " us"<< std::endl;
 
+//	PmergeVecLst.printList();
+	PmergeVecLst.vecIsSorted();
+	PmergeVecLst.lstIsSorted();
 	return (0);
 }
 
