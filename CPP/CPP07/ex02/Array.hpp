@@ -30,9 +30,9 @@ public:
             this->_array[i] = 0;
     }
     Array(Array &src) : _size(src._size){*this = src;}
-    Array *operator=(Array &rhs)
+    Array &operator=(Array &rhs)
     {
-        if (*this != rhs)
+        if (this != &rhs)
         {
             this->_size = rhs._size;
             this->_array = (new T[this->_size]);

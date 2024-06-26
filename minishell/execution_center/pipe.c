@@ -36,9 +36,7 @@ int	prep_pipe(t_cmd *pip)
 	i = 0;
 	pip->pipe = (int **) ft_calloc(pip->nb_pipe, sizeof(int *));
 	if (pip->pipe == NULL)
-	{
 		return (1);
-	}
 	while (i < pip->nb_pipe)
 	{
 		pip->pipe[i] = (int *)ft_calloc(2, sizeof(int));
