@@ -1,0 +1,127 @@
+# version: '3.8'
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+services:
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8000:80"
+
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+        - MYSQL_DATABASE=$MYSQL_DATABASE
+        - MYSQL_USER=$MYSQL_USER
+        - MYSQL_PASSWORD=$MYSQL_PASSWORD
+        - HOSTNAME=$HOSTNAME
+        - MYSQL_ROOT_USER=$MYSQL_ROOT_USER
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception
+    restart: on-failure
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+
+
+volumes:
+  mariadb_data:
+    driver: local
+    name: mariadb_data
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dbaule/data/mariadb
+  wordpress_data:
+    driver: local
+    name: wordpress_data
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dbaule/data/wordpress
+
+
+
+# # version: "3"
+# services:
+#   # network:
+#   #   inception:
+#   #     name: inception
+#   #     driver: bridge
+#   nginx:
+#     build: requirements/nginx/.
+#     container_name: nginx_container
+#     ports:
+#       - "443:443"
+#     restart: unless-stopped
+#   mariadb:
+#     container_name: mariadb
+#     depends_on:
+#       - nginx
+#     env_file:
+#       - .env
+#     build:
+#       context: ./requirements/mariadb
+#       args:
+#         - ROOT_PASSWORD=$ROOT_PASSWORD
+#         - DATABASE=$DATABASE
+#         - USER=$USER
+#         - PASSWORD=$PASSWORD
+#         - HOSTNAME=$HOSTNAME
+#         - ROOT_USER=$ROOT_USER
+#     ports:
+#       - "3306:3306"
+#     # volumes:
+#     #   - data_mariadb:/var/lib/mysql
+#     # networks:
+#     #   - inception
+#     restart: on-failure
+
+#   # volumes:
+#   #   data_mariadb:
+#   #       driver: local
+#   #       name: data_mariadb
+#   #       driver_opts:
+#   #         type: none
+#   #         o: bind
+#   #         device: /home/dbaule/data/mariadb
+
+#   # wordpress:
+#   #   depends_on:
+#   #     - mariadb
