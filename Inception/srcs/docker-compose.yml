@@ -1,4 +1,3 @@
-# version: '3.8'
 
 networks:
   inception:
@@ -75,53 +74,3 @@ volumes:
       type: none
       o: bind
       device: /home/dbaule/data/wordpress
-
-
-
-# # version: "3"
-# services:
-#   # network:
-#   #   inception:
-#   #     name: inception
-#   #     driver: bridge
-#   nginx:
-#     build: requirements/nginx/.
-#     container_name: nginx_container
-#     ports:
-#       - "443:443"
-#     restart: unless-stopped
-#   mariadb:
-#     container_name: mariadb
-#     depends_on:
-#       - nginx
-#     env_file:
-#       - .env
-#     build:
-#       context: ./requirements/mariadb
-#       args:
-#         - ROOT_PASSWORD=$ROOT_PASSWORD
-#         - DATABASE=$DATABASE
-#         - USER=$USER
-#         - PASSWORD=$PASSWORD
-#         - HOSTNAME=$HOSTNAME
-#         - ROOT_USER=$ROOT_USER
-#     ports:
-#       - "3306:3306"
-#     # volumes:
-#     #   - data_mariadb:/var/lib/mysql
-#     # networks:
-#     #   - inception
-#     restart: on-failure
-
-#   # volumes:
-#   #   data_mariadb:
-#   #       driver: local
-#   #       name: data_mariadb
-#   #       driver_opts:
-#   #         type: none
-#   #         o: bind
-#   #         device: /home/dbaule/data/mariadb
-
-#   # wordpress:
-#   #   depends_on:
-#   #     - mariadb

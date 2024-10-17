@@ -1,6 +1,9 @@
 #!/bin/bash
 
 if [ ! -f /var/www/html/wp-config.php ]; then
+	mkdir -p /run/php/ && mkdir -p /var/www/html
+	chown -R www-data:www-data /var/www/*
+
     echo "wp-config.php n'existe pas. Téléchargement et configuration de WordPress..."
     cd /var/www/html
 
