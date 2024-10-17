@@ -1,12 +1,11 @@
 COMPOSE_FILE=srcs/docker-compose.yml
 
 all:
-	mkdir -p /home/dbaule/data
-	mkdir -p /home/dbaule/data/wordpress
-	mkdir -p /home/dbaule/data/mariadb
+	sudo mkdir -p /home/dbaule/data
+	sudo mkdir -p /home/dbaule/data/wordpress
+	sudo mkdir -p /home/dbaule/data/mariadb
 	sudo docker compose -f $(COMPOSE_FILE) up --build -d
 
-# stop all dockers
 stop: 
 	sudo docker compose -f $(COMPOSE_FILE) down
 
@@ -14,13 +13,19 @@ prune:
 	sudo docker system prune -f --all --volumes
 
 clean:
-	rm -rf /home/dbaule/data
+	sudo rm -rf /home/dbaule/data
 	sudo docker compose -f $(COMPOSE_FILE) down --volumes --rmi all
 
 fclean: 	
 	sudo make stop
 	sudo make clean
 	sudo make prune
+
+ps:
+	sudo docker ps
+
+lsi:
+	sudo docker image ls
 
 logsm:
 	sudo docker compose -f $(COMPOSE_FILE) logs mariadb -f
@@ -47,4 +52,4 @@ re:
 	sudo make clean
 	sudo make all
 
-.PHONY: all stop prune clean logsm logsw logsn logs execm execw execn re 
+.PHONY: all stop prune clean fclean ps lsi logsm logsw logsn logs execm execw execn re
